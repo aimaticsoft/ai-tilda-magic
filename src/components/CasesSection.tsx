@@ -103,7 +103,7 @@ const CasesSection = () => {
         {/* Cases Carousel */}
         <div className="relative">
           {/* Navigation buttons */}
-          <div className="flex justify-end gap-2 mb-6">
+          <div className="relative z-20 flex justify-end gap-2 mb-6">
             <motion.button
               onClick={prev}
               className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all"
@@ -122,9 +122,9 @@ const CasesSection = () => {
             </motion.button>
           </div>
 
-          {/* Carousel wrapper (internal padding prevents hover/glow clipping) */}
+          {/* Carousel wrapper (allow vertical overflow for glow; keep X clipped for carousel) */}
           <div className="px-4 -mx-4">
-            <div className="overflow-hidden py-8 -my-8">
+            <div className="overflow-x-hidden overflow-y-visible py-12">
               <motion.div
                 className="flex"
                 animate={{ x: `${getOffset()}%` }}
