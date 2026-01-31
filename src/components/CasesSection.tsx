@@ -58,18 +58,26 @@ const CasesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
   const visibleCases = 3;
+  const duplicatedCases = [...cases, ...cases, ...cases];
+  const itemWidth = 100 / visibleCases;
 
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % (cases.length - visibleCases + 1));
+    setCurrentIndex((prev) => (prev + 1) % cases.length);
   };
 
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + (cases.length - visibleCases + 1)) % (cases.length - visibleCases + 1));
+    setCurrentIndex((prev) => (prev - 1 + cases.length) % cases.length);
+  };
+
+  const getOffset = () => {
+    return -(currentIndex + cases.length) * itemWidth;
   };
 
   return (
-    <section id="cases" className="relative py-24 overflow-hidden">
+    <section id="cases" className="relative py-24">
       {/* Background */}
       <div className="absolute inset-0 bg-secondary/30" />
       <div className="absolute inset-0 grid-bg" />
@@ -96,76 +104,103 @@ const CasesSection = () => {
         <div className="relative">
           {/* Navigation buttons */}
           <div className="flex justify-end gap-2 mb-6">
-            <button
+            <motion.button
               onClick={prev}
-              className="p-3 rounded-xl bg-card border border-border hover:border-primary hover:glow-primary transition-all"
+              className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ChevronLeft size={20} />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={next}
-              className="p-3 rounded-xl bg-card border border-border hover:border-primary hover:glow-primary transition-all"
+              className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ChevronRight size={20} />
-            </button>
+            </motion.button>
           </div>
 
-          {/* Cases */}
-          <div className="overflow-hidden">
-            <motion.div
-              className="flex gap-6"
-              animate={{ x: `-${currentIndex * (100 / visibleCases + 2)}%` }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              {cases.map((caseItem, index) => (
-                <motion.div
-                  key={caseItem.title}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
-                >
-                  <div className="glass-card-hover h-full p-6 flex flex-col">
-                    {/* Result badge */}
-                    <div className="inline-flex self-start items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-medium mb-4">
-                      {caseItem.result}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2">
-                      {caseItem.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-muted-foreground text-sm mb-6 flex-grow line-clamp-3">
-                      {caseItem.description}
-                    </p>
-
-                    {/* Link */}
-                    <a
-                      href={caseItem.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
+          {/* Cases - with extra padding for glow effect */}
+          <div className="overflow-visible py-4 -my-4">
+            <div className="overflow-hidden">
+              <motion.div
+                className="flex"
+                animate={{ x: `${getOffset()}%` }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                {duplicatedCases.map((caseItem, index) => {
+                  const realIndex = index % cases.length;
+                  return (
+                    <motion.div
+                      key={`${caseItem.title}-${index}`}
+                      className="flex-shrink-0 px-3"
+                      style={{ width: `${itemWidth}%` }}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      whileHover={{ y: -8, zIndex: 10 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      Подробнее
-                      <ExternalLink size={16} />
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                      <div className="relative h-full">
+                        {/* Glow effect - positioned outside the card */}
+                        <motion.div
+                          className="absolute -inset-2 bg-primary/20 rounded-2xl blur-xl pointer-events-none"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        
+                        {/* Card */}
+                        <div className="relative glass-card h-full p-6 flex flex-col border border-transparent hover:border-primary/50 transition-all duration-300">
+                          {/* Result badge */}
+                          <motion.div 
+                            className="inline-flex self-start items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-medium mb-4"
+                            animate={hoveredIndex === index ? { scale: 1.05 } : { scale: 1 }}
+                          >
+                            {caseItem.result}
+                          </motion.div>
+
+                          {/* Title */}
+                          <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                            {caseItem.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-muted-foreground text-sm mb-6 flex-grow line-clamp-3">
+                            {caseItem.description}
+                          </p>
+
+                          {/* Link */}
+                          <motion.a
+                            href={caseItem.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-primary font-medium transition-all"
+                            animate={hoveredIndex === index ? { x: 5 } : { x: 0 }}
+                          >
+                            Подробнее
+                            <ExternalLink size={16} />
+                          </motion.a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            </div>
           </div>
 
           {/* Dots indicator */}
           <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: cases.length - visibleCases + 1 }).map((_, i) => (
-              <button
+            {cases.map((_, i) => (
+              <motion.button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  i === currentIndex ? 'w-8 bg-primary' : 'bg-border'
+                className={`h-2 rounded-full transition-all ${
+                  i === currentIndex % cases.length ? 'w-8 bg-primary' : 'w-2 bg-border'
                 }`}
+                whileHover={{ scale: 1.2 }}
               />
             ))}
           </div>
