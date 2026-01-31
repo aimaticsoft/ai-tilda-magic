@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ShoppingCart, MessageCircle, Share2, FileText, Calendar, Users } from 'lucide-react';
+import MagneticButton from './MagneticButton';
+import { useMousePosition } from '@/hooks/useMousePosition';
 
 const services = [
   {
@@ -45,11 +47,48 @@ const services = [
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { normalizedX, normalizedY } = useMousePosition();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  } as const;
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 60, rotateX: -15 },
+    visible: { 
+      opacity: 1,
+      y: 0, 
+      rotateX: 0,
+      transition: {
+        type: "spring" as const,
+        stiffness: 100,
+        damping: 15,
+      }
+    },
+  } as const;
 
   return (
     <section id="services" className="relative py-24 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
+      
+      {/* Animated background orb */}
+      <motion.div 
+        className="absolute w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
+        animate={{
+          x: normalizedX * 100,
+          y: normalizedY * 100,
+        }}
+        transition={{ type: "spring", stiffness: 50, damping: 30 }}
+        style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+      />
       
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}
@@ -71,23 +110,44 @@ const ServicesSection = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              variants={cardVariants}
+              className="group perspective-1000"
+              whileHover={{ 
+                scale: 1.03, 
+                rotateY: 5,
+                rotateX: 5,
+                z: 50,
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <div className="glass-card-hover h-full p-8 relative overflow-hidden">
+              <div className="glass-card-hover h-full p-8 relative overflow-hidden transform-gpu">
                 {/* Gradient overlay on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                <motion.div 
+                  className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                />
+                
+                {/* Shine effect on hover */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                />
                 
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <motion.div 
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}
+                  whileHover={{ scale: 1.2, rotate: 10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <service.icon size={28} className="text-white" />
-                </div>
+                </motion.div>
 
                 {/* Content */}
                 <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
@@ -98,22 +158,26 @@ const ServicesSection = () => {
                 </p>
 
                 {/* CTA */}
-                <a
+                <MagneticButton
                   href="https://t.me/AimaticSoft"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
                 >
                   Заказать
-                  <span className="text-lg">→</span>
-                </a>
+                  <motion.span 
+                    className="text-lg"
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                </MagneticButton>
 
                 {/* Decorative corner */}
-                <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${service.color} opacity-10 blur-2xl`} />
+                <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${service.color} opacity-10 blur-2xl group-hover:opacity-30 transition-opacity`} />
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
