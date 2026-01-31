@@ -122,9 +122,9 @@ const CasesSection = () => {
             </motion.button>
           </div>
 
-          {/* Carousel wrapper with padding for glow */}
-          <div className="px-4 py-8 -mx-4 -my-8">
-            <div className="overflow-hidden">
+          {/* Carousel wrapper (internal padding prevents hover/glow clipping) */}
+          <div className="px-4 -mx-4">
+            <div className="overflow-hidden py-8 -my-8">
               <motion.div
                 className="flex"
                 animate={{ x: `${getOffset()}%` }}
