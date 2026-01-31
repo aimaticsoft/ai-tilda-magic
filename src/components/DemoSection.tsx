@@ -1,30 +1,14 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { 
-  MessageSquare, 
-  Sparkles, 
-  Bot, 
-  ChevronLeft, 
-  ChevronRight,
-  Palette,
-  Car,
-  Flower2,
-  Smartphone,
-  Dumbbell,
-  Scissors,
-  SprayCan,
-  Sparkle,
-  Code,
-  LucideIcon
-} from 'lucide-react';
+import { MessageSquare, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import AgentAvatar, { type AgentAvatarVariant } from '@/components/agents/AgentAvatar';
 
 interface DemoItem {
   title: string;
   description: string;
   link: string;
   gradient: string;
-  icon: LucideIcon;
+  avatar: AgentAvatarVariant;
 }
 
 const demos: DemoItem[] = [
@@ -33,93 +17,65 @@ const demos: DemoItem[] = [
     description: 'Получите профессиональные рекомендации по выбору красок для любых поверхностей.',
     link: 'https://t.me/colorshopkraski_bot',
     gradient: 'from-orange-500 to-red-500',
-    icon: Palette,
+    avatar: 'paint_seller',
   },
   {
     title: 'Менеджер автосервиса',
     description: 'ИИ-агент быстро оформит запись на диагностику или ремонт.',
     link: 'https://t.me/FitServiceAI_bot',
     gradient: 'from-blue-500 to-cyan-500',
-    icon: Car,
+    avatar: 'autoservice_manager',
   },
   {
     title: 'Продавец цветов',
     description: 'Поможет выбрать идеальный букет для любого повода.',
     link: 'https://t.me/FlowerBloomAI_bot',
     gradient: 'from-pink-500 to-rose-500',
-    icon: Flower2,
+    avatar: 'flowers_seller',
   },
   {
     title: 'Продавец Apple техники',
     description: 'Экспертные рекомендации по подбору Apple-устройств.',
     link: 'https://t.me/AppleGadget1_bot',
     gradient: 'from-gray-600 to-gray-800',
-    icon: Smartphone,
+    avatar: 'apple_seller',
   },
   {
     title: 'Администратор фитнес клуба',
     description: 'Подберите абонемент и запишитесь на бесплатное пробное занятие.',
     link: 'https://t.me/XfitAi_bot',
     gradient: 'from-green-500 to-emerald-500',
-    icon: Dumbbell,
+    avatar: 'fitness_admin',
   },
   {
     title: 'Администратор салона красоты',
     description: 'Запишитесь на процедуру к подходящему мастеру.',
     link: 'https://t.me/BeautyGlow777_bot',
     gradient: 'from-purple-500 to-violet-500',
-    icon: Scissors,
+    avatar: 'beauty_admin',
   },
   {
     title: 'Продавец автохимии',
     description: 'Подбор автохимии и аксессуаров под вашу модель автомобиля.',
     link: 'https://t.me/ShineSystems_bot',
     gradient: 'from-yellow-500 to-orange-500',
-    icon: SprayCan,
+    avatar: 'autochem_seller',
   },
   {
     title: 'Менеджер клининга',
     description: 'Закажите профессиональную уборку за 60 секунд.',
     link: 'https://t.me/CleaningNSK_bot',
     gradient: 'from-teal-500 to-cyan-500',
-    icon: Sparkle,
+    avatar: 'cleaning_manager',
   },
   {
     title: 'Менеджер IT услуг',
     description: 'Консультация по IT-решениям и автоматизации бизнеса.',
     link: 'https://t.me/AimaticSoft_bot',
     gradient: 'from-indigo-500 to-blue-500',
-    icon: Code,
+    avatar: 'it_manager',
   },
 ];
-
-// AI Agent Avatar component
-const AgentAvatar = ({ gradient, isHovered, Icon }: { gradient: string; isHovered: boolean; Icon: LucideIcon }) => (
-  <motion.div 
-    className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center shrink-0 overflow-hidden`}
-    animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
-    transition={{ type: "spring", stiffness: 300 }}
-  >
-    {/* Animated rings */}
-    <motion.div 
-      className="absolute inset-0 border-2 border-white/20 rounded-2xl"
-      animate={isHovered ? { scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] } : {}}
-      transition={{ duration: 1, repeat: Infinity }}
-    />
-    
-    {/* Icon */}
-    <Icon size={24} className="text-white relative z-10" />
-    
-    {/* Animated dot - "online" indicator */}
-    <motion.div
-      className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-green-400 border-2 border-card"
-      animate={isHovered ? { 
-        scale: [1, 1.2, 1],
-      } : {}}
-      transition={{ duration: 0.5, repeat: Infinity }}
-    />
-  </motion.div>
-);
 
 const DemoSection = () => {
   const ref = useRef(null);
@@ -197,9 +153,9 @@ const DemoSection = () => {
           </motion.button>
         </div>
 
-        {/* Carousel wrapper with padding for glow */}
-        <div className="px-4 py-8 -mx-4 -my-8">
-          <div className="overflow-hidden">
+        {/* Carousel wrapper (internal padding prevents hover/glow clipping) */}
+        <div className="px-4 -mx-4">
+          <div className="overflow-hidden py-8 -my-8">
             <motion.div
               className="flex"
               animate={{ x: `${getOffset()}%` }}
@@ -236,7 +192,7 @@ const DemoSection = () => {
                           <AgentAvatar 
                             gradient={demo.gradient} 
                             isHovered={hoveredIndex === index}
-                            Icon={demo.icon}
+                             variant={demo.avatar}
                           />
                           
                           {/* Content */}
