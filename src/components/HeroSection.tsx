@@ -1,52 +1,76 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Bot, Cpu, Sparkles } from 'lucide-react';
 import ParticlesBackground from './ParticlesBackground';
+import FloatingElement from './FloatingElement';
+import MagneticButton from './MagneticButton';
+import RevealText from './RevealText';
+import { useRef } from 'react';
 
 const HeroSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-hero-gradient" />
+      <motion.div style={{ y, opacity }} className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute inset-0 animated-grid" />
       <ParticlesBackground />
       
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-[128px] animate-pulse delay-1000" />
+      {/* Gradient orbs with parallax */}
+      <FloatingElement intensity={30} className="absolute top-1/4 left-1/4">
+        <div className="w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse" />
+      </FloatingElement>
+      <FloatingElement intensity={-20} className="absolute bottom-1/4 right-1/4">
+        <div className="w-80 h-80 bg-accent/20 rounded-full blur-[128px] animate-pulse delay-1000" />
+      </FloatingElement>
 
       {/* Content */}
-      <div className="relative z-10 section-container py-32">
+      <motion.div 
+        style={{ scale, opacity }}
+        className="relative z-10 section-container py-32"
+      >
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, type: "spring" }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-8"
           >
-            <Sparkles size={16} />
+            <Sparkles size={16} className="animate-pulse" />
             <span>Полный цикл: от создания до внедрения ИИ-агентов</span>
           </motion.div>
 
-          {/* Main heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="heading-primary leading-tight mb-6"
-          >
-            Разрабатываем и внедряем
+          {/* Main heading with reveal animation */}
+          <h1 className="heading-primary leading-tight mb-6">
+            <RevealText delay={0.2}>
+              Разрабатываем и внедряем
+            </RevealText>
             <br />
-            <span className="text-white">умных AI-агентов</span>
+            <span className="text-white">
+              <RevealText delay={0.4}>
+                умных AI-агентов
+              </RevealText>
+            </span>
             <br />
-            для автоматизации бизнеса
-          </motion.h1>
+            <RevealText delay={0.6}>
+              для автоматизации бизнеса
+            </RevealText>
+          </h1>
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
           >
             Создаём адаптивных виртуальных агентов, которые автоматизируют рутинные задачи,
@@ -54,62 +78,66 @@ const HeroSection = () => {
             бизнеса и интегрируем в ваши системы
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons with magnetic effect */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <a
+            <MagneticButton
               href="https://t.me/AimaticSoft"
-              target="_blank"
-              rel="noopener noreferrer"
               className="btn-neon group flex items-center gap-2"
             >
               Заказать демо
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
+            </MagneticButton>
+            <MagneticButton
               href="#demo"
               className="btn-neon-outline flex items-center gap-2"
             >
               <Bot size={18} />
               Попробовать ИИ-агента
-            </a>
+            </MagneticButton>
           </motion.div>
 
-          {/* Floating icons */}
+          {/* Floating icons with mouse interaction */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
             className="mt-20 flex justify-center gap-8"
           >
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="glass-card p-4"
-            >
-              <Bot size={32} className="text-primary" />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="glass-card p-4"
-            >
-              <Cpu size={32} className="text-accent" />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="glass-card p-4"
-            >
-              <Sparkles size={32} className="text-primary" />
-            </motion.div>
+            <FloatingElement intensity={15} rotationIntensity={5}>
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="glass-card p-4 hover:scale-110 transition-transform cursor-pointer"
+              >
+                <Bot size={32} className="text-primary" />
+              </motion.div>
+            </FloatingElement>
+            <FloatingElement intensity={-10} rotationIntensity={8}>
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="glass-card p-4 hover:scale-110 transition-transform cursor-pointer"
+              >
+                <Cpu size={32} className="text-accent" />
+              </motion.div>
+            </FloatingElement>
+            <FloatingElement intensity={20} rotationIntensity={6}>
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="glass-card p-4 hover:scale-110 transition-transform cursor-pointer"
+              >
+                <Sparkles size={32} className="text-primary" />
+              </motion.div>
+            </FloatingElement>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div

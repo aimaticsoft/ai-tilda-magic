@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
@@ -60,40 +60,66 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <motion.div
               key={faq.question}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100,
+              }}
             >
-              <div className="glass-card overflow-hidden">
-                <button
+              <motion.div 
+                className="glass-card overflow-hidden"
+                whileHover={{ scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <motion.button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
                   className="w-full p-6 flex items-center justify-between text-left hover:bg-primary/5 transition-colors"
+                  whileTap={{ scale: 0.99 }}
                 >
                   <span className="font-medium text-foreground pr-4">
                     {faq.question}
                   </span>
-                  <ChevronDown
-                    size={20}
-                    className={`shrink-0 text-primary transition-transform duration-300 ${
-                      openIndex === index ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
+                  <motion.div
+                    animate={{ rotate: openIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.3, type: "spring", stiffness: 200 }}
+                    className="shrink-0"
+                  >
+                    {openIndex === index ? (
+                      <Minus size={20} className="text-primary" />
+                    ) : (
+                      <Plus size={20} className="text-primary" />
+                    )}
+                  </motion.div>
+                </motion.button>
                 
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: openIndex === index ? 'auto' : 0,
-                    opacity: openIndex === index ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-6 pb-6 pt-0">
-                    <p className="text-muted-foreground">{faq.answer}</p>
-                  </div>
-                </motion.div>
-              </div>
+                <AnimatePresence initial={false}>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ 
+                        duration: 0.4, 
+                        ease: [0.04, 0.62, 0.23, 0.98],
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <motion.div 
+                        className="px-6 pb-6 pt-0"
+                        initial={{ y: -10 }}
+                        animate={{ y: 0 }}
+                        exit={{ y: -10 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <p className="text-muted-foreground">{faq.answer}</p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </motion.div>
           ))}
         </div>
