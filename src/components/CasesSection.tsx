@@ -122,8 +122,8 @@ const CasesSection = () => {
             </motion.button>
           </div>
 
-          {/* Cases - with extra padding for glow effect */}
-          <div className="overflow-visible py-4 -my-4">
+          {/* Carousel wrapper with padding for glow */}
+          <div className="px-4 py-8 -mx-4 -my-8">
             <div className="overflow-hidden">
               <motion.div
                 className="flex"
@@ -131,21 +131,22 @@ const CasesSection = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 {duplicatedCases.map((caseItem, index) => {
-                  const realIndex = index % cases.length;
                   return (
-                    <motion.div
+                    <div
                       key={`${caseItem.title}-${index}`}
                       className="flex-shrink-0 px-3"
                       style={{ width: `${itemWidth}%` }}
-                      onMouseEnter={() => setHoveredIndex(index)}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                      whileHover={{ y: -8, zIndex: 10 }}
-                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <div className="relative h-full">
-                        {/* Glow effect - positioned outside the card */}
+                      <motion.div
+                        className="relative h-full"
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        whileHover={{ y: -8 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        {/* Glow effect */}
                         <motion.div
-                          className="absolute -inset-2 bg-primary/20 rounded-2xl blur-xl pointer-events-none"
+                          className="absolute -inset-3 bg-primary/30 rounded-2xl blur-xl"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
                           transition={{ duration: 0.3 }}
@@ -162,7 +163,7 @@ const CasesSection = () => {
                           </motion.div>
 
                           {/* Title */}
-                          <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                          <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2">
                             {caseItem.title}
                           </h3>
 
@@ -183,8 +184,8 @@ const CasesSection = () => {
                             <ExternalLink size={16} />
                           </motion.a>
                         </div>
-                      </div>
-                    </motion.div>
+                      </motion.div>
+                    </div>
                   );
                 })}
               </motion.div>
@@ -192,7 +193,7 @@ const CasesSection = () => {
           </div>
 
           {/* Dots indicator */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-4">
             {cases.map((_, i) => (
               <motion.button
                 key={i}
