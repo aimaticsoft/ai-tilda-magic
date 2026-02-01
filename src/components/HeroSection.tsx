@@ -1,16 +1,16 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Bot, Cpu, Sparkles } from 'lucide-react';
-import ParticlesBackground from './ParticlesBackground';
-import FloatingElement from './FloatingElement';
-import MagneticButton from './MagneticButton';
-import RevealText from './RevealText';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Bot, Cpu, Sparkles } from "lucide-react";
+import ParticlesBackground from "./ParticlesBackground";
+import FloatingElement from "./FloatingElement";
+import MagneticButton from "./MagneticButton";
+import RevealText from "./RevealText";
+import { useRef } from "react";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
@@ -23,7 +23,7 @@ const HeroSection = () => {
       <motion.div style={{ y, opacity }} className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute inset-0 animated-grid" />
       <ParticlesBackground />
-      
+
       {/* Gradient orbs with parallax */}
       <FloatingElement intensity={30} className="absolute top-1/4 left-1/4">
         <div className="w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse" />
@@ -33,10 +33,7 @@ const HeroSection = () => {
       </FloatingElement>
 
       {/* Content */}
-      <motion.div 
-        style={{ scale, opacity }}
-        className="relative z-10 section-container py-32"
-      >
+      <motion.div style={{ scale, opacity }} className="relative z-10 section-container py-32">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -51,19 +48,13 @@ const HeroSection = () => {
 
           {/* Main heading with reveal animation */}
           <h1 className="heading-primary leading-tight mb-6">
-            <RevealText delay={0.2}>
-              Разрабатываем и внедряем
-            </RevealText>
+            <RevealText delay={0.2}>Разрабатываем и внедряем</RevealText>
             <br />
             <span className="text-white">
-              <RevealText delay={0.4}>
-                умных AI-агентов
-              </RevealText>
+              <RevealText delay={0.4}>умных AI-агентов</RevealText>
             </span>
             <br />
-            <RevealText delay={0.6}>
-              для автоматизации бизнеса
-            </RevealText>
+            <RevealText delay={0.6}>для автоматизации бизнеса</RevealText>
           </h1>
 
           {/* Subtitle */}
@@ -73,9 +64,8 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
           >
-            Создаём адаптивных виртуальных агентов, которые автоматизируют рутинные задачи,
-            обрабатывают данные и оптимизируют процессы 24/7 — настраиваем под любые нужды
-            бизнеса и интегрируем в ваши системы
+            Создаём AI-агентов, которые автоматизируют рутинные задачи, обрабатывают данные и оптимизируют процессы 24/7
+            — настраиваем под любые нужды бизнеса и интегрируем в ваши системы
           </motion.p>
 
           {/* CTA Buttons with magnetic effect */}
@@ -85,17 +75,11 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <MagneticButton
-              href="https://t.me/AimaticSoft"
-              className="btn-neon group flex items-center gap-2"
-            >
+            <MagneticButton href="https://t.me/AimaticSoft" className="btn-neon group flex items-center gap-2">
               Заказать демо
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </MagneticButton>
-            <MagneticButton
-              href="#demo"
-              className="btn-neon-outline flex items-center gap-2"
-            >
+            <MagneticButton href="#demo" className="btn-neon-outline flex items-center gap-2">
               <Bot size={18} />
               Попробовать ИИ-агента
             </MagneticButton>
