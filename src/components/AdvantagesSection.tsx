@@ -31,11 +31,6 @@ const advantages = [
     title: "Глубокий анализ данных",
     description: "Агенты проверяют информацию сразу, выдавая отчёты и советы по улучшению работы.",
   },
-  {
-    icon: BarChart4,
-    title: "тест",
-    description: "тест.",
-  },
 ];
 
 const guarantees = [
