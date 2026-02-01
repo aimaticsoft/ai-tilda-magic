@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, Youtube, Newspaper } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 import FloatingElement from './FloatingElement';
 import { useMousePosition } from '@/hooks/useMousePosition';
@@ -133,17 +133,18 @@ const ContactsSection = () => {
                 Telegram
               </MagneticButton>
               <MagneticButton
-                href="https://wa.me/79293844844"
+                href="https://www.youtube.com/@AimaticSoft"
                 className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3"
               >
-                <MessageCircle size={20} />
-                WhatsApp
+                <Youtube size={20} />
+                YouTube
               </MagneticButton>
               <MagneticButton
-                href="https://vk.com/aimatic1"
+                href="https://dzen.ru/aimatic"
                 className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3"
               >
-                VK
+                <Newspaper size={20} />
+                Дзен
               </MagneticButton>
             </motion.div>
           </motion.div>

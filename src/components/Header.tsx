@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const navItems = [
   { label: 'О компании', href: '#about' },
@@ -38,10 +39,8 @@ const Header = () => {
       <div className="section-container">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-neon-gradient flex items-center justify-center glow-primary">
-              <span className="text-xl font-bold text-white">A</span>
-            </div>
+          <a href="#" className="flex items-center gap-3">
+            <img src={logo} alt="Aimatic Logo" className="w-10 h-10 rounded-xl object-cover" />
             <span className="text-xl font-bold text-gradient">Aimatic</span>
           </a>
 
