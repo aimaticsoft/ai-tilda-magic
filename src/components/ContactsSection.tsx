@@ -1,19 +1,19 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Phone, Mail, MapPin, Send, Youtube, Newspaper } from 'lucide-react';
-import MagneticButton from './MagneticButton';
-import FloatingElement from './FloatingElement';
-import { useMousePosition } from '@/hooks/useMousePosition';
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { Phone, Mail, MapPin, Send, Youtube, Newspaper } from "lucide-react";
+import MagneticButton from "./MagneticButton";
+import FloatingElement from "./FloatingElement";
+import { useMousePosition } from "@/hooks/useMousePosition";
 
 const ContactsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { normalizedX, normalizedY } = useMousePosition();
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    message: '',
+    name: "",
+    phone: "",
+    message: "",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
@@ -21,18 +21,18 @@ const ContactsSection = () => {
     e.preventDefault();
     // Redirect to WhatsApp with message
     const text = encodeURIComponent(
-      `Здравствуйте! Меня зовут ${formData.name}.\n\n${formData.message}\n\nМой телефон: ${formData.phone}`
+      `Здравствуйте! Меня зовут ${formData.name}.\n\n${formData.message}\n\nМой телефон: ${formData.phone}`,
     );
-    window.open(`https://wa.me/79293844844?text=${text}`, '_blank');
+    window.open(`https://wa.me/79293844844?text=${text}`, "_blank");
   };
 
   return (
     <section id="contacts" className="relative py-24 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-      
+
       {/* Animated background orbs */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[150px]"
         animate={{
           x: normalizedX * 50,
@@ -40,7 +40,7 @@ const ContactsSection = () => {
         }}
         transition={{ type: "spring", stiffness: 30, damping: 30 }}
       />
-      <motion.div 
+      <motion.div
         className="absolute top-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-[150px]"
         animate={{
           x: normalizedX * -30,
@@ -48,7 +48,7 @@ const ContactsSection = () => {
         }}
         transition={{ type: "spring", stiffness: 30, damping: 30 }}
       />
-      
+
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}
         <motion.div
@@ -75,9 +75,9 @@ const ContactsSection = () => {
             {/* Contact cards */}
             <div className="space-y-4">
               {[
-                { icon: Phone, label: 'Телефон', value: '8 929 384-48-44', href: 'tel:+79293844844' },
-                { icon: Mail, label: 'Email', value: 'aimatic@yandex.ru', href: 'mailto:aimatic@yandex.ru' },
-                { icon: MapPin, label: 'Адрес', value: 'г. Новосибирск', href: null },
+                { icon: Phone, label: "Телефон", value: "8 929 384-48-44", href: "tel:+79293844844" },
+                { icon: Mail, label: "Email", value: "aimatic@yandex.ru", href: "mailto:aimatic@yandex.ru" },
+                { icon: MapPin, label: "Адрес", value: "г. Новосибирск", href: null },
               ].map((contact, index) => (
                 <motion.div
                   key={contact.label}
@@ -89,10 +89,7 @@ const ContactsSection = () => {
                   <FloatingElement intensity={3} rotationIntensity={1}>
                     {contact.href ? (
                       <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group">
-                        <motion.div 
-                          className="icon-glow"
-                          whileHover={{ scale: 1.2, rotate: 10 }}
-                        >
+                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
                         <div>
@@ -103,13 +100,15 @@ const ContactsSection = () => {
                         </div>
                       </a>
                     ) : (
-                      <div className="glass-card flex items-center gap-4 p-6">
-                        <div className="icon-glow">
+                      <div className="glass-card-hover flex items-center gap-4 p-6 group">
+                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
-                        </div>
+                        </motion.div>
                         <div>
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground">{contact.value}</p>
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {contact.value}
+                          </p>
                         </div>
                       </div>
                     )}
@@ -119,7 +118,7 @@ const ContactsSection = () => {
             </div>
 
             {/* Social links */}
-            <motion.div 
+            <motion.div
               className="flex gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -155,8 +154,8 @@ const ContactsSection = () => {
             animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
           >
-            <motion.form 
-              onSubmit={handleSubmit} 
+            <motion.form
+              onSubmit={handleSubmit}
               className="glass-card p-8 space-y-6 relative overflow-hidden"
               whileHover={{ scale: 1.01 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -165,18 +164,16 @@ const ContactsSection = () => {
               <motion.div
                 className="absolute inset-0 border-2 border-primary/20 rounded-xl pointer-events-none"
                 animate={{
-                  borderColor: focusedField ? 'rgba(59, 130, 246, 0.5)' : 'rgba(59, 130, 246, 0.2)',
+                  borderColor: focusedField ? "rgba(59, 130, 246, 0.5)" : "rgba(59, 130, 246, 0.2)",
                 }}
                 transition={{ duration: 0.3 }}
               />
-              
-              <h3 className="text-xl font-semibold text-foreground mb-6">
-                Получить консультацию
-              </h3>
+
+              <h3 className="text-xl font-semibold text-foreground mb-6">Получить консультацию</h3>
 
               {[
-                { name: 'name', label: 'Ваше имя', type: 'text', placeholder: 'Как вас зовут?' },
-                { name: 'phone', label: 'Телефон', type: 'tel', placeholder: '+7 (___) ___-__-__' },
+                { name: "name", label: "Ваше имя", type: "text", placeholder: "Как вас зовут?" },
+                { name: "phone", label: "Телефон", type: "tel", placeholder: "+7 (___) ___-__-__" },
               ].map((field, index) => (
                 <motion.div
                   key={field.name}
@@ -184,9 +181,7 @@ const ContactsSection = () => {
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
                 >
-                  <label className="block text-sm text-muted-foreground mb-2">
-                    {field.label}
-                  </label>
+                  <label className="block text-sm text-muted-foreground mb-2">{field.label}</label>
                   <motion.input
                     type={field.type}
                     required
@@ -206,14 +201,12 @@ const ContactsSection = () => {
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.7, type: "spring" }}
               >
-                <label className="block text-sm text-muted-foreground mb-2">
-                  Сообщение
-                </label>
+                <label className="block text-sm text-muted-foreground mb-2">Сообщение</label>
                 <motion.textarea
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  onFocus={() => setFocusedField('message')}
+                  onFocus={() => setFocusedField("message")}
                   onBlur={() => setFocusedField(null)}
                   className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none"
                   placeholder="Расскажите о вашем проекте"
@@ -222,8 +215,8 @@ const ContactsSection = () => {
               </motion.div>
 
               <MagneticButton className="w-full">
-                <motion.button 
-                  type="submit" 
+                <motion.button
+                  type="submit"
                   className="w-full btn-neon"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
