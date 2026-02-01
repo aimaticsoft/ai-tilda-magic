@@ -111,7 +111,7 @@ export const generateContactsBlock = () => `
   padding: 1.5rem;
   background: hsla(230, 25%, 8%, 0.4);
   backdrop-filter: blur(24px);
-  border: 1px solid hsla(255, 255%, 255%, 0.1);
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
   border-radius: 1rem;
   text-decoration: none;
   transition: all 0.5s ease;
@@ -218,7 +218,7 @@ export const generateContactsBlock = () => `
   padding: 2rem;
   background: hsla(230, 25%, 8%, 0.4);
   backdrop-filter: blur(24px);
-  border: 1px solid hsla(255, 255%, 255%, 0.1);
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
   border-radius: 1rem;
   overflow: hidden;
   transition: all 0.3s ease;
