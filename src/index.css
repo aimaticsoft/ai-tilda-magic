@@ -133,6 +133,7 @@
     @apply relative px-8 py-4 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-xl;
     @apply transition-all duration-300 hover:scale-105;
     box-shadow: var(--shadow-glow);
+    overflow: hidden;
   }
 
   .btn-neon:hover {
@@ -143,10 +144,16 @@
     content: '';
     @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300;
     background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    z-index: 0;
   }
 
   .btn-neon:hover::before {
     @apply opacity-100;
+  }
+
+  .btn-neon > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Outline Neon Button */
