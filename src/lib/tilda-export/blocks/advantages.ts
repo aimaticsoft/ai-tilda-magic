@@ -83,7 +83,7 @@ export const generateAdvantagesBlock = () => `
   padding: 2rem;
   background: hsla(230, 25%, 8%, 0.4);
   backdrop-filter: blur(24px);
-  border: 1px solid hsla(255, 255%, 255%, 0.1);
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
   border-radius: 1rem;
   transition: all 0.5s ease;
   opacity: 0;
