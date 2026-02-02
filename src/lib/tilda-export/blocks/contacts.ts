@@ -355,7 +355,7 @@ export const generateContactsBlock = () => `
           </a>
 
           <!-- Email -->
-          <a href="mailto:aimatic@yandex.ru" class="aimatic-contacts-card aimatic-reveal">
+          <a href="mailto:info@aimaticsoft.ru" class="aimatic-contacts-card aimatic-reveal">
             <div class="aimatic-contacts-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -364,7 +364,7 @@ export const generateContactsBlock = () => `
             </div>
             <div>
               <p class="aimatic-contacts-card-label">Email</p>
-              <p class="aimatic-contacts-card-value">aimatic@yandex.ru</p>
+              <p class="aimatic-contacts-card-value">info@aimaticsoft.ru</p>
             </div>
           </a>
 
