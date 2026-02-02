@@ -37,5 +37,15 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Pro-Talk Chat Widget -->
+    <script>
+    !function(){
+        const b=document.createElement("script");
+        b.src="https://functions.pro-talk.ru/api/v1.0/get_dialog_ai_widget_api?record_id=recfIw8fYWdK6Q2nl&promt_id=30664&lang=ru&fullscreen=0&voice=0&file=0&circle=1&autoplay=1&dark=1";
+        b.setAttribute("allow","autoplay");
+        document.head.appendChild(b);
+    }();
+    </script>
   </body>
 </html>
