@@ -47,7 +47,7 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Main heading with reveal animation */}
-          <h1 className="heading-primary leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent leading-tight mb-6">
             <RevealText delay={0.2}>Разрабатываем и внедряем</RevealText>
             <br />
             <span className="text-white">
@@ -62,7 +62,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 sm:mb-10 px-4 sm:px-0"
           >
             Создаём AI-агентов, которые автоматизируют рутинные задачи, обрабатывают данные и оптимизируют процессы 24/7
             — настраиваем под любые нужды бизнеса и интегрируем в ваши системы
@@ -75,11 +75,13 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <MagneticButton href="https://t.me/AimaticSoft" className="btn-neon group flex items-center gap-2">
-              Заказать демо
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <MagneticButton href="https://t.me/AimaticSoft" className="btn-neon group flex items-center gap-2 text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4">
+              <span className="relative z-10 flex items-center gap-2">
+                Заказать демо
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </span>
             </MagneticButton>
-            <MagneticButton href="#demo" className="btn-neon-outline flex items-center gap-2">
+            <MagneticButton href="#demo" className="btn-neon-outline flex items-center gap-2 text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4">
               <Bot size={18} />
               Попробовать ИИ-агента
             </MagneticButton>

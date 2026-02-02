@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const cases = [
@@ -60,7 +60,24 @@ const CasesSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  const visibleCases = 3;
+  // Responsive visible count
+  const [visibleCases, setVisibleCases] = React.useState(3);
+  
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setVisibleCases(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCases(2);
+      } else {
+        setVisibleCases(3);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
   const duplicatedCases = [...cases, ...cases, ...cases];
   const itemWidth = 100 / visibleCases;
 
@@ -77,7 +94,7 @@ const CasesSection = () => {
   };
 
   return (
-    <section id="cases" className="relative py-24">
+    <section id="cases" className="relative py-16 sm:py-24">
       {/* Background */}
       <div className="absolute inset-0 bg-secondary/30" />
       <div className="absolute inset-0 grid-bg" />

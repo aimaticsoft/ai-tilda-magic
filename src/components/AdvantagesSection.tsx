@@ -80,7 +80,7 @@ const AdvantagesSection = () => {
   } as const;
 
   return (
-    <section id="advantages" className="relative py-24 overflow-hidden">
+    <section id="advantages" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 grid-bg" />
 
@@ -100,7 +100,7 @@ const AdvantagesSection = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 sm:mb-24"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -145,7 +145,7 @@ const AdvantagesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           {guarantees.map((item, index) => (
             <motion.div
               key={item.title}
