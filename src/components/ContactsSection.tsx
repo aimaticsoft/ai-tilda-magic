@@ -27,7 +27,7 @@ const ContactsSection = () => {
   };
 
   return (
-    <section id="contacts" className="relative py-24 overflow-hidden">
+    <section id="contacts" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
 
@@ -119,31 +119,31 @@ const ContactsSection = () => {
 
             {/* Social links */}
             <motion.div
-              className="flex gap-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6, type: "spring" }}
             >
               <MagneticButton
                 href="https://t.me/aimatic1"
-                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3"
+                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3 text-sm sm:text-base"
               >
-                <Send size={20} />
-                Telegram
+                <Send size={18} />
+                <span>Telegram</span>
               </MagneticButton>
               <MagneticButton
                 href="https://www.youtube.com/@AimaticSoft"
-                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3"
+                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3 text-sm sm:text-base"
               >
-                <Youtube size={20} />
-                YouTube
+                <Youtube size={18} />
+                <span>YouTube</span>
               </MagneticButton>
               <MagneticButton
                 href="https://dzen.ru/aimatic"
-                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3"
+                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3 text-sm sm:text-base"
               >
-                <Newspaper size={20} />
-                Дзен
+                <Newspaper size={18} />
+                <span>Дзен</span>
               </MagneticButton>
             </motion.div>
           </motion.div>

@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MessageSquare, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import AgentAvatar, { type AgentAvatarVariant } from '@/components/agents/AgentAvatar';
 
@@ -83,9 +83,26 @@ const DemoSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   
+  // Responsive visible count
+  const [visibleCount, setVisibleCount] = React.useState(3);
+  
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setVisibleCount(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
   // Duplicate items for infinite scroll effect
   const duplicatedDemos = [...demos, ...demos, ...demos];
-  const visibleCount = 3;
   const itemWidth = 100 / visibleCount;
 
   const next = () => {
@@ -102,7 +119,7 @@ const DemoSection = () => {
   };
 
   return (
-    <section id="demo" className="relative py-24">
+    <section id="demo" className="relative py-16 sm:py-24">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card to-background" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[200px]" />

@@ -63,9 +63,9 @@ const Header = () => {
             href="https://t.me/AimaticSoft"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:block btn-neon text-sm py-3 px-6"
+            className="hidden md:flex btn-neon text-sm py-3 px-6 items-center gap-2"
           >
-            Заказать демо
+            <span className="relative z-10">Заказать демо</span>
           </a>
 
           {/* Mobile Menu Button */}

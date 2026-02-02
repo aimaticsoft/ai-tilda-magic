@@ -55,7 +55,7 @@ const ReviewsSection = () => {
   } as const;
 
   return (
-    <section id="reviews" className="relative py-24 overflow-hidden">
+    <section id="reviews" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-background" />
       
@@ -75,7 +75,7 @@ const ReviewsSection = () => {
 
         {/* Reviews */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
