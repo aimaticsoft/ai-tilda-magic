@@ -11,6 +11,7 @@ import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
+import CalculatorSection from '@/components/CalculatorSection';
 
 const Index = () => {
   return (
@@ -31,6 +32,7 @@ const Index = () => {
           <AboutSection />
           <ServicesSection />
           <CasesSection />
+          <CalculatorSection />
           <DemoSection />
           <AdvantagesSection />
           <ReviewsSection />
