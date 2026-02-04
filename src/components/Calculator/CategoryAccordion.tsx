@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { PricingCategory, PricingItem } from '@/data/pricingData';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -13,17 +12,17 @@ interface CategoryAccordionProps {
   category: PricingCategory;
   selectedItems: Set<string>;
   onItemToggle: (itemId: string) => void;
-  defaultOpen?: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export const CategoryAccordion = ({
   category,
   selectedItems,
   onItemToggle,
-  defaultOpen = true,
+  isOpen,
+  onToggle,
 }: CategoryAccordionProps) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
-
   const selectedCount = category.items.filter((item) =>
     selectedItems.has(item.id)
   ).length;
@@ -34,7 +33,7 @@ export const CategoryAccordion = ({
       selectedCount > 0 && "border-primary/40 bg-primary/5"
     )}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggle}
         className="w-full flex items-center justify-between text-left"
       >
         <div className="flex items-center gap-3">
