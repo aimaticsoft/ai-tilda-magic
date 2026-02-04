@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Phone, Mail, MapPin, Send, Youtube, Newspaper } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2 } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
 import { useMousePosition } from "@/hooks/useMousePosition";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const ContactsSection = () => {
   const ref = useRef(null);
@@ -16,14 +18,36 @@ const ContactsSection = () => {
     message: "",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect to WhatsApp with message
-    const text = encodeURIComponent(
-      `Здравствуйте! Меня зовут ${formData.name}.\n\n${formData.message}\n\nМой телефон: ${formData.phone}`,
-    );
-    window.open(`https://wa.me/79293844844?text=${text}`, "_blank");
+    
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('send-telegram-notification', {
+        body: {
+          name: formData.name.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      toast.success('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+      setFormData({ name: '', phone: '', message: '' });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('Произошла ошибка. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -217,11 +241,19 @@ const ContactsSection = () => {
               <MagneticButton className="w-full">
                 <motion.button
                   type="submit"
-                  className="w-full btn-neon"
+                  className="w-full btn-neon flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  disabled={isSubmitting}
                 >
-                  Отправить заявку
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Отправка...
+                    </>
+                  ) : (
+                    'Отправить заявку'
+                  )}
                 </motion.button>
               </MagneticButton>
 
