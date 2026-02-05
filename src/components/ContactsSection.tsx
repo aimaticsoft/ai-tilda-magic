@@ -110,44 +110,63 @@ const ContactsSection = () => {
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
                   whileHover={{ scale: 1.02, x: 10 }}
                 >
-                  <div className="relative">
-                    {contact.href ? (
-                      <a
-                        href={contact.href}
-                        className={`flex items-center gap-4 p-6 group ${contact.label === "Телефон" ? "bg-background/80 border border-border rounded-xl" : "glass-card-hover"}`}
-                      >
+                  {contact.label === "Телефон" ? (
+                    // Для телефона без FloatingElement, но с теми же стилями
+                    contact.href ? (
+                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group">
                         <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
                         <div>
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p
-                            className={`text-lg font-semibold text-foreground ${contact.label === "Телефон" ? "" : "group-hover:text-primary transition-colors"}`}
-                          >
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                             {contact.value}
                           </p>
                         </div>
                       </a>
                     ) : (
-                      <div
-                        className={`flex items-center gap-4 p-6 group ${contact.label === "Телефон" ? "bg-background/80 border border-border rounded-xl" : "glass-card-hover"}`}
-                      >
+                      <div className="glass-card-hover flex items-center gap-4 p-6 group">
                         <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
                         <div>
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p
-                            className={`text-lg font-semibold text-foreground ${contact.label === "Телефон" ? "" : "group-hover:text-primary transition-colors"}`}
-                          >
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                             {contact.value}
                           </p>
                         </div>
                       </div>
-                    )}
-                    {/* Убираем FloatingElement для телефона, оставляем только для остальных */}
-                    {contact.label !== "Телефон" && <FloatingElement intensity={3} rotationIntensity={1} />}
-                  </div>
+                    )
+                  ) : (
+                    // Для остальных контактов с FloatingElement
+                    <FloatingElement intensity={3} rotationIntensity={1}>
+                      {contact.href ? (
+                        <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group">
+                          <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                            <contact.icon size={24} className="text-primary" />
+                          </motion.div>
+                          <div>
+                            <p className="text-sm text-muted-foreground">{contact.label}</p>
+                            <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                              {contact.value}
+                            </p>
+                          </div>
+                        </a>
+                      ) : (
+                        <div className="glass-card-hover flex items-center gap-4 p-6 group">
+                          <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                            <contact.icon size={24} className="text-primary" />
+                          </motion.div>
+                          <div>
+                            <p className="text-sm text-muted-foreground">{contact.label}</p>
+                            <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                              {contact.value}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </FloatingElement>
+                  )}
                 </motion.div>
               ))}
             </div>
