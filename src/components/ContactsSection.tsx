@@ -22,13 +22,13 @@ const ContactsSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (isSubmitting) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
-      const { data, error } = await supabase.functions.invoke('send-telegram-notification', {
+      const { data, error } = await supabase.functions.invoke("send-telegram-notification", {
         body: {
           name: formData.name.trim(),
           phone: formData.phone.trim(),
@@ -40,11 +40,11 @@ const ContactsSection = () => {
         throw error;
       }
 
-      toast.success('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-      setFormData({ name: '', phone: '', message: '' });
+      toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+      setFormData({ name: "", phone: "", message: "" });
     } catch (error) {
-      console.error('Error submitting form:', error);
-      toast.error('Произошла ошибка. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.');
+      console.error("Error submitting form:", error);
+      toast.error("Произошла ошибка. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.");
     } finally {
       setIsSubmitting(false);
     }
@@ -110,33 +110,54 @@ const ContactsSection = () => {
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
                   whileHover={{ scale: 1.02, x: 10 }}
                 >
-                  <FloatingElement intensity={3} rotationIntensity={1}>
-                    {contact.href ? (
-                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group">
-                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
-                          <contact.icon size={24} className="text-primary" />
-                        </motion.div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {contact.value}
-                          </p>
-                        </div>
-                      </a>
-                    ) : (
-                      <div className="glass-card-hover flex items-center gap-4 p-6 group">
-                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
-                          <contact.icon size={24} className="text-primary" />
-                        </motion.div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {contact.value}
-                          </p>
-                        </div>
+                  {contact.href ? (
+                    <a
+                      href={contact.href}
+                      className="glass-card-hover flex items-center gap-4 p-6 group"
+                      style={
+                        contact.label === "Телефон"
+                          ? {
+                              boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                              position: "relative",
+                              zIndex: 1,
+                            }
+                          : {}
+                      }
+                    >
+                      <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                        <contact.icon size={24} className="text-primary" />
+                      </motion.div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">{contact.label}</p>
+                        <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {contact.value}
+                        </p>
                       </div>
-                    )}
-                  </FloatingElement>
+                    </a>
+                  ) : (
+                    <div
+                      className="glass-card-hover flex items-center gap-4 p-6 group"
+                      style={
+                        contact.label === "Телефон"
+                          ? {
+                              boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                              position: "relative",
+                              zIndex: 1,
+                            }
+                          : {}
+                      }
+                    >
+                      <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                        <contact.icon size={24} className="text-primary" />
+                      </motion.div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">{contact.label}</p>
+                        <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {contact.value}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -252,7 +273,7 @@ const ContactsSection = () => {
                       Отправка...
                     </>
                   ) : (
-                    'Отправить заявку'
+                    "Отправить заявку"
                   )}
                 </motion.button>
               </MagneticButton>
