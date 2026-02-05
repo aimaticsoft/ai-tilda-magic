@@ -1,5 +1,4 @@
-import { ChevronDown } from 'lucide-react';
-import { PricingCategory, PricingItem } from '@/data/pricingData';
+ import { PricingCategory, PricingItem } from '@/data/pricingData';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Tooltip,
@@ -8,65 +7,51 @@ import {
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
-interface CategoryAccordionProps {
+ interface CategoryCardProps {
   category: PricingCategory;
   selectedItems: Set<string>;
   onItemToggle: (itemId: string) => void;
-  isOpen: boolean;
-  onToggle: () => void;
 }
 
-export const CategoryAccordion = ({
+ export const CategoryCard = ({
   category,
   selectedItems,
   onItemToggle,
-  isOpen,
-  onToggle,
-}: CategoryAccordionProps) => {
+ }: CategoryCardProps) => {
   const selectedCount = category.items.filter((item) =>
     selectedItems.has(item.id)
   ).length;
 
   return (
     <div className={cn(
-      "glass-card p-4 transition-all duration-300 self-start",
+       "glass-card p-5 transition-all duration-300",
       selectedCount > 0 && "border-primary/40 bg-primary/5"
     )}>
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between text-left"
-      >
+       {/* Header */}
+       <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/50">
         <div className="flex items-center gap-3">
           <span className="text-2xl">{category.icon}</span>
           <span className="font-semibold text-foreground">
             {category.name}
           </span>
-          {selectedCount > 0 && (
-            <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-primary text-primary-foreground">
-              {selectedCount}
-            </span>
-          )}
         </div>
-        <ChevronDown className={cn(
-          "w-5 h-5 text-muted-foreground transition-transform duration-200",
-          isOpen && "rotate-180"
-        )} />
-      </button>
+         {selectedCount > 0 && (
+           <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
+             {selectedCount} / {category.items.length}
+           </span>
+         )}
+       </div>
 
-      <div className={cn(
-        "grid gap-2 overflow-hidden transition-all duration-300",
-        isOpen ? "mt-4 max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-      )}>
-        <div className="space-y-2">
-          {category.items.map((item) => (
-            <FeatureItem
-              key={item.id}
-              item={item}
-              isSelected={selectedItems.has(item.id)}
-              onToggle={() => onItemToggle(item.id)}
-            />
-          ))}
-        </div>
+       {/* Items */}
+       <div className="space-y-2">
+         {category.items.map((item) => (
+           <FeatureItem
+             key={item.id}
+             item={item}
+             isSelected={selectedItems.has(item.id)}
+             onToggle={() => onItemToggle(item.id)}
+           />
+         ))}
       </div>
     </div>
   );

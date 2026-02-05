@@ -1,10 +1,10 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+ import { useState, useMemo, useEffect } from 'react';
 import {
   pricingCategories,
   calculateComplexity,
   calculateBaseDevelopmentPrice,
 } from '@/data/pricingData';
-import { CategoryAccordion } from './CategoryAccordion';
+ import { CategoryCard } from './CategoryAccordion';
 import { ProjectSettings } from './ProjectSettings';
 import { ResultsPanel } from './ResultsPanel';
 import { Bot, Sparkles, RotateCcw, Clock } from 'lucide-react';
@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 
 export const Calculator = () => {
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
-  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set());
   const [managersCount, setManagersCount] = useState(3);
   const [leadsPerMonth, setLeadsPerMonth] = useState(30);
   const [averageCheck, setAverageCheck] = useState(50000);
@@ -79,21 +78,8 @@ export const Calculator = () => {
     });
   };
 
-  const handleCategoryToggle = useCallback((categoryId: string) => {
-    setOpenCategories((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(categoryId)) {
-        newSet.delete(categoryId);
-      } else {
-        newSet.add(categoryId);
-      }
-      return newSet;
-    });
-  }, []);
-
   const handleReset = () => {
     setSelectedItems(new Set());
-    setOpenCategories(new Set());
     setManagersCount(3);
     setLeadsPerMonth(30);
     setAverageCheck(50000);
@@ -195,15 +181,13 @@ export const Calculator = () => {
           />
 
           {/* Categories grid */}
-          <div className="grid md:grid-cols-2 gap-4 items-start">
+           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
             {pricingCategories.map((category) => (
-              <CategoryAccordion
+               <CategoryCard
                 key={category.id}
                 category={category}
                 selectedItems={selectedItems}
                 onItemToggle={handleItemToggle}
-                isOpen={openCategories.has(category.id)}
-                onToggle={() => handleCategoryToggle(category.id)}
               />
             ))}
           </div>
