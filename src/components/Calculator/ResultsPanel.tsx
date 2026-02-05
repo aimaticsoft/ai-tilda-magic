@@ -231,6 +231,18 @@ export const ResultsPanel = ({ selectedItems, managersCount, leadsPerMonth, aver
               <span className="text-foreground">Со скидкой 10%</span>
               <span className="text-gradient">{formatPrice(discountedTotal)} ₽</span>
             </div>
+
+            {/* Order Button */}
+            <a
+              href="https://t.me/AimaticSoft"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full mt-4"
+            >
+              <button className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-bold text-base transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]">
+                🚀 Заказать разработку
+              </button>
+            </a>
           </div>
         </div>
       </div>
