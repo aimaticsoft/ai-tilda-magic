@@ -110,54 +110,44 @@ const ContactsSection = () => {
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
                   whileHover={{ scale: 1.02, x: 10 }}
                 >
-                  {contact.href ? (
-                    <a
-                      href={contact.href}
-                      className="glass-card-hover flex items-center gap-4 p-6 group"
-                      style={
-                        contact.label === "Телефон"
-                          ? {
-                              boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                              position: "relative",
-                              zIndex: 1,
-                            }
-                          : {}
-                      }
-                    >
-                      <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
-                        <contact.icon size={24} className="text-primary" />
-                      </motion.div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">{contact.label}</p>
-                        <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                          {contact.value}
-                        </p>
+                  <div className="relative">
+                    {contact.href ? (
+                      <a
+                        href={contact.href}
+                        className={`flex items-center gap-4 p-6 group ${contact.label === "Телефон" ? "bg-background/80 border border-border rounded-xl" : "glass-card-hover"}`}
+                      >
+                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                          <contact.icon size={24} className="text-primary" />
+                        </motion.div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">{contact.label}</p>
+                          <p
+                            className={`text-lg font-semibold text-foreground ${contact.label === "Телефон" ? "" : "group-hover:text-primary transition-colors"}`}
+                          >
+                            {contact.value}
+                          </p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div
+                        className={`flex items-center gap-4 p-6 group ${contact.label === "Телефон" ? "bg-background/80 border border-border rounded-xl" : "glass-card-hover"}`}
+                      >
+                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                          <contact.icon size={24} className="text-primary" />
+                        </motion.div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">{contact.label}</p>
+                          <p
+                            className={`text-lg font-semibold text-foreground ${contact.label === "Телефон" ? "" : "group-hover:text-primary transition-colors"}`}
+                          >
+                            {contact.value}
+                          </p>
+                        </div>
                       </div>
-                    </a>
-                  ) : (
-                    <div
-                      className="glass-card-hover flex items-center gap-4 p-6 group"
-                      style={
-                        contact.label === "Телефон"
-                          ? {
-                              boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                              position: "relative",
-                              zIndex: 1,
-                            }
-                          : {}
-                      }
-                    >
-                      <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
-                        <contact.icon size={24} className="text-primary" />
-                      </motion.div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">{contact.label}</p>
-                        <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                          {contact.value}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                    )}
+                    {/* Убираем FloatingElement для телефона, оставляем только для остальных */}
+                    {contact.label !== "Телефон" && <FloatingElement intensity={3} rotationIntensity={1} />}
+                  </div>
                 </motion.div>
               ))}
             </div>
