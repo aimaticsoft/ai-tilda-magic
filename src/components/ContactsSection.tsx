@@ -99,7 +99,7 @@ const ContactsSection = () => {
             {/* Contact cards */}
             <div className="space-y-4">
               {[
-                { icon: Phone, label: "Телефон", value: "8 929 384-48-44", href: "tel:+7929384484444" },
+                { icon: Phone, label: "Телефон", value: "8 929 384-48-44", href: "tel:+79293844844" },
                 { icon: Mail, label: "Email", value: "info@aimaticsoft.ru", href: "mailto:info@aimaticsoft.ru" },
                 { icon: MapPin, label: "Адрес", value: "г. Новосибирск", href: null },
               ].map((contact, index) => (
