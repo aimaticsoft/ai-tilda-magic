@@ -29,7 +29,7 @@ export const CategoryAccordion = ({
 
   return (
     <div className={cn(
-      "glass-card p-4 transition-all duration-300",
+      "glass-card p-4 transition-all duration-300 self-start",
       selectedCount > 0 && "border-primary/40 bg-primary/5"
     )}>
       <button

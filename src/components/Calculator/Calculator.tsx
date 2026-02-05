@@ -17,12 +17,46 @@ export const Calculator = () => {
   const [leadsPerMonth, setLeadsPerMonth] = useState(30);
   const [averageCheck, setAverageCheck] = useState(50000);
   
-  const [timeLeft, setTimeLeft] = useState(3 * 60 * 60);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+    const DISCOUNT_DURATION_SECONDS = 3 * 60 * 60;
+    const COOKIE_KEY = 'aimatic_discount_deadline_v1';
+
+    const getCookie = (name: string) => {
+      if (typeof document === 'undefined') return null;
+      const prefix = `${encodeURIComponent(name)}=`;
+      const part = document.cookie
+        .split('; ')
+        .find((p) => p.startsWith(prefix));
+      return part ? decodeURIComponent(part.slice(prefix.length)) : null;
+    };
+
+    const setCookie = (name: string, value: string, maxAgeSeconds: number) => {
+      if (typeof document === 'undefined') return;
+      document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax`;
+    };
+
+    const now = Date.now();
+    const rawDeadline = getCookie(COOKIE_KEY);
+    const parsedDeadline = rawDeadline ? Number(rawDeadline) : NaN;
+
+    const deadlineMs = Number.isFinite(parsedDeadline) && parsedDeadline > 0
+      ? parsedDeadline
+      : now + DISCOUNT_DURATION_SECONDS * 1000;
+
+    // Храним дедлайн долго, чтобы таймер не “сбрасывался” даже после истечения.
+    if (!Number.isFinite(parsedDeadline) || parsedDeadline <= 0) {
+      setCookie(COOKIE_KEY, String(deadlineMs), 60 * 60 * 24 * 30);
+    }
+
+    const update = () => {
+      const seconds = Math.max(0, Math.floor((deadlineMs - Date.now()) / 1000));
+      setTimeLeft(seconds);
+    };
+
+    update();
+    const timer = setInterval(update, 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -161,7 +195,7 @@ export const Calculator = () => {
           />
 
           {/* Categories grid */}
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 items-start">
             {pricingCategories.map((category) => (
               <CategoryAccordion
                 key={category.id}
