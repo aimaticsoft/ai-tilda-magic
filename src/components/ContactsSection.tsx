@@ -113,7 +113,7 @@ const ContactsSection = () => {
                   {contact.label === "Телефон" ? (
                     // Для телефона без FloatingElement, но с теми же стилями
                     contact.href ? (
-                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group">
+                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group overflow-visible">
                         <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
