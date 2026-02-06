@@ -36,7 +36,7 @@ import { cn } from '@/lib/utils';
           </span>
         </div>
          {selectedCount > 0 && (
-           <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
+           <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground whitespace-nowrap">
              {selectedCount} / {category.items.length}
            </span>
          )}
