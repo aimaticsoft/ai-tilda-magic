@@ -110,27 +110,27 @@ const ContactsSection = () => {
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
                   whileHover={{ scale: 1.02, x: 10 }}
                 >
-                  <FloatingElement intensity={3} rotationIntensity={1}>
+                  <FloatingElement intensity={3} rotationIntensity={1} className="overflow-visible">
                     {contact.href ? (
-                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group">
-                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group overflow-visible">
+                        <motion.div className="icon-glow flex-shrink-0" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
-                        <div className="min-w-0 flex-1">
+                        <div className="min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-nowrap">
                             {contact.value}
                           </p>
                         </div>
                       </a>
                     ) : (
-                      <div className="glass-card-hover flex items-center gap-4 p-6 group">
-                        <motion.div className="icon-glow" whileHover={{ scale: 1.2, rotate: 10 }}>
+                      <div className="glass-card-hover flex items-center gap-4 p-6 group overflow-visible">
+                        <motion.div className="icon-glow flex-shrink-0" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
-                        <div className="min-w-0 flex-1">
+                        <div className="min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-nowrap">
                             {contact.value}
                           </p>
                         </div>
