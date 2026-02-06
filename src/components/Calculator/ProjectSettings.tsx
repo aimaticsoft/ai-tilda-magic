@@ -25,8 +25,8 @@ export const ProjectSettings = ({
   const formatNumber = (num: number) => num.toLocaleString('ru-RU');
 
   return (
-    <div className="glass-card p-6 mb-6">
-      <div className="flex items-center gap-2 mb-6">
+    <div className="glass-card p-4 mb-6">
+      <div className="flex items-center gap-2 mb-4">
         <span className="text-lg">📊</span>
         <h3 className="font-semibold text-foreground">Параметры вашего бизнеса</h3>
         <Tooltip>
@@ -41,12 +41,12 @@ export const ProjectSettings = ({
         </Tooltip>
       </div>
 
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Managers Count */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">👥 Менеджеров в команде</span>
-            <span className="text-sm font-medium text-primary">{managersCount}</span>
+            <span className="text-xs text-muted-foreground">👥 Менеджеров в команде</span>
+            <span className="text-sm font-bold text-primary">{managersCount}</span>
           </div>
           <Slider
             value={[managersCount]}
@@ -56,17 +56,17 @@ export const ProjectSettings = ({
             step={1}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-muted-foreground">
+          <div className="flex justify-between text-[10px] text-muted-foreground/60">
             <span>1</span>
             <span>20</span>
           </div>
         </div>
 
         {/* Leads Per Month */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">📩 Заявок в месяц</span>
-            <span className="text-sm font-medium text-primary">{formatNumber(leadsPerMonth)}</span>
+            <span className="text-xs text-muted-foreground">📩 Заявок в месяц</span>
+            <span className="text-sm font-bold text-primary">{formatNumber(leadsPerMonth)}</span>
           </div>
           <Slider
             value={[leadsPerMonth]}
@@ -76,17 +76,17 @@ export const ProjectSettings = ({
             step={1}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-muted-foreground">
+          <div className="flex justify-between text-[10px] text-muted-foreground/60">
             <span>5</span>
             <span>100</span>
           </div>
         </div>
 
         {/* Average Check */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">💰 Средний чек</span>
-            <span className="text-sm font-medium text-primary">{formatNumber(averageCheck)} ₽</span>
+            <span className="text-xs text-muted-foreground">💰 Средний чек</span>
+            <span className="text-sm font-bold text-primary">{formatNumber(averageCheck)} ₽</span>
           </div>
           <Slider
             value={[averageCheck]}
@@ -96,7 +96,7 @@ export const ProjectSettings = ({
             step={500}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-muted-foreground">
+          <div className="flex justify-between text-[10px] text-muted-foreground/60">
             <span>500 ₽</span>
             <span>1 000 000 ₽</span>
           </div>
