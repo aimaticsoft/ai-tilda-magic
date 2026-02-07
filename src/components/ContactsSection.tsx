@@ -118,7 +118,7 @@ const ContactsSection = () => {
                         </motion.div>
                         <div className="min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-nowrap">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap">
                             {contact.value}
                           </p>
                         </div>
@@ -130,7 +130,7 @@ const ContactsSection = () => {
                         </motion.div>
                         <div className="min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-nowrap">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap">
                             {contact.value}
                           </p>
                         </div>
