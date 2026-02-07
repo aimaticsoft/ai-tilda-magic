@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Clock, TrendingUp, Wallet, Settings2, BarChart3, Zap, Shield, Rocket } from "lucide-react";
+import { Clock, TrendingUp, Wallet, Settings2, BarChart3, Zap, Shield, Rocket, Layers } from "lucide-react";
 import FloatingElement from "./FloatingElement";
 
 const advantages = [
@@ -30,6 +30,11 @@ const advantages = [
     icon: BarChart3,
     title: "Глубокий анализ данных",
     description: "Агенты проверяют информацию сразу, выдавая отчёты и советы по улучшению работы.",
+  },
+  {
+    icon: Layers,
+    title: "Масштабируемость",
+    description: "Легко увеличивайте мощность агентов под рост бизнеса без дополнительных затрат на персонал.",
   },
 ];
 
