@@ -75,7 +75,6 @@ const ContactsSection = () => {
         />
       </div>
 
-
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}
         <motion.div
@@ -102,28 +101,29 @@ const ContactsSection = () => {
             {/* Contact cards */}
             <div className="space-y-4">
               {[
-                { icon: Phone, label: "Телефон", value: "8 929 384-48-44", href: "tel:+79293844844" },
+                { icon: Phone, label: "Телефон", value: "8 929 384-48-4444", href: "tel:+7929384484444" },
                 { icon: Mail, label: "Email", value: "info@aimaticsoft.ru", href: "mailto:info@aimaticsoft.ru" },
                 { icon: MapPin, label: "Адрес", value: "г. Новосибирск", href: null },
               ].map((contact, index) => (
                 <motion.div
                   key={contact.label}
-                  className="relative"
-                  style={{ zIndex: 1 }}
                   initial={{ opacity: 0, x: -40 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
-                  whileHover={{ scale: 1.02, x: 10, zIndex: 20 }}
+                  whileHover={{ scale: 1.02, x: 10 }}
                 >
                   <FloatingElement intensity={3} rotationIntensity={1} className="overflow-visible">
                     {contact.href ? (
-                      <a href={contact.href} className="glass-card-hover flex items-center gap-4 p-6 group overflow-visible">
+                      <a
+                        href={contact.href}
+                        className="glass-card-hover flex items-center gap-4 p-6 group overflow-visible"
+                      >
                         <motion.div className="icon-glow flex-shrink-0" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
-                        <div className="min-w-0 flex-1 pr-2">
+                        <div className="min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap pr-1">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap">
                             {contact.value}
                           </p>
                         </div>
@@ -133,9 +133,9 @@ const ContactsSection = () => {
                         <motion.div className="icon-glow flex-shrink-0" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
-                        <div className="min-w-0 flex-1 pr-2">
+                        <div className="min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap pr-1">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap">
                             {contact.value}
                           </p>
                         </div>
