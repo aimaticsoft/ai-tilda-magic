@@ -108,10 +108,12 @@ const ContactsSection = () => {
               ].map((contact, index) => (
                 <motion.div
                   key={contact.label}
+                  className="relative"
+                  style={{ zIndex: 1 }}
                   initial={{ opacity: 0, x: -40 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
-                  whileHover={{ scale: 1.02, x: 10 }}
+                  whileHover={{ scale: 1.02, x: 10, zIndex: 20 }}
                 >
                   <FloatingElement intensity={3} rotationIntensity={1} className="overflow-visible">
                     {contact.href ? (
@@ -119,9 +121,9 @@ const ContactsSection = () => {
                         <motion.div className="icon-glow flex-shrink-0" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1 pr-2">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap pr-1">
                             {contact.value}
                           </p>
                         </div>
@@ -131,9 +133,9 @@ const ContactsSection = () => {
                         <motion.div className="icon-glow flex-shrink-0" whileHover={{ scale: 1.2, rotate: 10 }}>
                           <contact.icon size={24} className="text-primary" />
                         </motion.div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1 pr-2">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
-                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap">
+                          <p className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors whitespace-normal break-words sm:whitespace-nowrap pr-1">
                             {contact.value}
                           </p>
                         </div>
