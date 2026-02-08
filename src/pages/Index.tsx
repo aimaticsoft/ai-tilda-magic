@@ -12,12 +12,13 @@ import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
 import CalculatorSection from '@/components/CalculatorSection';
+import ExitIntentPopup from '@/components/ExitIntentPopup';
 
 const Index = () => {
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        
+        <ExitIntentPopup />
         <Header />
         <main>
           <HeroSection />
