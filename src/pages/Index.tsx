@@ -1,19 +1,22 @@
+import { Suspense } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import ProductsSection from '@/components/ProductsSection';
-import ServicesSection from '@/components/ServicesSection';
-import CasesSection from '@/components/CasesSection';
-import DemoSection from '@/components/DemoSection';
-import AdvantagesSection from '@/components/AdvantagesSection';
-import ReviewsSection from '@/components/ReviewsSection';
-import FAQSection from '@/components/FAQSection';
-import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
-import CalculatorSection from '@/components/CalculatorSection';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
+import SectionSkeleton, {
+  LazyAboutSection,
+  LazyProductsSection,
+  LazyServicesSection,
+  LazyCasesSection,
+  LazyCalculatorSection,
+  LazyDemoSection,
+  LazyAdvantagesSection,
+  LazyReviewsSection,
+  LazyFAQSection,
+  LazyContactsSection,
+} from '@/components/LazySection';
 
 const Index = () => {
   return (
@@ -22,6 +25,7 @@ const Index = () => {
         <ExitIntentPopup />
         <Header />
         <main>
+          {/* Hero section loads immediately - above the fold */}
           <HeroSection />
           
           {/* Scrolling text marquee */}
@@ -31,16 +35,17 @@ const Index = () => {
             </ParallaxText>
           </div>
           
-          <AboutSection />
-          <ProductsSection />
-          <ServicesSection />
-          <CasesSection />
-          <CalculatorSection />
-          <DemoSection />
-          <AdvantagesSection />
-          <ReviewsSection />
-          <FAQSection />
-          <ContactsSection />
+          {/* Lazy-loaded sections with code splitting */}
+          <LazyAboutSection />
+          <LazyProductsSection />
+          <LazyServicesSection />
+          <LazyCasesSection />
+          <LazyCalculatorSection />
+          <LazyDemoSection />
+          <LazyAdvantagesSection />
+          <LazyReviewsSection />
+          <LazyFAQSection />
+          <LazyContactsSection />
         </main>
         <Footer />
       </div>
