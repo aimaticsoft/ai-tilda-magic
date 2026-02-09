@@ -56,13 +56,13 @@ const ExitIntentPopup = () => {
           
           {/* Popup */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed left-1/2 top-1/2 z-[101] w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2"
+            className="fixed inset-0 z-[101] flex items-center justify-center p-4"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-card p-6 sm:p-8 shadow-2xl">
+            <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card p-6 sm:p-8 shadow-2xl">
               {/* Background glow effects */}
               <div className="absolute -left-20 -top-20 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
               <div className="absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-accent/20 blur-3xl" />
