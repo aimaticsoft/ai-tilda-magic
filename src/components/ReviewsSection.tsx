@@ -55,9 +55,8 @@ const ReviewsSection = () => {
   } as const;
 
   return (
-    <section id="reviews" className="relative py-16 sm:py-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-background" />
+    <section id="reviews" className="relative py-16 sm:py-24">
+      
       
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}

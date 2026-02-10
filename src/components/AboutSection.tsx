@@ -55,9 +55,8 @@ const AboutSection = () => {
   const lineHeight = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
 
   return (
-    <section id="about" ref={containerRef} className="relative py-16 sm:py-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-bg" />
+    <section id="about" ref={containerRef} className="relative py-16 sm:py-24">
+      {/* Background elements removed — unified via ParallaxBackground */}
       
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}

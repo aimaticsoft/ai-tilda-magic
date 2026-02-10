@@ -4,11 +4,8 @@ import AnimatedSection from './AnimatedSection';
 
 const CalculatorSection = () => {
   return (
-    <section id="calculator" className="py-20 lg:py-32 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-hero-gradient opacity-50" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-[128px]" />
+    <section id="calculator" className="py-20 lg:py-32 relative">
+      
       
       <div className="section-container relative z-10">
         <AnimatedSection className="text-center mb-12">

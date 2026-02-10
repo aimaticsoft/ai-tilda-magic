@@ -95,9 +95,7 @@ const CasesSection = () => {
 
   return (
     <section id="cases" className="relative py-16 sm:py-24">
-      {/* Background */}
-      <div className="absolute inset-0 bg-secondary/30" />
-      <div className="absolute inset-0 grid-bg" />
+      
       
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}

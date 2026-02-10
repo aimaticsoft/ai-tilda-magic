@@ -120,9 +120,7 @@ const DemoSection = () => {
 
   return (
     <section id="demo" className="relative py-16 sm:py-24">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card to-background" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[200px]" />
+      
       
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}

@@ -36,9 +36,8 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative py-16 sm:py-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-bg" />
+    <section className="relative py-16 sm:py-24">
+      
       
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}
