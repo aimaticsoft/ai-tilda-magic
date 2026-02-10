@@ -81,8 +81,8 @@ const ProductsSection = () => {
                   
                   {/* Icon */}
                   <div className={`relative z-10 w-16 h-16 rounded-xl bg-gradient-to-br ${product.gradient} p-0.5 mb-6`}>
-                    <div className="w-full h-full rounded-xl bg-card flex items-center justify-center">
-                      <product.icon className="w-8 h-8 text-primary" />
+                    <div className="w-full h-full rounded-xl overflow-hidden">
+                      <img src={product.logo} alt={`${product.name} logo`} className="w-full h-full object-cover" />
                     </div>
                   </div>
 
