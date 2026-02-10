@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
+import ParallaxBackground from '@/components/ParallaxBackground';
 import SectionSkeleton, {
   LazyAboutSection,
   LazyProductsSection,
