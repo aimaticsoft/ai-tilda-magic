@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Target, Image, Sparkles, TrendingUp } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
+import aimsalesLogo from '@/assets/aimsales-logo.png';
+import aimvisualLogo from '@/assets/aimvisual-logo.jpg';
 
 const products = [
   {
@@ -9,6 +11,7 @@ const products = [
     description: 'Интерактивная платформа для тренировки менеджеров в продажах. Практикуйтесь с AI-клиентами, получайте обратную связь и улучшайте результаты.',
     link: 'https://aimsales.aimaticsoft.ru/',
     icon: Target,
+    logo: aimsalesLogo,
     gradient: 'from-primary to-blue-400',
     features: ['AI-тренажёр', 'Обратная связь', 'Аналитика'],
   },
@@ -18,6 +21,7 @@ const products = [
     description: 'Профессиональная генерация изображений для бизнеса: одежда, авто, интерьер, товары, логотипы и многое другое — без сложных настроек.',
     link: 'https://aimvisual.aimaticsoft.ru/',
     icon: Image,
+    logo: aimvisualLogo,
     gradient: 'from-accent to-cyan-400',
     features: ['Генерация фото', 'Для бизнеса', 'Без настроек'],
   },
@@ -77,8 +81,8 @@ const ProductsSection = () => {
                   
                   {/* Icon */}
                   <div className={`relative z-10 w-16 h-16 rounded-xl bg-gradient-to-br ${product.gradient} p-0.5 mb-6`}>
-                    <div className="w-full h-full rounded-xl bg-card flex items-center justify-center">
-                      <product.icon className="w-8 h-8 text-primary" />
+                    <div className="w-full h-full rounded-xl overflow-hidden">
+                      <img src={product.logo} alt={`${product.name} logo`} className="w-full h-full object-cover" />
                     </div>
                   </div>
 
