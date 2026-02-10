@@ -46,7 +46,7 @@ const services = [
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { normalizedX, normalizedY } = useMousePosition();
+  
 
   const containerVariants = {
     hidden: { opacity: 0 },
