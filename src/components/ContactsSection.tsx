@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2 } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
-import { useMousePosition } from "@/hooks/useMousePosition";
+
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
