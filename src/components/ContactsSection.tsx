@@ -4,14 +4,14 @@ import { useRef, useState } from "react";
 import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2 } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
-import { useMousePosition } from "@/hooks/useMousePosition";
+
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const ContactsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { normalizedX, normalizedY } = useMousePosition();
+  
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -52,28 +52,7 @@ const ContactsSection = () => {
 
   return (
     <section id="contacts" className="relative py-16 sm:py-24">
-      {/* Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-
-        {/* Animated background orbs */}
-        <motion.div
-          className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[150px]"
-          animate={{
-            x: normalizedX * 50,
-            y: normalizedY * 50,
-          }}
-          transition={{ type: "spring", stiffness: 30, damping: 30 }}
-        />
-        <motion.div
-          className="absolute top-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-[150px]"
-          animate={{
-            x: normalizedX * -30,
-            y: normalizedY * -30,
-          }}
-          transition={{ type: "spring", stiffness: 30, damping: 30 }}
-        />
-      </div>
+      
 
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}

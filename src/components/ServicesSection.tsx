@@ -3,7 +3,6 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ShoppingCart, MessageCircle, Share2, FileText, Calendar, Users } from 'lucide-react';
 import MagneticButton from './MagneticButton';
-import { useMousePosition } from '@/hooks/useMousePosition';
 
 const services = [
   {
@@ -47,7 +46,7 @@ const services = [
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { normalizedX, normalizedY } = useMousePosition();
+  
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -75,21 +74,7 @@ const ServicesSection = () => {
   } as const;
 
   return (
-    <section id="services" className="relative py-16 sm:py-24 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-      
-      {/* Animated background orb */}
-      <motion.div 
-        className="absolute w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
-        animate={{
-          x: normalizedX * 100,
-          y: normalizedY * 100,
-        }}
-        transition={{ type: "spring", stiffness: 50, damping: 30 }}
-        style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
-      />
-      
+    <section id="services" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         {/* Header */}
         <motion.div
