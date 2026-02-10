@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
+import ParallaxBackground from '@/components/ParallaxBackground';
 import SectionSkeleton, {
   LazyAboutSection,
   LazyProductsSection,
@@ -21,7 +22,8 @@ import SectionSkeleton, {
 const Index = () => {
   return (
     <SmoothScroll>
-      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+        <ParallaxBackground />
         <ExitIntentPopup />
         <Header />
         <main>
