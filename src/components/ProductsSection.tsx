@@ -11,6 +11,7 @@ const products = [
     description: 'Интерактивная платформа для тренировки менеджеров в продажах. Практикуйтесь с AI-клиентами, получайте обратную связь и улучшайте результаты.',
     link: 'https://aimsales.aimaticsoft.ru/',
     icon: Target,
+    logo: aimsalesLogo,
     gradient: 'from-primary to-blue-400',
     features: ['AI-тренажёр', 'Обратная связь', 'Аналитика'],
   },
