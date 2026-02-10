@@ -3,7 +3,6 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ShoppingCart, MessageCircle, Share2, FileText, Calendar, Users } from 'lucide-react';
 import MagneticButton from './MagneticButton';
-import { useMousePosition } from '@/hooks/useMousePosition';
 
 const services = [
   {
