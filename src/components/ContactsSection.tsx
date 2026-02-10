@@ -11,7 +11,7 @@ import { toast } from "sonner";
 const ContactsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { normalizedX, normalizedY } = useMousePosition();
+  
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
