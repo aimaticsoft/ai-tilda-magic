@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Target, Image, Sparkles, TrendingUp } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
+import aimsalesLogo from '@/assets/aimsales-logo.png';
+import aimvisualLogo from '@/assets/aimvisual-logo.jpg';
 
 const products = [
   {
