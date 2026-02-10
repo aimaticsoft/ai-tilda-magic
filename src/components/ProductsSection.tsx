@@ -21,6 +21,7 @@ const products = [
     description: 'Профессиональная генерация изображений для бизнеса: одежда, авто, интерьер, товары, логотипы и многое другое — без сложных настроек.',
     link: 'https://aimvisual.aimaticsoft.ru/',
     icon: Image,
+    logo: aimvisualLogo,
     gradient: 'from-accent to-cyan-400',
     features: ['Генерация фото', 'Для бизнеса', 'Без настроек'],
   },
