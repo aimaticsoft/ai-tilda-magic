@@ -6,6 +6,8 @@ import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import ParallaxBackground from '@/components/ParallaxBackground';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { translations, t } from '@/i18n/translations';
 import SectionSkeleton, {
   LazyAboutSection,
   LazyProductsSection,
@@ -20,6 +22,8 @@ import SectionSkeleton, {
 } from '@/components/LazySection';
 
 const Index = () => {
+  const { lang } = useLanguage();
+
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
@@ -27,17 +31,14 @@ const Index = () => {
         <ExitIntentPopup />
         <Header />
         <main>
-          {/* Hero section loads immediately - above the fold */}
           <HeroSection />
           
-          {/* Scrolling text marquee */}
           <div className="py-8 bg-card/50 border-y border-border overflow-hidden">
             <ParallaxText baseVelocity={-2} className="text-2xl font-bold text-primary/20">
-              AI AGENTS • AUTOMATION • MACHINE LEARNING • NEURAL NETWORKS •
+              {t(translations.marquee.text, lang)}
             </ParallaxText>
           </div>
           
-          {/* Lazy-loaded sections with code splitting */}
           <LazyAboutSection />
           <LazyProductsSection />
           <LazyServicesSection />

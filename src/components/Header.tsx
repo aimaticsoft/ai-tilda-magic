@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import logo from '@/assets/logo.png';
-
-const navItems = [
-  { label: 'О компании', href: '#about' },
-  { label: 'Услуги', href: '#services' },
-  { label: 'Кейсы', href: '#cases' },
-  { label: 'Демо', href: '#demo' },
-  { label: 'Преимущества', href: '#advantages' },
-  { label: 'Отзывы', href: '#reviews' },
-  { label: 'Контакты', href: '#contacts' },
-];
+import { useLanguage } from '@/i18n/LanguageContext';
+import { translations, t } from '@/i18n/translations';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { lang, toggleLang } = useLanguage();
+
+  const navItems = [
+    { label: t(translations.nav.about, lang), href: '#about' },
+    { label: t(translations.nav.services, lang), href: '#services' },
+    { label: t(translations.nav.cases, lang), href: '#cases' },
+    { label: t(translations.nav.demo, lang), href: '#demo' },
+    { label: t(translations.nav.advantages, lang), href: '#advantages' },
+    { label: t(translations.nav.reviews, lang), href: '#reviews' },
+    { label: t(translations.nav.contacts, lang), href: '#contacts' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,23 +61,37 @@ const Header = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <a
-            href="https://t.me/AimaticSoft"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:flex btn-neon text-sm py-3 px-6 items-center gap-2"
-          >
-            <span className="relative z-10">Заказать демо</span>
-          </a>
+          {/* Right side: Language switch + CTA */}
+          <div className="flex items-center gap-3">
+            {/* Language Switcher */}
+            <motion.button
+              onClick={toggleLang}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card/50 hover:border-primary/50 transition-all text-sm"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Globe size={14} className="text-primary" />
+              <span className="font-medium text-foreground uppercase">{lang}</span>
+            </motion.button>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* CTA Button */}
+            <a
+              href="https://t.me/AimaticSoft"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex btn-neon text-sm py-3 px-6 items-center gap-2"
+            >
+              <span className="relative z-10">{t(translations.nav.orderDemo, lang)}</span>
+            </a>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 text-foreground"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </nav>
       </div>
 
@@ -104,7 +121,7 @@ const Header = () => {
                 rel="noopener noreferrer"
                 className="btn-neon text-center mt-4"
               >
-                Заказать демо
+                {t(translations.nav.orderDemo, lang)}
               </a>
             </div>
           </motion.div>
