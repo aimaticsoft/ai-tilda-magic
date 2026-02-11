@@ -3,48 +3,15 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Search, Code2, Link, GraduationCap, Settings } from 'lucide-react';
 import FloatingElement from './FloatingElement';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { translations, t } from '@/i18n/translations';
 
-const steps = [
-  {
-    icon: Search,
-    title: 'Анализ и проектирование',
-    description: 'Проводим аудит ваших текущих процессов, выявляя ключевые точки взаимодействия. На основе анализа проектируем логику ИИ-агента для максимальной эффективности.',
-    stat: 'до 30%',
-    statLabel: 'экономия времени',
-  },
-  {
-    icon: Code2,
-    title: 'Разработка и настройка',
-    description: 'Создаём ИИ-агента на базе современных моделей, интегрируя вашу базу знаний и бизнес-правила. Настраиваем персонализацию под специфику отрасли.',
-    stat: '24/7',
-    statLabel: 'автономная работа',
-  },
-  {
-    icon: Link,
-    title: 'Интеграция с системами',
-    description: 'Подключаем агента к вашим CRM, мессенджерам, API и базам данных. Тестируем на безопасность и нагрузку.',
-    stat: '100%',
-    statLabel: 'автоматизация',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Обучение и адаптация',
-    description: 'Обучаем агента на ваших реальных диалогах и данных. Адаптируем стиль общения под бренд с A/B-тестами.',
-    stat: '+25%',
-    statLabel: 'эффективность',
-  },
-  {
-    icon: Settings,
-    title: 'Поддержка и оптимизация',
-    description: 'Мониторим метрики работы агента, внося обновления на основе аналитики. Оптимизируем для роста ROI.',
-    stat: '∞',
-    statLabel: 'развитие',
-  },
-];
+const icons = [Search, Code2, Link, GraduationCap, Settings];
 
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { lang } = useLanguage();
   
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -54,12 +21,17 @@ const AboutSection = () => {
 
   const lineHeight = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
 
+  const steps = translations.about.steps.map((step, i) => ({
+    icon: icons[i],
+    title: t(step.title, lang),
+    description: t(step.description, lang),
+    stat: t(step.stat, lang),
+    statLabel: t(step.statLabel, lang),
+  }));
+
   return (
     <section id="about" ref={containerRef} className="relative py-16 sm:py-24">
-      {/* Background elements removed — unified via ParallaxBackground */}
-      
       <div className="relative z-10 section-container" ref={ref}>
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -67,19 +39,15 @@ const AboutSection = () => {
           className="text-center mb-16"
         >
           <h2 className="heading-secondary mb-4">
-            Полный цикл: от создания до внедрения
+            {t(translations.about.title, lang)}
           </h2>
           <div className="accent-line mx-auto mb-6" />
           <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-            Мы предлагаем полный цикл услуг по созданию, обучению и внедрению ИИ-агентов,
-            которые упростят ваш бизнес и сделают его эффективнее. Снижение нагрузки на команду
-            до 50%, рост производительности и экономию времени.
+            {t(translations.about.subtitle, lang)}
           </p>
         </motion.div>
 
-        {/* Steps */}
         <div className="relative">
-          {/* Animated connection line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border/30 hidden lg:block">
             <motion.div 
               className="w-full bg-gradient-to-b from-primary via-accent to-primary"
@@ -103,7 +71,6 @@ const AboutSection = () => {
                   index % 2 === 0 ? '' : 'lg:flex-row-reverse'
                 }`}
               >
-                {/* Content */}
                 <FloatingElement intensity={5} rotationIntensity={2}>
                   <div className={`glass-card-hover p-8 ${index % 2 === 0 ? 'lg:pr-16' : 'lg:pl-16 lg:col-start-2'}`}>
                     <div className="flex items-start gap-4">
@@ -137,7 +104,6 @@ const AboutSection = () => {
                   </div>
                 </FloatingElement>
 
-                {/* Step number - visible on desktop */}
                 <div className={`hidden lg:flex items-center justify-center ${
                   index % 2 === 0 ? 'lg:col-start-2' : 'lg:col-start-1 lg:row-start-1'
                 }`}>

@@ -5,9 +5,12 @@ import FloatingElement from "./FloatingElement";
 import MagneticButton from "./MagneticButton";
 import RevealText from "./RevealText";
 import { useRef } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { lang } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -19,12 +22,10 @@ const HeroSection = () => {
 
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute inset-0 animated-grid" />
       <ParticlesBackground />
 
-      {/* Gradient orbs with parallax */}
       <FloatingElement intensity={30} className="absolute top-1/4 left-1/4">
         <div className="w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse" />
       </FloatingElement>
@@ -32,10 +33,8 @@ const HeroSection = () => {
         <div className="w-80 h-80 bg-accent/20 rounded-full blur-[128px] animate-pulse delay-1000" />
       </FloatingElement>
 
-      {/* Content */}
       <motion.div style={{ scale, opacity }} className="relative z-10 section-container py-32">
         <div className="max-w-5xl mx-auto text-center">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -43,32 +42,28 @@ const HeroSection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-8"
           >
             <Sparkles size={16} className="animate-pulse" />
-            <span>Полный цикл: от создания до внедрения ИИ-агентов</span>
+            <span>{t(translations.hero.badge, lang)}</span>
           </motion.div>
 
-          {/* Main heading with reveal animation */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent leading-tight mb-6">
-            <RevealText delay={0.2}>Разрабатываем и внедряем</RevealText>
+            <RevealText delay={0.2}>{t(translations.hero.heading1, lang)}</RevealText>
             <br />
             <span className="text-white">
-              <RevealText delay={0.4}>умных AI-агентов</RevealText>
+              <RevealText delay={0.4}>{t(translations.hero.heading2, lang)}</RevealText>
             </span>
             <br />
-            <RevealText delay={0.6}>для автоматизации бизнеса</RevealText>
+            <RevealText delay={0.6}>{t(translations.hero.heading3, lang)}</RevealText>
           </h1>
 
-          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 sm:mb-10 px-4 sm:px-0"
           >
-            Создаём AI-агентов, которые автоматизируют рутинные задачи, обрабатывают данные и оптимизируют процессы 24/7
-            — настраиваем под любые нужды бизнеса и интегрируем в ваши системы
+            {t(translations.hero.subtitle, lang)}
           </motion.p>
 
-          {/* CTA Buttons with magnetic effect */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,17 +72,16 @@ const HeroSection = () => {
           >
             <MagneticButton href="https://t.me/AimaticSoft" className="btn-neon group flex items-center gap-2 text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4">
               <span className="relative z-10 flex items-center gap-2">
-                Заказать демо
+                {t(translations.hero.cta1, lang)}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </MagneticButton>
             <MagneticButton href="#demo" className="btn-neon-outline flex items-center gap-2 text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4">
               <Bot size={18} />
-              Попробовать ИИ-агента
+              {t(translations.hero.cta2, lang)}
             </MagneticButton>
           </motion.div>
 
-          {/* Floating icons with mouse interaction */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -125,7 +119,6 @@ const HeroSection = () => {
         </div>
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
