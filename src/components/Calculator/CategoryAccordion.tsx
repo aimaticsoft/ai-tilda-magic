@@ -1,4 +1,4 @@
- import { PricingCategory, PricingItem } from '@/data/pricingData';
+import { PricingCategory, PricingItem } from '@/data/pricingData';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Tooltip,
@@ -6,21 +6,29 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { translations, t } from '@/i18n/translations';
 
- interface CategoryCardProps {
+interface CategoryCardProps {
   category: PricingCategory;
   selectedItems: Set<string>;
   onItemToggle: (itemId: string) => void;
 }
 
- export const CategoryCard = ({
+export const CategoryCard = ({
   category,
   selectedItems,
   onItemToggle,
- }: CategoryCardProps) => {
+}: CategoryCardProps) => {
   const selectedCount = category.items.filter((item) =>
     selectedItems.has(item.id)
   ).length;
+  const { lang } = useLanguage();
+
+  const catKey = category.id as keyof typeof translations.pricingData.categories;
+  const catName = translations.pricingData.categories[catKey]
+    ? t(translations.pricingData.categories[catKey], lang)
+    : category.name;
 
   return (
     <div className={cn(
@@ -32,7 +40,7 @@ import { cn } from '@/lib/utils';
         <div className="flex items-center gap-3">
           <span className="text-2xl">{category.icon}</span>
           <span className="font-semibold text-foreground">
-            {category.name}
+            {catName}
           </span>
         </div>
          {selectedCount > 0 && (
@@ -64,6 +72,11 @@ interface FeatureItemProps {
 }
 
 const FeatureItem = ({ item, isSelected, onToggle }: FeatureItemProps) => {
+  const { lang } = useLanguage();
+  const itemTranslation = translations.pricingData.items[item.id];
+  const name = itemTranslation ? t(itemTranslation.name, lang) : item.name;
+  const description = itemTranslation ? t(itemTranslation.description, lang) : item.description;
+
   return (
     <label className={cn(
       "flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200",
@@ -75,7 +88,7 @@ const FeatureItem = ({ item, isSelected, onToggle }: FeatureItemProps) => {
         "flex-1 text-sm",
         isSelected ? "text-foreground" : "text-muted-foreground"
       )}>
-        {item.name}
+        {name}
       </span>
       <Tooltip>
         <TooltipTrigger asChild>
@@ -84,7 +97,7 @@ const FeatureItem = ({ item, isSelected, onToggle }: FeatureItemProps) => {
           </span>
         </TooltipTrigger>
         <TooltipContent side="left" className="max-w-xs">
-          <p className="text-sm">{item.description}</p>
+          <p className="text-sm">{description}</p>
           <p className="text-xs text-primary mt-1">
             ~{(item.pricePerHour * item.baseHours).toLocaleString('ru-RU')} ₽
           </p>
