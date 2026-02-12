@@ -1,33 +1,35 @@
-import { useState, useEffect } from 'react';
-
-interface MousePosition {
-  x: number;
-  y: number;
-  normalizedX: number;
-  normalizedY: number;
-}
+import { useMotionValue } from 'framer-motion';
+import { useEffect } from 'react';
 
 export const useMousePosition = () => {
-  const [mousePosition, setMousePosition] = useState<MousePosition>({
-    x: 0,
-    y: 0,
-    normalizedX: 0,
-    normalizedY: 0,
-  });
+  const normalizedX = useMotionValue(0);
+  const normalizedY = useMotionValue(0);
 
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-        normalizedX: (e.clientX / window.innerWidth - 0.5) * 2,
-        normalizedY: (e.clientY / window.innerHeight - 0.5) * 2,
-      });
+    let rafId: number | null = null;
+    let latestX = 0;
+    let latestY = 0;
+
+    const update = () => {
+      normalizedX.set(latestX);
+      normalizedY.set(latestY);
+      rafId = null;
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
-    return () => window.removeEventListener('mousemove', updateMousePosition);
-  }, []);
+    const handleMouseMove = (e: MouseEvent) => {
+      latestX = (e.clientX / window.innerWidth - 0.5) * 2;
+      latestY = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(update);
+      }
+    };
 
-  return mousePosition;
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, [normalizedX, normalizedY]);
+
+  return { normalizedX, normalizedY };
 };

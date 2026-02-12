@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import { useMousePosition } from '@/hooks/useMousePosition';
 import { ReactNode } from 'react';
 
@@ -17,21 +17,15 @@ const FloatingElement = ({
 }: FloatingElementProps) => {
   const { normalizedX, normalizedY } = useMousePosition();
 
+  const x = useTransform(normalizedX, (v) => v * intensity);
+  const y = useTransform(normalizedY, (v) => v * intensity);
+  const rotateX = useTransform(normalizedY, (v) => v * -rotationIntensity);
+  const rotateY = useTransform(normalizedX, (v) => v * rotationIntensity);
+
   return (
     <motion.div
       className={className}
-      animate={{
-        x: normalizedX * intensity,
-        y: normalizedY * intensity,
-        rotateX: normalizedY * -rotationIntensity,
-        rotateY: normalizedX * rotationIntensity,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 150,
-        damping: 15,
-      }}
-      style={{ perspective: 1000 }}
+      style={{ x, y, rotateX, rotateY, perspective: 1000 }}
     >
       {children}
     </motion.div>
