@@ -37,9 +37,9 @@ const ServicesSection = () => {
   } as const;
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 60, rotateX: -15 },
+    hidden: { opacity: 0, y: 40 },
     visible: { 
-      opacity: 1, y: 0, rotateX: 0,
+      opacity: 1, y: 0,
       transition: { type: "spring" as const, stiffness: 100, damping: 15 }
     },
   } as const;
@@ -73,21 +73,16 @@ const ServicesSection = () => {
             <motion.div
               key={service.title}
               variants={cardVariants}
-              className="group perspective-1000"
-              whileHover={{ scale: 1.03, rotateY: 5, rotateX: 5, z: 50 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="group"
             >
-              <div className="glass-card-hover h-full p-8 relative overflow-hidden transform-gpu">
-                <motion.div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="glass-card-hover h-full p-8 relative overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
                 
-                <motion.div 
+                <div 
                   className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <service.icon size={28} className="text-white" />
-                </motion.div>
+                </div>
 
                 <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {service.title}
@@ -99,7 +94,7 @@ const ServicesSection = () => {
                   className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
                 >
                   {t(translations.services.order, lang)}
-                  <motion.span className="text-lg" animate={{ x: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>→</motion.span>
+                  <span className="text-lg">→</span>
                 </MagneticButton>
 
                 <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${service.color} opacity-10 blur-2xl group-hover:opacity-30 transition-opacity`} />

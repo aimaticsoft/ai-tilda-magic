@@ -132,7 +132,7 @@
 @layer components {
   /* Glassmorphism Card */
   .glass-card {
-    @apply bg-card/40 backdrop-blur-xl border border-white/10 rounded-2xl;
+    @apply bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl;
     box-shadow: var(--shadow-soft);
   }
 
@@ -198,7 +198,7 @@
       linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
       linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px);
     background-size: 60px 60px;
-    animation: gridMove 15s linear infinite;
+    /* Removed infinite animation for performance */
   }
 
   /* Ambient glow background */
