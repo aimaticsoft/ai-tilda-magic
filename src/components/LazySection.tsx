@@ -36,6 +36,7 @@ const LazyAdvantages = lazy(() => import('./AdvantagesSection'));
 const LazyReviews = lazy(() => import('./ReviewsSection'));
 const LazyFAQ = lazy(() => import('./FAQSection'));
 const LazyContacts = lazy(() => import('./ContactsSection'));
+const LazyTargetAudience = lazy(() => import('./TargetAudienceSection'));
 
 // Wrapped components with Suspense
 export const LazyAboutSection = () => (
@@ -95,6 +96,12 @@ export const LazyFAQSection = () => (
 export const LazyContactsSection = () => (
   <Suspense fallback={<SectionSkeleton />}>
     <LazyContacts />
+  </Suspense>
+);
+
+export const LazyTargetAudienceSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyTargetAudience />
   </Suspense>
 );
 
