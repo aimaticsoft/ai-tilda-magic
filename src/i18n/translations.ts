@@ -25,6 +25,12 @@ export const translations = {
     },
     cta1: { ru: 'Заказать демо', en: 'Order Demo' },
     cta2: { ru: 'Попробовать ИИ-агента', en: 'Try AI Agent' },
+    stats: {
+      clients: { ru: 'клиентов', en: 'clients' },
+      agents: { ru: 'ИИ-агентов', en: 'AI agents' },
+      messages: { ru: 'сообщений', en: 'messages' },
+      savings: { ru: 'экономия затрат', en: 'cost savings' },
+    },
   },
 
   // Marquee
