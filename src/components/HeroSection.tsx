@@ -1,12 +1,36 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Bot, Cpu, Sparkles } from "lucide-react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { ArrowRight, Bot, Cpu, Sparkles, Users, MessageSquare, TrendingDown } from "lucide-react";
 import ParticlesBackground from "./ParticlesBackground";
-import FloatingElement from "./FloatingElement"; // used for bottom icons
+import FloatingElement from "./FloatingElement";
 import MagneticButton from "./MagneticButton";
 import RevealText from "./RevealText";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
+
+const AnimatedCounter = ({ target, suffix = "", duration = 2000 }: { target: number; suffix?: string; duration?: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const step = Math.ceil(target / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isInView, target, duration]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+};
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -19,6 +43,13 @@ const HeroSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+
+  const stats = [
+    { icon: Users, value: 50, suffix: "+", label: t(translations.hero.stats.clients, lang) },
+    { icon: Bot, value: 150, suffix: "+", label: t(translations.hero.stats.agents, lang) },
+    { icon: MessageSquare, value: 1, suffix: "M+", label: t(translations.hero.stats.messages, lang) },
+    { icon: TrendingDown, value: 60, suffix: "%", label: t(translations.hero.stats.savings, lang) },
+  ];
 
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -78,39 +109,25 @@ const HeroSection = () => {
             </MagneticButton>
           </motion.div>
 
+          {/* Social Proof Stats */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="mt-20 flex justify-center gap-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto"
           >
-            <FloatingElement intensity={15} rotationIntensity={5}>
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="glass-card p-4 hover:scale-110 transition-transform cursor-pointer"
+            {stats.map((stat, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card/30 border border-border/50"
               >
-                <Bot size={32} className="text-primary" />
-              </motion.div>
-            </FloatingElement>
-            <FloatingElement intensity={-10} rotationIntensity={8}>
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="glass-card p-4 hover:scale-110 transition-transform cursor-pointer"
-              >
-                <Cpu size={32} className="text-accent" />
-              </motion.div>
-            </FloatingElement>
-            <FloatingElement intensity={20} rotationIntensity={6}>
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="glass-card p-4 hover:scale-110 transition-transform cursor-pointer"
-              >
-                <Sparkles size={32} className="text-primary" />
-              </motion.div>
-            </FloatingElement>
+                <stat.icon size={20} className="text-primary" />
+                <span className="text-2xl md:text-3xl font-bold text-foreground">
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                </span>
+                <span className="text-xs md:text-sm text-muted-foreground">{stat.label}</span>
+              </div>
+            ))}
           </motion.div>
         </div>
       </motion.div>
