@@ -395,6 +395,49 @@ export const translations = {
       'statistics-dashboards': { name: { ru: 'Дашборды статистики', en: 'Statistics Dashboards' }, description: { ru: 'Визуализация данных и отчётов', en: 'Data and report visualization' } },
     } as Record<string, { name: { ru: string; en: string }; description: { ru: string; en: string } }>,
   },
+
+  // Target Audience
+  targetAudience: {
+    badge: { ru: 'Для кого', en: 'Who it\'s for' },
+    title: { ru: 'Кому подходят наши ИИ-агенты', en: 'Who our AI agents are for' },
+    subtitle: {
+      ru: 'Мы работаем с бизнесами любого масштаба — от локальных компаний до федеральных сетей',
+      en: 'We work with businesses of any scale — from local companies to national chains',
+    },
+    cta: { ru: 'Обсудить проект', en: 'Discuss project' },
+    items: [
+      {
+        title: { ru: 'Интернет-магазины', en: 'E-commerce' },
+        description: { ru: 'Автоматизация консультаций, обработка заказов, ответы на отзывы на маркетплейсах', en: 'Automated consultations, order processing, marketplace review responses' },
+        icon: 'shopping-cart',
+      },
+      {
+        title: { ru: 'Салоны красоты', en: 'Beauty Salons' },
+        description: { ru: 'Онлайн-запись, напоминания клиентам, консультации по услугам и ценам', en: 'Online booking, client reminders, service and price consultations' },
+        icon: 'scissors',
+      },
+      {
+        title: { ru: 'Автосервисы', en: 'Auto Services' },
+        description: { ru: 'Запись на диагностику, расчёт стоимости ремонта, статус заказ-наряда', en: 'Diagnostics booking, repair cost estimation, work order status' },
+        icon: 'wrench',
+      },
+      {
+        title: { ru: 'Клининговые компании', en: 'Cleaning Companies' },
+        description: { ru: 'Приём заявок, подбор химии по фото, контроль качества уборки', en: 'Request intake, chemistry selection by photo, cleaning quality control' },
+        icon: 'sparkles',
+      },
+      {
+        title: { ru: 'Образование', en: 'Education' },
+        description: { ru: 'Обучение сотрудников, тренажёры продаж, тестирование знаний', en: 'Employee training, sales simulators, knowledge testing' },
+        icon: 'graduation-cap',
+      },
+      {
+        title: { ru: 'Недвижимость', en: 'Real Estate' },
+        description: { ru: 'Подбор объектов, квалификация лидов, автоматические показы', en: 'Property matching, lead qualification, automated showings' },
+        icon: 'building',
+      },
+    ],
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

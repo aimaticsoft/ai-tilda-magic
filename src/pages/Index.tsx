@@ -19,6 +19,7 @@ import SectionSkeleton, {
   LazyReviewsSection,
   LazyFAQSection,
   LazyContactsSection,
+  LazyTargetAudienceSection,
 } from '@/components/LazySection';
 
 const Index = () => {
@@ -42,6 +43,7 @@ const Index = () => {
           <LazyAboutSection />
           <LazyProductsSection />
           <LazyServicesSection />
+          <LazyTargetAudienceSection />
           <LazyCasesSection />
           <LazyCalculatorSection />
           <LazyDemoSection />
