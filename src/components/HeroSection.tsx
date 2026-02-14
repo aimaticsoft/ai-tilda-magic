@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { ArrowRight, Bot, Cpu, Sparkles, Users, MessageSquare, TrendingDown } from "lucide-react";
+import { ArrowRight, Bot, Cpu, Sparkles, Users, MessageSquare, TrendingDown, Layers } from "lucide-react";
 import ParticlesBackground from "./ParticlesBackground";
 import FloatingElement from "./FloatingElement";
 import MagneticButton from "./MagneticButton";
@@ -47,8 +47,8 @@ const HeroSection = () => {
   const stats = [
     { icon: Users, value: 50, suffix: "+", label: t(translations.hero.stats.clients, lang) },
     { icon: Bot, value: 150, suffix: "+", label: t(translations.hero.stats.agents, lang) },
+    { icon: Layers, value: 5, suffix: "", label: t(translations.hero.stats.saas, lang) },
     { icon: MessageSquare, value: 1, suffix: "M+", label: t(translations.hero.stats.messages, lang) },
-    { icon: TrendingDown, value: 60, suffix: "%", label: t(translations.hero.stats.savings, lang) },
   ];
 
   return (
