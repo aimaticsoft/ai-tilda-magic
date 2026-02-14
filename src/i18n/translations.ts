@@ -15,21 +15,21 @@ export const translations = {
 
   // Hero
   hero: {
-    badge: { ru: 'Полный цикл: от создания до внедрения ИИ-агентов', en: 'Full cycle: from creation to deployment of AI agents' },
+    badge: { ru: 'Внедряем ИИ, который приносит деньги', en: 'We implement AI that makes money' },
     heading1: { ru: 'Разрабатываем и внедряем', en: 'We develop and deploy' },
     heading2: { ru: 'умных AI-агентов', en: 'smart AI agents' },
     heading3: { ru: 'для автоматизации бизнеса', en: 'for business automation' },
     subtitle: {
-      ru: 'Создаём AI-агентов, которые автоматизируют рутинные задачи, обрабатывают данные и оптимизируют процессы 24/7 — настраиваем под любые нужды бизнеса и интегрируем в ваши системы',
-      en: 'We create AI agents that automate routine tasks, process data and optimize processes 24/7 — customized for any business needs and integrated into your systems',
+      ru: 'Не ради моды. Не ради «чтобы было». Либо ИИ увеличивает прибыль, либо сокращает издержки. Создаём и внедряем решения на базе искусственного интеллекта для бизнеса.',
+      en: 'Not for trends. Not just to have it. Either AI increases profit or cuts costs. We build and implement AI solutions for business.',
     },
     cta1: { ru: 'Заказать демо', en: 'Order Demo' },
     cta2: { ru: 'Попробовать ИИ-агента', en: 'Try AI Agent' },
     stats: {
-      clients: { ru: 'клиентов', en: 'clients' },
+      clients: { ru: 'компаний-клиентов', en: 'client companies' },
       agents: { ru: 'ИИ-агентов', en: 'AI agents' },
+      saas: { ru: 'SaaS-решений', en: 'SaaS products' },
       messages: { ru: 'сообщений', en: 'messages' },
-      savings: { ru: 'экономия затрат', en: 'cost savings' },
     },
   },
 
@@ -129,13 +129,88 @@ export const translations = {
 
   // Services
   services: {
-    title1: { ru: 'Разработаем вашего совершенного', en: 'We will develop your perfect' },
-    title2: { ru: ' цифрового агента', en: ' digital agent' },
+    title1: { ru: 'Наши ', en: 'Our ' },
+    title2: { ru: 'направления', en: 'services' },
     subtitle: {
-      ru: 'Наш сервис активно разрабатывает и внедряет инновационные ИИ-агенты, которые предназначены для оптимизации процессов в бизнесе',
-      en: 'Our service actively develops and deploys innovative AI agents designed to optimize business processes',
+      ru: 'Четыре ключевых направления, где ИИ уже приносит реальные деньги и экономит ресурсы',
+      en: 'Four key areas where AI already generates real money and saves resources',
     },
     order: { ru: 'Заказать', en: 'Order' },
+    categories: [
+      {
+        title: { ru: 'Разработка ИИ-агентов для бизнеса', en: 'AI Agents for Business' },
+        description: { ru: 'Создаём интеллектуальных агентов, которые работают 24/7', en: 'We build intelligent agents that work 24/7' },
+        items: [
+          { ru: 'ИИ-продавцы (Telegram, WhatsApp, Avito, сайт, CRM)', en: 'AI sellers (Telegram, WhatsApp, Avito, website, CRM)' },
+          { ru: 'ИИ для маркетплейсов (WB, Ozon — отзывы, вопросы, карточки)', en: 'AI for marketplaces (WB, Ozon — reviews, questions, listings)' },
+          { ru: 'ИИ-SMM (ВК, Instagram, Telegram, Дзен — постинг, фото, контент)', en: 'AI-SMM (VK, Instagram, Telegram, Dzen — posting, photos, content)' },
+          { ru: 'ИИ-консультанты и техподдержка', en: 'AI consultants and tech support' },
+          { ru: 'ИИ-аналитика и автоматизация отчётов', en: 'AI analytics and report automation' },
+          { ru: 'HR-агенты и рекрутинговые системы', en: 'HR agents and recruiting systems' },
+        ],
+        results: [
+          { ru: 'Быстрее ответы → выше конверсия', en: 'Faster responses → higher conversion' },
+          { ru: 'Минус 30–50% рутинной работы', en: 'Minus 30-50% routine work' },
+          { ru: 'Обработка заявок 24/7', en: '24/7 request processing' },
+        ],
+        icon: 'bot',
+      },
+      {
+        title: { ru: 'SaaS и веб-разработка с ИИ', en: 'SaaS & Web Development with AI' },
+        description: { ru: 'Разрабатываем цифровые продукты с встроенным интеллектом', en: 'We build digital products with built-in intelligence' },
+        items: [
+          { ru: 'SaaS-платформы под вашу компанию', en: 'SaaS platforms for your company' },
+          { ru: 'Веб-приложения и CRM-системы', en: 'Web apps and CRM systems' },
+          { ru: 'Сервисы генерации (фото, видео, контент)', en: 'Generation services (photos, video, content)' },
+          { ru: 'Telegram-боты и Mini App', en: 'Telegram bots and Mini Apps' },
+          { ru: 'Корпоративные порталы и личные кабинеты', en: 'Corporate portals and dashboards' },
+          { ru: 'Лендинги и сайты', en: 'Landing pages and websites' },
+        ],
+        results: [
+          { ru: 'Новый источник дохода', en: 'New revenue source' },
+          { ru: 'Автоматизация внутренних процессов', en: 'Internal process automation' },
+          { ru: 'Цифровой актив компании', en: 'Digital company asset' },
+        ],
+        icon: 'code',
+      },
+      {
+        title: { ru: 'Генерация контента и AI-медиа', en: 'Content Generation & AI Media' },
+        description: { ru: 'Создаём визуал, видео и контент быстрее и дешевле продакшена', en: 'We create visuals, video and content faster and cheaper than production' },
+        items: [
+          { ru: 'Фото и визуал для маркетинга', en: 'Photos and visuals for marketing' },
+          { ru: 'Генерация одежды, интерьеров, товаров', en: 'Clothing, interior, product generation' },
+          { ru: 'Рекламные видео и ИИ-аватары', en: 'Promotional videos and AI avatars' },
+          { ru: 'Озвучка и синтез голоса', en: 'Voiceover and voice synthesis' },
+          { ru: 'Презентации и отчёты', en: 'Presentations and reports' },
+          { ru: 'Логотипы и дизайн', en: 'Logos and design' },
+        ],
+        results: [
+          { ru: 'Контент быстрее и дешевле продакшена', en: 'Content faster and cheaper than production' },
+          { ru: 'Тестирование гипотез без больших бюджетов', en: 'Testing hypotheses without big budgets' },
+          { ru: 'Повышение конверсии за счёт визуала', en: 'Conversion boost through quality visuals' },
+        ],
+        icon: 'image',
+      },
+      {
+        title: { ru: 'Обучение искусственному интеллекту', en: 'AI Training & Education' },
+        description: { ru: 'Проводим обучение от базового до продвинутого уровня', en: 'We provide training from basic to advanced levels' },
+        items: [
+          { ru: 'Как работает ИИ и какие инструменты использовать', en: 'How AI works and what tools to use' },
+          { ru: 'Промпт-инжиниринг и ускорение работы в 2–3 раза', en: 'Prompt engineering and 2-3x productivity boost' },
+          { ru: 'Создание ИИ-агентов и интеграции с CRM', en: 'Building AI agents and CRM integrations' },
+          { ru: 'Архитектура AI-решений', en: 'AI solution architecture' },
+          { ru: 'Разработка собственных AI-сервисов', en: 'Building custom AI services' },
+          { ru: 'Индивидуально, групповое, корпоративные программы', en: 'Individual, group, corporate programs' },
+        ],
+        results: [
+          { ru: 'Команда использует ИИ эффективно', en: 'Team uses AI effectively' },
+          { ru: 'Снижение затрат на подрядчиков', en: 'Reduced contractor costs' },
+          { ru: 'Рост продуктивности сотрудников', en: 'Employee productivity growth' },
+        ],
+        icon: 'graduation',
+      },
+    ],
+    // Keep old items for backward compatibility
     items: [
       { title: { ru: 'Агент-продавец', en: 'Sales Agent' }, description: { ru: 'Предлагает товары и услуги, информирует о ценах и акциях, помогает оформить заказ, передает заявку менеджеру.', en: 'Offers products and services, informs about prices and promotions, helps place an order, transfers the request to a manager.' } },
       { title: { ru: 'Агент-консультант', en: 'Consultant Agent' }, description: { ru: 'Отвечает на вопросы клиентов, предоставляет дополнительную информацию о продуктах и услугах.', en: 'Answers customer questions, provides additional information about products and services.' } },
@@ -195,8 +270,10 @@ export const translations = {
   advantages: {
     title: { ru: 'Преимущества', en: 'Advantages' },
     subtitle: { ru: 'Круглосуточная работа, больше продаж, снижение расходов — всё это благодаря ИИ-агентам', en: '24/7 operation, more sales, reduced costs — all thanks to AI agents' },
-    guaranteesTitle: { ru: 'Гарантированные результаты', en: 'Guaranteed Results' },
-    guaranteesSubtitle: { ru: 'Первый рабочий прототип ИИ-агента вы получаете через 7 дней, финальная версия за 2–3 недели', en: 'You receive the first working AI agent prototype in 7 days, final version in 2-3 weeks' },
+    whyUsTitle: { ru: 'Почему выбирают нас', en: 'Why Choose Us' },
+    whyUsSubtitle: { ru: 'Мы — технические специалисты, а не инфобизнес', en: 'We are technical specialists, not infobusiness' },
+    guaranteesTitle: { ru: 'Типичные результаты наших клиентов', en: 'Typical Client Results' },
+    guaranteesSubtitle: { ru: 'Реальные цифры из реальных проектов', en: 'Real numbers from real projects' },
     items: [
       { title: { ru: 'Круглосуточная поддержка', en: '24/7 Support' }, description: { ru: 'ИИ-агенты работают 24/7, обрабатывая задачи без перерывов и минимизируя упущенные возможности.', en: 'AI agents work 24/7, processing tasks without breaks and minimizing missed opportunities.' } },
       { title: { ru: 'Повышение конверсии', en: 'Conversion Boost' }, description: { ru: 'Агенты персонализируют рекомендации и анализируют данные в реальном времени, увеличивая продажи на 15–30%.', en: 'Agents personalize recommendations and analyze data in real time, increasing sales by 15-30%.' } },
@@ -205,10 +282,18 @@ export const translations = {
       { title: { ru: 'Глубокий анализ данных', en: 'Deep Data Analysis' }, description: { ru: 'Агенты проверяют информацию сразу, выдавая отчёты и советы по улучшению работы.', en: 'Agents check information instantly, providing reports and improvement recommendations.' } },
       { title: { ru: 'Масштабируемость', en: 'Scalability' }, description: { ru: 'Легко увеличивайте мощность агентов под рост бизнеса без дополнительных затрат на персонал.', en: 'Easily scale agent capacity for business growth without additional staff costs.' } },
     ],
+    whyUs: [
+      { title: { ru: 'Считаем экономику проекта', en: 'We calculate project economics' }, description: { ru: 'Каждое решение обосновано цифрами — ROI, окупаемость, реальная экономия.', en: 'Every solution is backed by numbers — ROI, payback, real savings.' } },
+      { title: { ru: 'Не обещаем «магии»', en: 'No "magic" promises' }, description: { ru: 'Мы внедряем систему, а не продаём мечту. Конкретные результаты в конкретные сроки.', en: 'We implement systems, not sell dreams. Concrete results in concrete timeframes.' } },
+      { title: { ru: 'Делаем MVP и масштабируем', en: 'We build MVP and scale' }, description: { ru: 'Начинаем с быстрого прототипа, тестируем и масштабируем только то, что работает.', en: 'Start with a quick prototype, test and scale only what works.' } },
+      { title: { ru: 'Сопровождаем и обучаем', en: 'We support and train' }, description: { ru: 'Не бросаем после запуска — обучаем команду и поддерживаем решение.', en: 'We don\'t abandon after launch — we train the team and support the solution.' } },
+      { title: { ru: 'Технические специалисты', en: 'Technical specialists' }, description: { ru: 'Мы — разработчики и инженеры, а не инфобизнес. Работаем с кодом, а не с хайпом.', en: 'We are developers and engineers, not infobusiness. We work with code, not hype.' } },
+    ],
     guarantees: [
-      { title: { ru: 'Персонализация под бизнес-логику', en: 'Business Logic Personalization' }, description: { ru: 'Обучаем ИИ на данных компании: продуктах, услугах, процессах, регламентах, сценариях общения.', en: 'We train AI on company data: products, services, processes, regulations, communication scenarios.' } },
-      { title: { ru: 'Быстрая разработка', en: 'Fast Development' }, description: { ru: 'MVP — за 7 дней. Финальная версия — за 2–3 недели после тестирования.', en: 'MVP — in 7 days. Final version — in 2-3 weeks after testing.' } },
-      { title: { ru: 'Предсказуемый процесс', en: 'Predictable Process' }, description: { ru: 'Все этапы идут по чёткому регламенту. Вы всегда понимаете, что делается.', en: 'All stages follow a clear workflow. You always know what\'s being done.' } },
+      { title: { ru: '+15–40% конверсия', en: '+15-40% conversion' }, description: { ru: 'Рост конверсии благодаря мгновенным персонализированным ответам и круглосуточной обработке заявок.', en: 'Conversion growth through instant personalized responses and 24/7 request processing.' } },
+      { title: { ru: '-30–50% рутины', en: '-30-50% routine' }, description: { ru: 'Сокращение ручной рутинной работы за счёт автоматизации повторяющихся бизнес-процессов.', en: 'Reduction of manual routine work through automation of repetitive business processes.' } },
+      { title: { ru: 'Окупаемость 1–3 мес', en: 'Payback 1-3 months' }, description: { ru: 'В зависимости от ниши, инвестиции окупаются за 1–3 месяца.', en: 'Depending on the niche, investments pay back in 1-3 months.' } },
+      { title: { ru: '×5–10 скорость', en: '×5-10 speed' }, description: { ru: 'Ускорение обработки заявок в 5–10 раз по сравнению с ручной обработкой.', en: '5-10x faster request processing compared to manual handling.' } },
     ],
   },
 

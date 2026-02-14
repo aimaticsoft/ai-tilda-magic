@@ -1,44 +1,38 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { ShoppingCart, MessageCircle, Share2, FileText, Calendar, Users } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Bot, Code2, Image, GraduationCap, CheckCircle2, ChevronDown, ArrowRight } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
 
-const serviceIcons = [ShoppingCart, MessageCircle, Share2, FileText, Calendar, Users];
-const serviceColors = [
+const categoryIcons = [Bot, Code2, Image, GraduationCap];
+const categoryGradients = [
   'from-blue-500 to-cyan-400',
   'from-purple-500 to-pink-400',
-  'from-orange-500 to-red-400',
+  'from-orange-500 to-amber-400',
   'from-green-500 to-emerald-400',
-  'from-yellow-500 to-amber-400',
-  'from-indigo-500 to-violet-400',
 ];
 
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { lang } = useLanguage();
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
-  const services = translations.services.items.map((item, i) => ({
-    icon: serviceIcons[i],
-    title: t(item.title, lang),
-    description: t(item.description, lang),
-    color: serviceColors[i],
-  }));
+  const categories = translations.services.categories;
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
     },
   } as const;
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { 
+    visible: {
       opacity: 1, y: 0,
       transition: { type: "spring" as const, stiffness: 100, damping: 15 }
     },
@@ -63,44 +57,104 @@ const ServicesSection = () => {
           </p>
         </motion.div>
 
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              variants={cardVariants}
-              className="group"
-            >
-              <div className="glass-card-hover h-full p-8 relative overflow-hidden">
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                
-                <div 
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}
-                >
-                  <service.icon size={28} className="text-white" />
+          {categories.map((category, index) => {
+            const Icon = categoryIcons[index];
+            const isExpanded = expandedIndex === index;
+
+            return (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                className="group"
+              >
+                <div className="glass-card-hover h-full relative overflow-hidden">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${categoryGradients[index]} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+
+                  {/* Header */}
+                  <button
+                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                    className="w-full p-6 pb-4 flex items-start gap-4 text-left"
+                  >
+                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${categoryGradients[index]} flex items-center justify-center shrink-0`}>
+                      <Icon size={28} className="text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
+                        {t(category.title, lang)}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {t(category.description, lang)}
+                      </p>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="shrink-0 mt-1"
+                    >
+                      <ChevronDown size={20} className="text-muted-foreground" />
+                    </motion.div>
+                  </button>
+
+                  {/* Expandable content */}
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height: isExpanded ? 'auto' : 0,
+                      opacity: isExpanded ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-6 space-y-4">
+                      {/* Sub-items */}
+                      <div className="space-y-2">
+                        {category.items.map((item, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={isExpanded ? { opacity: 1, x: 0 } : {}}
+                            transition={{ delay: i * 0.05 }}
+                            className="flex items-start gap-2 text-sm"
+                          >
+                            <span className="text-primary mt-0.5 shrink-0">•</span>
+                            <span className="text-foreground/80">{t(item, lang)}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      {/* Results */}
+                      <div className="pt-3 border-t border-border/50 space-y-2">
+                        <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
+                          {lang === 'ru' ? 'Результат' : 'Result'}
+                        </p>
+                        {category.results.map((result, i) => (
+                          <div key={i} className="flex items-center gap-2 text-sm">
+                            <CheckCircle2 size={14} className="text-green-500 shrink-0" />
+                            <span className="text-foreground/90">{t(result, lang)}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* CTA */}
+                      <MagneticButton
+                        href="https://t.me/AimaticSoft"
+                        className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all text-sm pt-2"
+                      >
+                        {t(translations.services.order, lang)}
+                        <ArrowRight size={16} />
+                      </MagneticButton>
+                    </div>
+                  </motion.div>
                 </div>
-
-                <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
-
-                <MagneticButton
-                  href="https://t.me/AimaticSoft"
-                  className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
-                >
-                  {t(translations.services.order, lang)}
-                  <span className="text-lg">→</span>
-                </MagneticButton>
-
-                <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${service.color} opacity-10 blur-2xl group-hover:opacity-30 transition-opacity`} />
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
