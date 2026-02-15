@@ -72,14 +72,18 @@ const HeroSection = () => {
             <span>{t(translations.hero.badge, lang)}</span>
           </motion.div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent leading-tight mb-6">
-            <RevealText delay={0.2}>{t(translations.hero.heading1, lang)}</RevealText>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <span className="bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent">
+              <RevealText delay={0.2}>{t(translations.hero.heading1, lang)}</RevealText>
+            </span>
             <br />
             <span className="text-white">
               <RevealText delay={0.4}>{t(translations.hero.heading2, lang)}</RevealText>
             </span>
             <br />
-            <RevealText delay={0.6}>{t(translations.hero.heading3, lang)}</RevealText>
+            <span className="bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent">
+              <RevealText delay={0.6}>{t(translations.hero.heading3, lang)}</RevealText>
+            </span>
           </h1>
 
           <motion.p
