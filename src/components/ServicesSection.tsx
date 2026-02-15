@@ -74,7 +74,7 @@ const ServicesSection = () => {
                 className="group"
               >
                 <div className="glass-card-hover h-full relative overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${categoryGradients[index]} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${categoryGradients[index]} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`} />
 
                   {/* Header */}
                   <button
