@@ -8,7 +8,7 @@ import { translations, t } from '@/i18n/translations';
 const FAQSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { lang } = useLanguage();
 
   const faqs = translations.faq.items.map((item) => ({
