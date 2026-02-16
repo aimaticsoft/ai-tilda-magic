@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Bot, Code2, Image, GraduationCap, CheckCircle2, ChevronDown, ArrowRight } from 'lucide-react';
@@ -102,12 +102,13 @@ const ServicesSection = () => {
                   </button>
 
                   {/* Expandable content */}
+                  <AnimatePresence initial={false}>
+                  {isExpanded && (
                   <motion.div
-                    initial={false}
-                    animate={{
-                      height: isExpanded ? 'auto' : 0,
-                      opacity: isExpanded ? 1 : 0,
-                    }}
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
@@ -151,6 +152,8 @@ const ServicesSection = () => {
                       </MagneticButton>
                     </div>
                   </motion.div>
+                  )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             );
