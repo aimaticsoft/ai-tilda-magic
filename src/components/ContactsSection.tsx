@@ -38,7 +38,7 @@ const ContactsSection = () => {
   };
 
   const contactItems = [
-    { icon: Phone, label: t(translations.contacts.phone, lang), value: "8 929 384-48-44", href: "tel:+7929384484444" },
+    { icon: Phone, label: t(translations.contacts.phone, lang), value: "8 929 384-48-44", href: "tel:+79293844844" },
     { icon: Mail, label: t(translations.contacts.email, lang), value: "info@aimaticsoft.ru", href: "mailto:info@aimaticsoft.ru" },
     { icon: MapPin, label: t(translations.contacts.address, lang), value: t(translations.contacts.addressValue, lang), href: null },
   ];
