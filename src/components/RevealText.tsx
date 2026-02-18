@@ -18,7 +18,7 @@ const RevealText = ({ children, className = '', delay = 0 }: RevealTextProps) =>
       {words.map((word, i) => (
         <span key={i} className="inline-block overflow-hidden">
           <motion.span
-            className="inline-block py-[0.1em]"
+            className="inline-block"
             initial={{ y: '100%', opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : {}}
             transition={{
