@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="relative z-10 section-container">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Aimatic Logo" className="w-10 h-10 rounded-xl object-cover" loading="lazy" />
+            <img src={logo} alt="Aimatic Logo" className="w-10 h-10 rounded-xl object-cover" />
             <span className="text-xl font-bold text-gradient">Aimatic</span>
           </div>
           <p className="text-muted-foreground text-sm text-center">

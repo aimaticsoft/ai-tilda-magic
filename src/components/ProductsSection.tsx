@@ -45,7 +45,7 @@ const ProductsSection = () => {
                 <div className="relative h-full glass-card-hover p-8 rounded-2xl overflow-hidden">
                   <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${product.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
                   <div className={`relative z-10 w-16 h-16 rounded-xl bg-gradient-to-br ${product.gradient} p-0.5 mb-6`}>
-                    <div className="w-full h-full rounded-xl overflow-hidden"><img src={product.logo} alt={`${product.name} logo`} className="w-full h-full object-cover" loading="lazy" /></div>
+                    <div className="w-full h-full rounded-xl overflow-hidden"><img src={product.logo} alt={`${product.name} logo`} className="w-full h-full object-cover" /></div>
                   </div>
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-3">
