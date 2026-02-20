@@ -124,6 +124,17 @@ export const translations = {
           en: ['Photo Generation', 'For Business', 'No Setup'],
         },
       },
+      {
+        name: { ru: 'AimSeller', en: 'AimSeller' },
+        description: {
+          ru: 'Платформа для продавцов на маркетплейсах: отслеживайте продажи, анализируйте данные и получайте советы от встроенного ИИ, который знает всё о вашем личном кабинете.',
+          en: 'Platform for marketplace sellers: track sales, analyze data and get advice from the built-in AI that knows everything about your account.',
+        },
+        features: {
+          ru: ['Аналитика продаж', 'ИИ-помощник', 'Маркетплейсы'],
+          en: ['Sales Analytics', 'AI Assistant', 'Marketplaces'],
+        },
+      },
     ],
   },
 
