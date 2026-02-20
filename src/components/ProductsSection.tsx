@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Target, Image, Sparkles, TrendingUp } from 'lucide-react';
+import { ExternalLink, Target, Image, Sparkles, TrendingUp, ShoppingCart } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 import aimsalesLogo from '@/assets/aimsales-logo.png';
 import aimvisualLogo from '@/assets/aimvisual-logo.jpg';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
 
-const productLogos = [aimsalesLogo, aimvisualLogo];
-const productLinks = ['https://aimsales.aimaticsoft.ru/', 'https://aimvisual.aimaticsoft.ru/'];
-const productIcons = [Target, Image];
-const productGradients = ['from-primary to-blue-400', 'from-accent to-cyan-400'];
+const productLogos: (string | null)[] = [aimsalesLogo, aimvisualLogo, null];
+const productLinks = ['https://aimsales.aimaticsoft.ru/', 'https://aimvisual.aimaticsoft.ru/', 'https://aimseller.aimaticsoft.ru/'];
+const productIcons = [Target, Image, ShoppingCart];
+const productGradients = ['from-primary to-blue-400', 'from-accent to-cyan-400', 'from-emerald-500 to-green-400'];
 
 const ProductsSection = () => {
   const { lang } = useLanguage();
@@ -38,34 +38,42 @@ const ProductsSection = () => {
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {products.map((product, index) => (
-            <AnimatedSection key={product.name}>
-              <motion.a href={product.link} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} whileHover={{ scale: 1.02, y: -5 }} className="group relative block h-full">
-                <div className="relative h-full glass-card-hover p-8 rounded-2xl overflow-hidden">
-                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${product.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
-                  <div className={`relative z-10 w-16 h-16 rounded-xl bg-gradient-to-br ${product.gradient} p-0.5 mb-6`}>
-                    <div className="w-full h-full rounded-xl overflow-hidden"><img src={product.logo} alt={`${product.name} logo`} className="w-full h-full object-cover" loading="lazy" /></div>
-                  </div>
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-3">
-                      <h3 className="text-2xl font-bold text-foreground group-hover:text-gradient transition-colors">{product.name}</h3>
-                      <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {products.map((product, index) => {
+            const Icon = product.icon;
+            return (
+              <AnimatedSection key={product.name}>
+                <motion.a href={product.link} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} whileHover={{ scale: 1.02, y: -5 }} className="group relative block h-full">
+                  <div className="relative h-full glass-card-hover p-8 rounded-2xl overflow-hidden">
+                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${product.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
+                    <div className={`relative z-10 w-16 h-16 rounded-xl bg-gradient-to-br ${product.gradient} p-0.5 mb-6`}>
+                      <div className="w-full h-full rounded-xl overflow-hidden">
+                        {product.logo
+                          ? <img src={product.logo} alt={`${product.name} logo`} className="w-full h-full object-cover" loading="lazy" />
+                          : <div className="w-full h-full flex items-center justify-center bg-background/80"><Icon className="w-8 h-8 text-foreground" /></div>
+                        }
+                      </div>
                     </div>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">{product.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {product.features.map((feature) => (
-                        <span key={feature} className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">{feature}</span>
-                      ))}
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-2xl font-bold text-foreground group-hover:text-gradient transition-colors">{product.name}</h3>
+                        <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-muted-foreground mb-6 leading-relaxed">{product.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {product.features.map((feature) => (
+                          <span key={feature} className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">{feature}</span>
+                        ))}
+                      </div>
                     </div>
+                    <motion.div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity" initial={{ x: -10 }} whileHover={{ x: 0 }}>
+                      <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${product.gradient} flex items-center justify-center`}><TrendingUp className="w-5 h-5 text-white" /></div>
+                    </motion.div>
                   </div>
-                  <motion.div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity" initial={{ x: -10 }} whileHover={{ x: 0 }}>
-                    <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${product.gradient} flex items-center justify-center`}><TrendingUp className="w-5 h-5 text-white" /></div>
-                  </motion.div>
-                </div>
-              </motion.a>
-            </AnimatedSection>
-          ))}
+                </motion.a>
+              </AnimatedSection>
+            );
+          })}
         </div>
 
         <AnimatedSection>
