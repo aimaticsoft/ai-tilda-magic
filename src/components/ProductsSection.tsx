@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Target, Image, Sparkles, TrendingUp, ShoppingCart } from 'lucide-react';
+import { ExternalLink, Target, Image, Sparkles, TrendingUp, ShoppingCart, GraduationCap } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 import aimsalesLogo from '@/assets/aimsales-logo.png';
 import aimvisualLogo from '@/assets/aimvisual-logo.jpg';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
 
-const productLogos: (string | null)[] = [aimsalesLogo, aimvisualLogo, null];
-const productLinks = ['https://aimsales.aimaticsoft.ru/', 'https://aimvisual.aimaticsoft.ru/', 'https://aimseller.aimaticsoft.ru/'];
-const productIcons = [Target, Image, ShoppingCart];
-const productGradients = ['from-primary to-blue-400', 'from-accent to-cyan-400', 'from-emerald-500 to-green-400'];
+const productLogos: (string | null)[] = [aimsalesLogo, aimvisualLogo, null, null];
+const productLinks = ['https://aimsales.aimaticsoft.ru/', 'https://aimvisual.aimaticsoft.ru/', 'https://aimseller.aimaticsoft.ru/', 'https://learnflow-ai-39.lovable.app'];
+const productIcons = [Target, Image, ShoppingCart, GraduationCap];
+const productGradients = ['from-primary to-blue-400', 'from-accent to-cyan-400', 'from-emerald-500 to-green-400', 'from-orange-500 to-amber-400'];
 
 const ProductsSection = () => {
   const { lang } = useLanguage();

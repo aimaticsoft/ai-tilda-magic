@@ -135,6 +135,17 @@ export const translations = {
           en: ['Sales Analytics', 'AI Assistant', 'Marketplaces'],
         },
       },
+      {
+        name: { ru: 'AimAcademy', en: 'AimAcademy' },
+        description: {
+          ru: 'Платформа для обучения и адаптации сотрудников: руководители создают курсы из своих материалов, а сотрудники проходят обучение в удобном формате. Снижает нагрузку, ускоряет онбординг и сохраняет знания внутри компании.',
+          en: 'Employee training and onboarding platform: managers create courses from their materials, and employees learn at their own pace. Reduces workload, speeds up onboarding and retains knowledge within the company.',
+        },
+        features: {
+          ru: ['Создание курсов', 'Онбординг', 'База знаний'],
+          en: ['Course Creation', 'Onboarding', 'Knowledge Base'],
+        },
+      },
     ],
   },
 
