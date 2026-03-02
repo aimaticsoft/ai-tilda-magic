@@ -159,6 +159,13 @@ const ContactsSection = () => {
                 <Newspaper size={18} />
                 <span>{lang === "ru" ? "Дзен" : "Dzen"}</span>
               </MagneticButton>
+              <MagneticButton
+                href="https://max.ru/join/IRugiyJB9kQyCC616chRqIXvhhsPZdQhi7-4qah18rg"
+                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3 text-sm sm:text-base"
+              >
+                <MessageCircle size={18} />
+                <span>Max</span>
+              </MagneticButton>
             </motion.div>
           </motion.div>
 
