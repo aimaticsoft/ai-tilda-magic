@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2, MessageCircle } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
 import { supabase } from "@/integrations/supabase/client";
