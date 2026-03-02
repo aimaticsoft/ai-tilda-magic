@@ -21,6 +21,7 @@ const Footer = () => {
             <a href="https://t.me/aimatic1" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Telegram</a>
             <a href="https://www.youtube.com/@AimaticSoft" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">YouTube</a>
             <a href="https://dzen.ru/aimatic" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">{lang === 'ru' ? 'Дзен' : 'Dzen'}</a>
+            <a href="https://max.ru/join/IRugiyJB9kQyCC616chRqIXvhhsPZdQhi7-4qah18rg" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Max</a>
           </div>
         </div>
       </div>
