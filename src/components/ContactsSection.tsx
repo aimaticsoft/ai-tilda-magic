@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2, MessageCircle } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
 import { supabase } from "@/integrations/supabase/client";
@@ -158,6 +158,13 @@ const ContactsSection = () => {
               >
                 <Newspaper size={18} />
                 <span>{lang === "ru" ? "Дзен" : "Dzen"}</span>
+              </MagneticButton>
+              <MagneticButton
+                href="https://max.ru/join/IRugiyJB9kQyCC616chRqIXvhhsPZdQhi7-4qah18rg"
+                className="flex-1 btn-neon-outline flex items-center justify-center gap-2 py-3 text-sm sm:text-base"
+              >
+                <MessageCircle size={18} />
+                <span>Max</span>
               </MagneticButton>
             </motion.div>
           </motion.div>
