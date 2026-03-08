@@ -1,9 +1,18 @@
 import { motion, useInView } from 'framer-motion';
 import React, { useRef, useState } from 'react';
 import { MessageSquare, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
-import AgentAvatar, { type AgentAvatarVariant } from '@/components/agents/AgentAvatar';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
+
+import paintSellerImg from '@/assets/agents/paint_seller.jpg';
+import autoserviceImg from '@/assets/agents/autoservice.jpg';
+import flowersSellerImg from '@/assets/agents/flowers_seller.jpg';
+import appleSellerImg from '@/assets/agents/apple_seller.jpg';
+import fitnessTrainerImg from '@/assets/agents/fitness_trainer.jpg';
+import beautyStylistImg from '@/assets/agents/beauty_stylist.jpg';
+import autochemSellerImg from '@/assets/agents/autochem_seller.jpg';
+import cleaningManagerImg from '@/assets/agents/cleaning_manager.jpg';
+import itManagerImg from '@/assets/agents/it_manager.jpg';
 
 const demoLinks = [
   'https://t.me/colorshopkraski_bot',
@@ -29,9 +38,16 @@ const demoGradients = [
   'from-indigo-500 to-blue-500',
 ];
 
-const demoAvatars: AgentAvatarVariant[] = [
-  'paint_seller', 'autoservice_manager', 'flowers_seller', 'apple_seller',
-  'fitness_admin', 'beauty_admin', 'autochem_seller', 'cleaning_manager', 'it_manager',
+const demoPhotos = [
+  paintSellerImg,
+  autoserviceImg,
+  flowersSellerImg,
+  appleSellerImg,
+  fitnessTrainerImg,
+  beautyStylistImg,
+  autochemSellerImg,
+  cleaningManagerImg,
+  itManagerImg,
 ];
 
 const DemoSection = () => {
@@ -46,7 +62,7 @@ const DemoSection = () => {
     description: t(item.description, lang),
     link: demoLinks[i],
     gradient: demoGradients[i],
-    avatar: demoAvatars[i],
+    photo: demoPhotos[i],
   }));
 
   const [visibleCount, setVisibleCount] = React.useState(3);
@@ -122,7 +138,21 @@ const DemoSection = () => {
                     <motion.div className={`absolute -inset-3 bg-gradient-to-br ${demo.gradient} rounded-2xl blur-xl`} initial={{ opacity: 0 }} animate={{ opacity: hoveredIndex === index ? 0.3 : 0 }} transition={{ duration: 0.3 }} />
                     <div className="relative glass-card p-6 h-full border border-transparent hover:border-primary/50 transition-all duration-300 group">
                       <div className="flex items-start gap-4">
-                        <AgentAvatar gradient={demo.gradient} isHovered={hoveredIndex === index} variant={demo.avatar} />
+                        <div className="relative flex-shrink-0">
+                          <div className={`w-14 h-14 rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/50 transition-all duration-300`}>
+                            <img 
+                              src={demo.photo} 
+                              alt={demo.title}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                          <motion.div
+                            className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-card"
+                            animate={hoveredIndex === index ? { scale: [1, 1.3, 1] } : {}}
+                            transition={{ duration: 1, repeat: Infinity }}
+                          />
+                        </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{demo.title}</h3>
                           <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{demo.description}</p>

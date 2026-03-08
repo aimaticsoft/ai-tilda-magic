@@ -27,13 +27,14 @@ const ComparisonSection = () => {
           </p>
         </motion.div>
 
+        {/* Desktop table */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="overflow-x-auto"
+          className="hidden sm:block"
         >
-          <table className="w-full min-w-[600px]">
+          <table className="w-full">
             <thead>
               <tr>
                 <th className="text-left p-4 text-sm text-muted-foreground font-medium">{t(translations.comparison.parameter, lang)}</th>
@@ -73,6 +74,33 @@ const ComparisonSection = () => {
             </tbody>
           </table>
         </motion.div>
+
+        {/* Mobile cards */}
+        <div className="sm:hidden space-y-3">
+          {rows.map((row, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.2 + i * 0.06 }}
+              className="glass-card p-4 space-y-3"
+            >
+              <p className="text-sm font-semibold text-foreground">{t(row.param, lang)}</p>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  {row.traditionalBad && <X size={14} className="text-destructive flex-shrink-0" />}
+                  <span className="text-xs text-muted-foreground/60 min-w-[70px]">{t(translations.comparison.traditional, lang)}:</span>
+                  <span>{t(row.traditional, lang)}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-primary font-medium">
+                  <Check size={14} className="text-primary flex-shrink-0" />
+                  <span className="text-xs text-primary/60 min-w-[70px]">Aimatic:</span>
+                  <span>{t(row.aimatic, lang)}</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         {/* Price anchor */}
         <motion.div
