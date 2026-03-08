@@ -364,6 +364,8 @@ export const translations = {
     consent: { ru: 'Нажимая на кнопку, вы даете согласие на обработку персональных данных', en: 'By clicking the button, you consent to the processing of personal data' },
     successToast: { ru: 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.', en: 'Request sent! We will contact you shortly.' },
     errorToast: { ru: 'Произошла ошибка. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.', en: 'An error occurred. Please try again later or contact us directly.' },
+    successTitle: { ru: 'Заявка отправлена!', en: 'Request sent!' },
+    successMessage: { ru: 'Наш менеджер скоро свяжется с вами. Спасибо!', en: 'Our manager will contact you shortly. Thank you!' },
   },
 
   // Calculator

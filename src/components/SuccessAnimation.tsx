@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 interface Particle {
   id: number;
@@ -21,6 +23,7 @@ const colors = [
 
 const SuccessAnimation = ({ show, onComplete }: { show: boolean; onComplete: () => void }) => {
   const [particles, setParticles] = useState<Particle[]>([]);
+  const { lang } = useLanguage();
 
   useEffect(() => {
     if (show) {
@@ -37,7 +40,7 @@ const SuccessAnimation = ({ show, onComplete }: { show: boolean; onComplete: () 
       const timer = setTimeout(() => {
         onComplete();
         setParticles([]);
-      }, 2500);
+      }, 3500);
       return () => clearTimeout(timer);
     }
   }, [show, onComplete]);
@@ -73,21 +76,39 @@ const SuccessAnimation = ({ show, onComplete }: { show: boolean; onComplete: () 
             />
           ))}
 
-          {/* Checkmark */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: [0, 1.2, 1] }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-24 h-24 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center"
-          >
+          {/* Content */}
+          <div className="flex flex-col items-center text-center gap-5">
+            {/* Checkmark */}
             <motion.div
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
+              initial={{ scale: 0 }}
+              animate={{ scale: [0, 1.2, 1] }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="w-24 h-24 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center"
             >
-              <Check size={48} className="text-primary" strokeWidth={3} />
+              <motion.div
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+              >
+                <Check size={48} className="text-primary" strokeWidth={3} />
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <h3 className="text-2xl font-bold text-foreground">
+                {t(translations.contacts.successTitle, lang)}
+              </h3>
+              <p className="text-muted-foreground text-lg max-w-sm">
+                {t(translations.contacts.successMessage, lang)}
+              </p>
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
