@@ -55,8 +55,6 @@ const Index = () => {
           <LazyContactsSection />
         </main>
         <Footer />
-        <BackToTopButton />
-        <MobileStickyСTA />
       </div>
     </SmoothScroll>
   );
