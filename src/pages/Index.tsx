@@ -21,6 +21,9 @@ import SectionSkeleton, {
   LazyContactsSection,
   LazyTargetAudienceSection,
   LazyHowWeWorkSection,
+  LazyTrustBadgesSection,
+  LazyIndustrySolutionsSection,
+  LazyComparisonSection,
 } from '@/components/LazySection';
 
 const Index = () => {
