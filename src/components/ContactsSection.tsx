@@ -138,7 +138,7 @@ const ContactsSection = () => {
             </div>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6, type: "spring" }}
