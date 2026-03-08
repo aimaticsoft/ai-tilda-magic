@@ -149,7 +149,7 @@ export const useUserTracker = () => {
       }
     };
 
-    // Click tracking with smart text extraction
+    // Click tracking — all labels in Russian
     const smartTruncate = (str: string, max: number): string => {
       if (str.length <= max) return str;
       const truncated = str.slice(0, max);
@@ -157,34 +157,62 @@ export const useUserTracker = () => {
       return (lastSpace > max * 0.5 ? truncated.slice(0, lastSpace) : truncated) + '…';
     };
 
+    const findParentSection = (el: Element): string | null => {
+      let current: Element | null = el;
+      while (current) {
+        if (current.id && SECTION_IDS.includes(current.id)) return current.id;
+        current = current.parentElement;
+      }
+      return null;
+    };
+
+    const SECTION_NAMES_RU: Record<string, string> = {
+      'about': 'О компании', 'products': 'Продукты', 'services': 'Услуги',
+      'cases': 'Кейсы', 'calculator': 'Калькулятор', 'demo': 'Демо',
+      'advantages': 'Преимущества', 'reviews': 'Отзывы', 'faq': 'FAQ',
+      'contacts': 'Контакты', 'target-audience': 'Целевая аудитория',
+      'how-we-work': 'Как мы работаем', 'trust-badges': 'Доверие',
+      'industry-solutions': 'Отраслевые решения', 'comparison': 'Сравнение',
+    };
+
     const getClickText = (el: Element): string => {
-      // Try textContent first
-      let text = (el.textContent || '').replace(/\s+/g, ' ').trim();
-      if (text.length > 3) return smartTruncate(text, 100);
+      // 1. Explicit analytics label
+      const analyticsLabel = el.getAttribute('data-analytics-label');
+      if (analyticsLabel) return smartTruncate(analyticsLabel, 120);
 
-      // Fallback: aria-label, title, alt
+      // 2. aria-label (already in Russian on our site)
       const ariaLabel = el.getAttribute('aria-label');
-      if (ariaLabel) return smartTruncate(ariaLabel, 100);
+      if (ariaLabel) return smartTruncate(ariaLabel, 120);
 
-      const title = el.getAttribute('title');
-      if (title) return smartTruncate(title, 100);
+      // 3. title attribute
+      const titleAttr = el.getAttribute('title');
+      if (titleAttr) return smartTruncate(titleAttr, 120);
 
-      // For links, show hostname
+      // 4. Visible text content
+      const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+      if (text.length > 2) return smartTruncate(text, 120);
+
+      // 5. For links — readable description
       const href = el.getAttribute('href');
       if (href) {
+        if (href.startsWith('#')) {
+          const sectionName = SECTION_NAMES_RU[href.slice(1)];
+          return sectionName ? `Ссылка на «${sectionName}»` : `Якорная ссылка ${href}`;
+        }
         try {
           const url = new URL(href, window.location.origin);
-          if (url.hostname !== window.location.hostname) return url.hostname;
-          return url.pathname;
+          if (url.hostname.includes('t.me')) return `Ссылка в Telegram`;
+          if (url.hostname !== window.location.hostname) return `Внешняя ссылка (${url.hostname})`;
+          return `Ссылка ${url.pathname}`;
         } catch {
-          return href.slice(0, 60);
+          return `Ссылка`;
         }
       }
 
-      // Last resort: tag + class
-      const tag = el.tagName.toLowerCase();
-      const cls = el.className ? `.${String(el.className).split(' ')[0]}` : '';
-      return `${tag}${cls}`;
+      // 6. Fallback with section context — always Russian, never tag.class
+      const section = findParentSection(el);
+      const sectionLabel = section ? ` в «${SECTION_NAMES_RU[section] || section}»` : '';
+      return `Кнопка без подписи${sectionLabel}`;
     };
 
     const handleClick = (e: MouseEvent) => {
@@ -192,19 +220,8 @@ export const useUserTracker = () => {
       const button = target.closest('button, a, [role="button"]');
       if (button) {
         const text = getClickText(button);
-        const tag = button.tagName.toLowerCase();
-        const href = button.getAttribute('href') || '';
-        let targetLabel = tag;
-        if (href) {
-          try {
-            const url = new URL(href, window.location.origin);
-            targetLabel = url.hostname !== window.location.hostname ? `${tag}[${url.hostname}]` : `${tag}[${url.pathname}]`;
-          } catch {
-            targetLabel = `${tag}[${href.slice(0, 50)}]`;
-          }
-        }
         clicks.current.push({
-          target: targetLabel,
+          target: text,
           text,
           timestamp: Math.floor((Date.now() - startTime.current) / 1000),
         });

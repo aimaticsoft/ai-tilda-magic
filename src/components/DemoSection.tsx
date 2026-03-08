@@ -112,10 +112,10 @@ const DemoSection = () => {
         </motion.div>
 
         <div className="relative z-20 flex justify-end gap-2 mb-6">
-          <motion.button onClick={prev} className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.button onClick={prev} aria-label="Демо: предыдущий слайд" className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <ChevronLeft size={20} className="text-foreground" />
           </motion.button>
-          <motion.button onClick={next} className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.button onClick={next} aria-label="Демо: следующий слайд" className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <ChevronRight size={20} className="text-foreground" />
           </motion.button>
         </div>
@@ -172,7 +172,7 @@ const DemoSection = () => {
 
         <div className="flex justify-center gap-2 mt-4">
           {demos.map((_, i) => (
-            <motion.button key={i} onClick={() => setCurrentIndex(i)} className={`h-2 rounded-full transition-all ${i === currentIndex % demos.length ? 'w-8 bg-primary' : 'w-2 bg-border'}`} whileHover={{ scale: 1.2 }} />
+            <motion.button key={i} onClick={() => setCurrentIndex(i)} aria-label={`Демо-бот ${i + 1}`} className={`h-2 rounded-full transition-all ${i === currentIndex % demos.length ? 'w-8 bg-primary' : 'w-2 bg-border'}`} whileHover={{ scale: 1.2 }} />
           ))}
         </div>
       </div>
