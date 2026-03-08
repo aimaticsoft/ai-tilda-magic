@@ -28,7 +28,7 @@ const MobileStickyСTA = () => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+          className="fixed bottom-[4.5rem] left-0 right-0 z-50 p-3"
         >
           <button
             onClick={scrollToContacts}
