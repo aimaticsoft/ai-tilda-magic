@@ -161,16 +161,11 @@
     content: '';
     @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300;
     background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
-    z-index: 0;
+    z-index: -1;
   }
 
   .btn-neon:hover::before {
     @apply opacity-100;
-  }
-
-  .btn-neon > * {
-    position: relative;
-    z-index: 1;
   }
 
   /* Outline Neon Button */
