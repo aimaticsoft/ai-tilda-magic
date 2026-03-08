@@ -43,7 +43,7 @@ const AdvantagesSection = () => {
   } as const;
 
   return (
-    <section id="advantages" className="relative py-16 sm:py-24">
+    <section id="advantages" aria-label="Преимущества ИИ-агентов для бизнеса" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         {/* Main advantages */}
         <motion.div initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }} className="text-center mb-16">

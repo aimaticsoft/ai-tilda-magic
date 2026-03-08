@@ -29,7 +29,7 @@ const AboutSection = () => {
   }));
 
   return (
-    <section id="about" ref={containerRef} className="relative py-16 sm:py-24">
+    <section id="about" ref={containerRef} aria-label="О компании Aimatic — как мы работаем" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}

@@ -25,7 +25,7 @@ const ProductsSection = () => {
   }));
 
   return (
-    <section id="products" className="relative py-20 md:py-32">
+    <section id="products" aria-label="SaaS-продукты Aimatic на основе ИИ" className="relative py-20 md:py-32">
       <div className="section-container relative z-10">
         <AnimatedSection>
           <div className="text-center mb-16">

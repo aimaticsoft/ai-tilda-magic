@@ -1,34 +1,26 @@
 
 
-## SEO-оптимизация: что уже есть и что добавим
+## Исправления
 
-### Уже реализовано
-Мета-теги, Open Graph, Twitter Cards, Schema.org (Organization, WebSite, FAQPage, SoftwareApplication), sitemap.xml, robots.txt, hreflang.
+### 1. Исправить номер телефона в ссылке
+**Файл:** `src/components/ContactsSection.tsx`  
+Текущая ссылка `tel:+7929384484444` содержит лишние цифры. Исправляем на `tel:+79293844844` (номер 8 929 384-48-44 = +7 929 384 48 44).
 
-### Что добавим
+### 3. Добавить id="faq" на секцию FAQ
+**Файл:** `src/components/FAQSection.tsx`  
+Добавить атрибут `id="faq"` на тег `<section>`, чтобы можно было ссылаться на секцию напрямую.
 
-**1. Семантическая HTML-разметка всех секций**
-Сейчас секции — это просто `<section>` без семантики. Добавим `aria-label` на каждую секцию, чтобы поисковики лучше понимали структуру страницы.
+### 4. Ленивая загрузка изображений
+**Файлы:** `src/components/ProductsSection.tsx`, `src/components/Footer.tsx`  
+Добавить `loading="lazy"` на теги `<img>` для логотипов продуктов (AimSales, AimVisual) и логотипа в футере. Логотип в Header не трогаем -- он выше fold и должен загружаться сразу.
 
-Файлы: `AboutSection.tsx`, `ProductsSection.tsx`, `ServicesSection.tsx`, `TargetAudienceSection.tsx`, `HowWeWorkSection.tsx`, `CasesSection.tsx`, `CalculatorSection.tsx`, `DemoSection.tsx`, `AdvantagesSection.tsx`, `ReviewsSection.tsx`, `FAQSection.tsx`, `ContactsSection.tsx`, `HeroSection.tsx`
+### Техническая сводка
 
-**2. Расширение ключевых слов в `index.html`**
-Добавим больше целевых запросов в meta keywords и description — длиннохвостые фразы на русском, по которым ищут ИИ-решения для бизнеса.
+| Файл | Изменение |
+|---|---|
+| `ContactsSection.tsx` | `tel:+7929384484444` -> `tel:+79293844844` |
+| `FAQSection.tsx` | `<section>` -> `<section id="faq">` |
+| `ProductsSection.tsx` | Добавить `loading="lazy"` на `<img>` логотипов |
+| `Footer.tsx` | Добавить `loading="lazy"` на `<img>` логотипа |
 
-**3. Schema.org Service разметка**
-Добавим JSON-LD типа `Service` для основных услуг компании (создание ИИ-агентов, интеграция, обучение) — это улучшит появление в расширенных сниппетах Google/Yandex.
-
-**4. Атрибуты alt и aria-label на изображения и ссылки**
-Добавим осмысленные `alt` и `aria-label` на логотипы, кнопки соцсетей в Footer и Header для лучшей индексации и доступности.
-
-**5. Расширение `sitemap.xml`**
-Добавим `lastmod` с актуальной датой.
-
-### Файлы для изменений
-- `index.html` — расширить keywords, добавить Service schema
-- `public/sitemap.xml` — обновить lastmod
-- `src/components/Header.tsx` — aria-label на навигацию
-- `src/components/Footer.tsx` — aria-label на ссылки, alt на логотип
-- `src/components/HeroSection.tsx` — aria-label на секцию
-- Все секции (~12 файлов) — aria-label на `<section>`
-
+Все изменения минимальные и точечные -- по одной строке в каждом файле.

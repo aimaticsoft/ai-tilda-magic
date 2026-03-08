@@ -40,7 +40,7 @@ const Header = () => {
       }`}
     >
       <div className="section-container">
-        <nav className="flex items-center justify-between h-20">
+        <nav aria-label="Главная навигация" className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3">
             <img src={logo} alt="Aimatic Logo" className="w-10 h-10 rounded-xl object-cover" />

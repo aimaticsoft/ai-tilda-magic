@@ -8,7 +8,7 @@ const CalculatorSection = () => {
   const { lang } = useLanguage();
 
   return (
-    <section id="calculator" className="py-20 lg:py-32 relative">
+    <section id="calculator" aria-label="Калькулятор стоимости ИИ-агента" className="py-20 lg:py-32 relative">
       <div className="section-container relative z-10">
         <AnimatedSection className="text-center mb-12">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6">

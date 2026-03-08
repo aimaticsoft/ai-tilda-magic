@@ -74,7 +74,7 @@ const ContactsSection = () => {
   return (
     <>
     <SuccessAnimation show={showSuccess} onComplete={onSuccessComplete} />
-    <section id="contacts" className="relative py-16 sm:py-24">
+    <section id="contacts" aria-label="Контакты Aimatic — заказать ИИ-агента" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
