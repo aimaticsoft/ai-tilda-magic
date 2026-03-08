@@ -10,6 +10,11 @@ import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 
+const isValidPhone = (phone: string) => {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length >= 10 && digits.length <= 15;
+};
+
 const ContactsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -19,25 +24,42 @@ const ContactsSection = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
   const onSuccessComplete = useCallback(() => setShowSuccess(false), []);
+
+  const handlePhoneChange = (value: string) => {
+    setFormData({ ...formData, phone: value });
+    if (phoneError && isValidPhone(value)) {
+      setPhoneError("");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
-    setIsSubmitting(true);
-    try {
-      const { error } = await supabase.functions.invoke("send-telegram-notification", {
-        body: { name: formData.name.trim(), phone: formData.phone.trim(), message: formData.message.trim() },
-      });
-      if (error) throw error;
-      setShowSuccess(true);
-      setFormData({ name: "", phone: "", message: "" });
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error(t(translations.contacts.errorToast, lang));
-    } finally {
-      setIsSubmitting(false);
+
+    if (!isValidPhone(formData.phone)) {
+      setPhoneError(lang === "ru" ? "Введите корректный номер телефона (минимум 10 цифр)" : "Enter a valid phone number (at least 10 digits)");
+      return;
     }
+
+    setIsSubmitting(true);
+    // Optimistic UI: show success immediately
+    setShowSuccess(true);
+    setFormData({ name: "", phone: "", message: "" });
+    setPhoneError("");
+
+    // Send in background
+    supabase.functions.invoke("send-telegram-notification", {
+      body: { name: formData.name.trim(), phone: formData.phone.trim(), message: formData.message.trim() },
+    }).then(({ error }) => {
+      if (error) {
+        console.error("Error submitting form:", error);
+        toast.error(t(translations.contacts.errorToast, lang));
+      }
+    }).finally(() => {
+      setIsSubmitting(false);
+    });
   };
 
   const contactItems = [
@@ -203,13 +225,16 @@ const ContactsSection = () => {
                     type={field.type}
                     required
                     value={formData[field.name as keyof typeof formData]}
-                    onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                    onChange={(e) => field.name === "phone" ? handlePhoneChange(e.target.value) : setFormData({ ...formData, [field.name]: e.target.value })}
                     onFocus={() => setFocusedField(field.name)}
                     onBlur={() => setFocusedField(null)}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                    className={`w-full px-4 py-3 bg-background border rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all ${field.name === "phone" && phoneError ? "border-destructive" : "border-border"}`}
                     placeholder={field.placeholder}
                     whileFocus={{ scale: 1.01 }}
                   />
+                  {field.name === "phone" && phoneError && (
+                    <p className="text-destructive text-sm mt-1">{phoneError}</p>
+                  )}
                 </motion.div>
               ))}
               <motion.div
