@@ -101,7 +101,72 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AimSales",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://aimsales.aimaticsoft.ru/",
+        "description": "Интерактивная платформа для тренировки менеджеров в продажах с AI-клиентами",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+        "author": { "@type": "Organization", "name": "Aimatic" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AimVisual",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "url": "https://aimvisual.aimaticsoft.ru/",
+        "description": "Профессиональная генерация изображений для бизнеса",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+        "author": { "@type": "Organization", "name": "Aimatic" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AimSeller",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://aimseller.aimaticsoft.ru/",
+        "description": "Платформа для продавцов на маркетплейсах с ИИ-аналитикой",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+        "author": { "@type": "Organization", "name": "Aimatic" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AimAcademy",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "url": "https://learnflow-ai-39.lovable.app",
+        "description": "Платформа для обучения и адаптации сотрудников с ИИ",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+        "author": { "@type": "Organization", "name": "Aimatic" }
+      }
+    ]
+    </script>
 
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://storage.googleapis.com/gpt-engineer-file-uploads/WeIGONPjqCaa3F78HZJycYYUdd03/uploads/1769929957443-nano-banana-affda3056cae996c64300a45d32707b4-111-round-corners.png" as="image">
+
+    <!-- Web Vitals -->
+    <script type="module">
+      import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js?module';
+      function sendToYM(metric) {
+        if (typeof ym !== 'undefined') {
+          ym(103933723, 'params', {
+            web_vitals: { [metric.name]: Math.round(metric.value) }
+          });
+        }
+      }
+      onCLS(sendToYM);
+      onFID(sendToYM);
+      onLCP(sendToYM);
+    </script>
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
       (function(m,e,t,r,i,k,a){

@@ -106,4 +106,10 @@ export const LazyTargetAudienceSection = () => (
   </Suspense>
 );
 
+export const LazyHowWeWorkSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyHowWeWork />
+  </Suspense>
+);
+
 export default SectionSkeleton;
