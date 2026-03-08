@@ -149,16 +149,62 @@ export const useUserTracker = () => {
       }
     };
 
-    // Click tracking
+    // Click tracking with smart text extraction
+    const smartTruncate = (str: string, max: number): string => {
+      if (str.length <= max) return str;
+      const truncated = str.slice(0, max);
+      const lastSpace = truncated.lastIndexOf(' ');
+      return (lastSpace > max * 0.5 ? truncated.slice(0, lastSpace) : truncated) + '…';
+    };
+
+    const getClickText = (el: Element): string => {
+      // Try textContent first
+      let text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+      if (text.length > 3) return smartTruncate(text, 100);
+
+      // Fallback: aria-label, title, alt
+      const ariaLabel = el.getAttribute('aria-label');
+      if (ariaLabel) return smartTruncate(ariaLabel, 100);
+
+      const title = el.getAttribute('title');
+      if (title) return smartTruncate(title, 100);
+
+      // For links, show hostname
+      const href = el.getAttribute('href');
+      if (href) {
+        try {
+          const url = new URL(href, window.location.origin);
+          if (url.hostname !== window.location.hostname) return url.hostname;
+          return url.pathname;
+        } catch {
+          return href.slice(0, 60);
+        }
+      }
+
+      // Last resort: tag + class
+      const tag = el.tagName.toLowerCase();
+      const cls = el.className ? `.${String(el.className).split(' ')[0]}` : '';
+      return `${tag}${cls}`;
+    };
+
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const button = target.closest('button, a, [role="button"]');
       if (button) {
-        const text = (button.textContent || '').trim().slice(0, 60);
+        const text = getClickText(button);
         const tag = button.tagName.toLowerCase();
         const href = button.getAttribute('href') || '';
+        let targetLabel = tag;
+        if (href) {
+          try {
+            const url = new URL(href, window.location.origin);
+            targetLabel = url.hostname !== window.location.hostname ? `${tag}[${url.hostname}]` : `${tag}[${url.pathname}]`;
+          } catch {
+            targetLabel = `${tag}[${href.slice(0, 50)}]`;
+          }
+        }
         clicks.current.push({
-          target: `${tag}${href ? `[${href}]` : ''}`,
+          target: targetLabel,
           text,
           timestamp: Math.floor((Date.now() - startTime.current) / 1000),
         });

@@ -60,7 +60,8 @@ const TrustBadgesSection = () => {
                     src={client.logo}
                     alt={`${client.name} logo`}
                     className="w-8 h-8 object-contain rounded"
-                    loading="lazy"
+                    fetchPriority="high"
+                    decoding="async"
                   />
                   <span className="text-sm font-medium text-foreground">{client.name}</span>
                 </div>
