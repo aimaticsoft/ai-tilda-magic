@@ -16,8 +16,20 @@ export const TrackerProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+const fallbackTracker: TrackerContextType = {
+  getTrackerData: () => ({
+    sessionId: '',
+    duration: 0,
+    maxScroll: 0,
+    sectionsViewed: [],
+    sectionsTime: {},
+    clicks: [],
+    device: 'unknown',
+    referrer: '',
+  }),
+};
+
 export const useTracker = () => {
   const ctx = useContext(TrackerContext);
-  if (!ctx) throw new Error('useTracker must be used within TrackerProvider');
-  return ctx;
+  return ctx ?? fallbackTracker;
 };
