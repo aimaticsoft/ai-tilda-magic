@@ -120,11 +120,34 @@ function buildTrackerBlock(tracker: TrackerData): string {
     });
   }
 
-  // Clicks grouped and counted
+  // Clicks grouped and counted — normalize technical labels to Russian
   if (tracker.clicks && tracker.clicks.length > 0) {
+    const normalizeClickLabel = (raw: string): string => {
+      if (!raw || raw.trim().length === 0) return 'Неизвестное действие';
+      // Skip if already Russian / readable
+      const looksRussian = /[а-яА-ЯёЁ]/.test(raw);
+      if (looksRussian && !raw.startsWith('button') && !raw.startsWith('a[')) return raw;
+      // Normalize technical patterns
+      if (/^button(\.|$)/i.test(raw)) return 'Кнопка без подписи';
+      if (/^a\[/i.test(raw)) {
+        const match = raw.match(/^a\[(.+)\]$/i);
+        if (match) {
+          const inner = match[1];
+          if (inner.includes('t.me')) return 'Ссылка в Telegram';
+          if (inner.startsWith('#')) return `Якорная ссылка ${inner}`;
+          if (inner.startsWith('/')) return `Внутренняя ссылка ${inner}`;
+          return `Внешняя ссылка (${inner})`;
+        }
+        return 'Ссылка';
+      }
+      if (/^(button|a|div|span|img|svg)$/i.test(raw)) return 'Кнопка без подписи';
+      return raw;
+    };
+
     const clickCounts: Record<string, number> = {};
     tracker.clicks.forEach((c) => {
-      const label = c.text || c.target || 'неизвестно';
+      const rawLabel = c.text || c.target || '';
+      const label = normalizeClickLabel(rawLabel);
       clickCounts[label] = (clickCounts[label] || 0) + 1;
     });
 
@@ -133,9 +156,9 @@ function buildTrackerBlock(tracker: TrackerData): string {
 
     lines.push('');
     lines.push(`🖱 *Клики (${totalClicks}):*`);
-    sortedClicks.slice(0, 8).forEach(([text, count]) => {
+    sortedClicks.slice(0, 10).forEach(([text, count]) => {
       const countStr = count > 1 ? ` — ${count} ${pluralize(count, 'раз', 'раза', 'раз')}` : '';
-      const displayText = text.length > 80 ? text.slice(0, text.lastIndexOf(' ', 80) > 40 ? text.lastIndexOf(' ', 80) : 80) + '…' : text;
+      const displayText = text.length > 100 ? text.slice(0, text.lastIndexOf(' ', 100) > 50 ? text.lastIndexOf(' ', 100) : 100) + '…' : text;
       lines.push(`  • «${displayText}»${countStr}`);
     });
   }

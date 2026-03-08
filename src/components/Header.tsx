@@ -88,6 +88,7 @@ const Header = () => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 text-foreground"
+              aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

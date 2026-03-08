@@ -43,7 +43,7 @@ const ProductsSection = () => {
             const Icon = product.icon;
             return (
               <AnimatedSection key={product.name}>
-                <motion.a href={product.link} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} whileHover={{ scale: 1.02, y: -5 }} className="group relative block h-full">
+                <motion.a href={product.link} target="_blank" rel="noopener noreferrer" data-analytics-label={`Продукт: ${product.name}`} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} whileHover={{ scale: 1.02, y: -5 }} className="group relative block h-full">
                   <div className="relative h-full glass-card-hover p-8 rounded-2xl overflow-hidden">
                     <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${product.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
                     <div className={`relative z-10 w-16 h-16 rounded-xl bg-gradient-to-br ${product.gradient} p-0.5 mb-6`}>

@@ -111,7 +111,7 @@ const CasesSection = () => {
 
           <div className="flex justify-center gap-2 mt-4">
             {cases.map((_, i) => (
-              <motion.button key={i} onClick={() => setCurrentIndex(i)} className={`h-2 rounded-full transition-all ${i === currentIndex % cases.length ? 'w-8 bg-primary' : 'w-2 bg-border'}`} whileHover={{ scale: 1.2 }} />
+              <motion.button key={i} onClick={() => setCurrentIndex(i)} aria-label={`Кейс ${i + 1}`} className={`h-2 rounded-full transition-all ${i === currentIndex % cases.length ? 'w-8 bg-primary' : 'w-2 bg-border'}`} whileHover={{ scale: 1.2 }} />
             ))}
           </div>
         </div>
