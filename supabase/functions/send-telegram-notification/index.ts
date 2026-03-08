@@ -135,7 +135,8 @@ function buildTrackerBlock(tracker: TrackerData): string {
     lines.push(`🖱 *Клики (${totalClicks}):*`);
     sortedClicks.slice(0, 8).forEach(([text, count]) => {
       const countStr = count > 1 ? ` — ${count} ${pluralize(count, 'раз', 'раза', 'раз')}` : '';
-      lines.push(`  • «${text.slice(0, 40)}»${countStr}`);
+      const displayText = text.length > 80 ? text.slice(0, text.lastIndexOf(' ', 80) > 40 ? text.lastIndexOf(' ', 80) : 80) + '…' : text;
+      lines.push(`  • «${displayText}»${countStr}`);
     });
   }
 
