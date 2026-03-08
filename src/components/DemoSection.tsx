@@ -70,7 +70,7 @@ const DemoSection = () => {
   const getOffset = () => -(currentIndex + demos.length) * itemWidth;
 
   return (
-    <section id="demo" className="relative py-16 sm:py-24">
+    <section id="demo" aria-label="Демо ИИ-агентов — попробуйте в Telegram" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}

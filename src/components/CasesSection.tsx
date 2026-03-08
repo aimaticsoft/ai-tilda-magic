@@ -51,7 +51,7 @@ const CasesSection = () => {
   const getOffset = () => -(currentIndex + cases.length) * itemWidth;
 
   return (
-    <section id="cases" className="relative py-16 sm:py-24">
+    <section id="cases" aria-label="Кейсы и примеры внедрения ИИ-агентов" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}

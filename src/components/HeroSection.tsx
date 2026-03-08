@@ -52,7 +52,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={containerRef} aria-label="ИИ-агенты для автоматизации бизнеса — Aimatic" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <motion.div style={{ y, opacity }} className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute inset-0 animated-grid" />
       <ParticlesBackground />

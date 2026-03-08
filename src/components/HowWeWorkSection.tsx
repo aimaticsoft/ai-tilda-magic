@@ -20,7 +20,7 @@ const HowWeWorkSection = () => {
   }));
 
   return (
-    <section id="how-we-work" className="relative py-16 sm:py-24">
+    <section id="how-we-work" aria-label="Этапы работы — как мы внедряем ИИ" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}

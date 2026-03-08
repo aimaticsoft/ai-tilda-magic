@@ -18,7 +18,7 @@ const TargetAudienceSection = () => {
   const section = translations.targetAudience;
 
   return (
-    <section id="audience" className="py-20 relative">
+    <section id="audience" aria-label="Кому подходят ИИ-агенты" className="py-20 relative">
       <div className="section-container">
         <AnimatedSection>
           <div className="text-center mb-14">

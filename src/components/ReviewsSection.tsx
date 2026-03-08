@@ -29,7 +29,7 @@ const ReviewsSection = () => {
   } as const;
 
   return (
-    <section id="reviews" className="relative py-16 sm:py-24">
+    <section id="reviews" aria-label="Отзывы клиентов Aimatic" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div initial={{ opacity: 0, y: 40 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }} className="text-center mb-16">
           <h2 className="heading-secondary mb-4">

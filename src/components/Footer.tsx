@@ -17,12 +17,12 @@ const Footer = () => {
           <p className="text-muted-foreground text-sm text-center">
             {t(translations.footer.copyright, lang)}
           </p>
-          <div className="flex gap-6">
-            <a href="https://t.me/aimatic1" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Telegram</a>
-            <a href="https://www.youtube.com/@AimaticSoft" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">YouTube</a>
-            <a href="https://dzen.ru/aimatic" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">{lang === 'ru' ? 'Дзен' : 'Dzen'}</a>
-            <a href="https://max.ru/join/IRugiyJB9kQyCC616chRqIXvhhsPZdQhi7-4qah18rg" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">Max</a>
-          </div>
+          <nav aria-label="Социальные сети Aimatic" className="flex gap-6">
+            <a href="https://t.me/aimatic1" target="_blank" rel="noopener noreferrer" aria-label="Aimatic в Telegram" className="text-muted-foreground hover:text-primary transition-colors">Telegram</a>
+            <a href="https://www.youtube.com/@AimaticSoft" target="_blank" rel="noopener noreferrer" aria-label="Aimatic на YouTube" className="text-muted-foreground hover:text-primary transition-colors">YouTube</a>
+            <a href="https://dzen.ru/aimatic" target="_blank" rel="noopener noreferrer" aria-label="Aimatic на Дзен" className="text-muted-foreground hover:text-primary transition-colors">{lang === 'ru' ? 'Дзен' : 'Dzen'}</a>
+            <a href="https://max.ru/join/IRugiyJB9kQyCC616chRqIXvhhsPZdQhi7-4qah18rg" target="_blank" rel="noopener noreferrer" aria-label="Aimatic в Max" className="text-muted-foreground hover:text-primary transition-colors">Max</a>
+          </nav>
         </div>
       </div>
     </footer>
