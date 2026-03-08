@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2, MessageCircle } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
+import SuccessAnimation from "./SuccessAnimation";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
