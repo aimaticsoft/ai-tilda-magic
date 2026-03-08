@@ -38,6 +38,9 @@ const LazyFAQ = lazy(() => import('./FAQSection'));
 const LazyContacts = lazy(() => import('./ContactsSection'));
 const LazyTargetAudience = lazy(() => import('./TargetAudienceSection'));
 const LazyHowWeWork = lazy(() => import('./HowWeWorkSection'));
+const LazyTrustBadges = lazy(() => import('./TrustBadgesSection'));
+const LazyIndustrySolutions = lazy(() => import('./IndustrySolutionsSection'));
+const LazyComparison = lazy(() => import('./ComparisonSection'));
 
 // Wrapped components with Suspense
 export const LazyAboutSection = () => (
