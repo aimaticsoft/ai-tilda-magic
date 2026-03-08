@@ -70,10 +70,10 @@ const CasesSection = () => {
 
         <div className="relative">
           <div className="relative z-20 flex justify-end gap-2 mb-6">
-            <motion.button onClick={prev} className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.button onClick={prev} aria-label="Кейсы: предыдущий слайд" className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <ChevronLeft size={20} />
             </motion.button>
-            <motion.button onClick={next} className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.button onClick={next} aria-label="Кейсы: следующий слайд" className="p-3 rounded-xl bg-card border border-border hover:border-primary transition-all" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <ChevronRight size={20} />
             </motion.button>
           </div>
