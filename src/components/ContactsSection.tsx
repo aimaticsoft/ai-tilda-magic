@@ -225,13 +225,16 @@ const ContactsSection = () => {
                     type={field.type}
                     required
                     value={formData[field.name as keyof typeof formData]}
-                    onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                    onChange={(e) => field.name === "phone" ? handlePhoneChange(e.target.value) : setFormData({ ...formData, [field.name]: e.target.value })}
                     onFocus={() => setFocusedField(field.name)}
                     onBlur={() => setFocusedField(null)}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                    className={`w-full px-4 py-3 bg-background border rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all ${field.name === "phone" && phoneError ? "border-destructive" : "border-border"}`}
                     placeholder={field.placeholder}
                     whileFocus={{ scale: 1.01 }}
                   />
+                  {field.name === "phone" && phoneError && (
+                    <p className="text-destructive text-sm mt-1">{phoneError}</p>
+                  )}
                 </motion.div>
               ))}
               <motion.div
