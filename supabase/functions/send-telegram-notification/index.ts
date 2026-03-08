@@ -49,7 +49,7 @@ serve(async (req) => {
       throw new Error('TELEGRAM_CHAT_ID is not configured');
     }
 
-    const { name, phone, message }: ContactFormData = await req.json();
+    const { name, phone, message, tracker }: ContactFormData = await req.json();
 
     // Validate inputs
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
