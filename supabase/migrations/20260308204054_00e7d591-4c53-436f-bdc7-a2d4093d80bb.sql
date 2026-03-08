@@ -1,0 +1,1 @@
+CREATE POLICY "Allow anonymous reads" ON public.site_visits FOR SELECT TO anon USING (true);
