@@ -503,6 +503,30 @@ export const translations = {
     } as Record<string, { name: { ru: string; en: string }; description: { ru: string; en: string } }>,
   },
 
+  // How We Work
+  howWeWork: {
+    title: { ru: 'Как мы работаем', en: 'How We Work' },
+    subtitle: { ru: 'Прозрачный процесс от заявки до результата — вы всегда знаете, что происходит', en: 'Transparent process from request to result — you always know what\'s happening' },
+    steps: [
+      {
+        title: { ru: 'Заявка и аудит', en: 'Request & Audit' },
+        description: { ru: 'Вы оставляете заявку — мы проводим бесплатный аудит бизнес-процессов и находим точки роста', en: 'You submit a request — we conduct a free audit of business processes and find growth points' },
+      },
+      {
+        title: { ru: 'Проектирование', en: 'Design' },
+        description: { ru: 'Проектируем архитектуру решения, согласовываем ТЗ и сроки. Вы видите план до старта', en: 'We design the solution architecture, agree on specs and timeline. You see the plan before start' },
+      },
+      {
+        title: { ru: 'Внедрение', en: 'Implementation' },
+        description: { ru: 'Разрабатываем, интегрируем и обучаем ИИ-агента на ваших данных. Тестируем вместе', en: 'We develop, integrate and train the AI agent on your data. We test together' },
+      },
+      {
+        title: { ru: 'Результат', en: 'Results' },
+        description: { ru: 'Запускаем в работу, обучаем команду и сопровождаем. Вы получаете измеримый результат', en: 'We launch, train your team and provide support. You get measurable results' },
+      },
+    ],
+  },
+
   // Target Audience
   targetAudience: {
     badge: { ru: 'Для кого', en: 'Who it\'s for' },

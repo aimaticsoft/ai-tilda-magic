@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Phone, Mail, MapPin, Send, Youtube, Newspaper, Loader2, MessageCircle } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 import FloatingElement from "./FloatingElement";
+import SuccessAnimation from "./SuccessAnimation";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -17,6 +18,8 @@ const ContactsSection = () => {
   const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const onSuccessComplete = useCallback(() => setShowSuccess(false), []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +30,7 @@ const ContactsSection = () => {
         body: { name: formData.name.trim(), phone: formData.phone.trim(), message: formData.message.trim() },
       });
       if (error) throw error;
-      toast.success(t(translations.contacts.successToast, lang));
+      setShowSuccess(true);
       setFormData({ name: "", phone: "", message: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -69,6 +72,8 @@ const ContactsSection = () => {
   ];
 
   return (
+    <>
+    <SuccessAnimation show={showSuccess} onComplete={onSuccessComplete} />
     <section id="contacts" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
@@ -250,6 +255,7 @@ const ContactsSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

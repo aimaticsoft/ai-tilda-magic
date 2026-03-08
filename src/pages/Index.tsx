@@ -6,6 +6,8 @@ import SmoothScroll from '@/components/SmoothScroll';
 import ParallaxText from '@/components/ParallaxText';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import ParallaxBackground from '@/components/ParallaxBackground';
+import BackToTopButton from '@/components/BackToTopButton';
+import MobileStickyСTA from '@/components/MobileStickyСTA';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
 import SectionSkeleton, {
@@ -20,6 +22,7 @@ import SectionSkeleton, {
   LazyFAQSection,
   LazyContactsSection,
   LazyTargetAudienceSection,
+  LazyHowWeWorkSection,
 } from '@/components/LazySection';
 
 const Index = () => {
@@ -44,6 +47,7 @@ const Index = () => {
           <LazyProductsSection />
           <LazyServicesSection />
           <LazyTargetAudienceSection />
+          <LazyHowWeWorkSection />
           <LazyCasesSection />
           <LazyCalculatorSection />
           <LazyDemoSection />
@@ -53,6 +57,8 @@ const Index = () => {
           <LazyContactsSection />
         </main>
         <Footer />
+        <BackToTopButton />
+        <MobileStickyСTA />
       </div>
     </SmoothScroll>
   );
