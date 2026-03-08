@@ -101,6 +101,7 @@ const HeroSection = () => {
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </MagneticButton>
+            <span className="text-xs text-muted-foreground">{t(translations.hero.priceAnchor, lang)}</span>
             <MagneticButton href="#demo" className="btn-neon-outline flex items-center gap-2 text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4">
               <Bot size={18} />
               {t(translations.hero.cta2, lang)}

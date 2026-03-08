@@ -23,8 +23,9 @@ export const translations = {
       ru: 'Не ради моды. Не ради «чтобы было». Либо ИИ увеличивает прибыль, либо сокращает издержки. Создаём и внедряем решения на базе искусственного интеллекта для бизнеса.',
       en: 'Not for trends. Not just to have it. Either AI increases profit or cuts costs. We build and implement AI solutions for business.',
     },
-    cta1: { ru: 'Заказать демо', en: 'Order Demo' },
+    cta1: { ru: 'Получить бесплатный аудит', en: 'Get a Free Audit' },
     cta2: { ru: 'Попробовать ИИ-агента', en: 'Try AI Agent' },
+    priceAnchor: { ru: 'ИИ-агенты от 30 000 ₽ • Внедрение от 3 дней', en: 'AI agents from $350 • Deployment from 3 days' },
     stats: {
       clients: { ru: 'компаний-клиентов', en: 'client companies' },
       agents: { ru: 'ИИ-агентов', en: 'AI agents' },
