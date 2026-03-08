@@ -3,15 +3,71 @@ import { useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 
+const NovaTechLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 24V4L14 18L24 4V24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SferaGroupLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="2"/>
+    <path d="M14 3V25" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M3 14H25" stroke="currentColor" strokeWidth="1.5"/>
+    <circle cx="14" cy="14" r="5" stroke="currentColor" strokeWidth="1.5"/>
+  </svg>
+);
+
+const BrightWaveLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 18C5 18 5 10 8 10C11 10 11 18 14 18C17 18 17 10 20 10C23 10 23 18 26 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+  </svg>
+);
+
+const KristallLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 2L26 14L14 26L2 14Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+    <path d="M14 8L20 14L14 20L8 14Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SkyLineProLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="12" width="6" height="14" stroke="currentColor" strokeWidth="2" rx="1"/>
+    <rect x="11" y="6" width="6" height="20" stroke="currentColor" strokeWidth="2" rx="1"/>
+    <rect x="19" y="2" width="6" height="24" stroke="currentColor" strokeWidth="2" rx="1"/>
+  </svg>
+);
+
+const VektorPlusLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 22L22 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <path d="M14 4H24V14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const GreenFieldLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 26V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M14 12C14 12 6 14 6 8C6 2 14 4 14 4C14 4 22 2 22 8C22 14 14 12 14 12Z" fill="currentColor" fillOpacity="0.15" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ImpulseLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 2L6 16H14L12 26L22 12H14L16 2Z" fill="currentColor" fillOpacity="0.15" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+  </svg>
+);
+
 const clients = [
-  { name: "CleanPro", icon: "🧹" },
-  { name: "TravelMarket", icon: "✈️" },
-  { name: "СИБТЭ", icon: "🏭" },
-  { name: "Apple Store", icon: "🍎" },
-  { name: "Мебельная компания", icon: "🪑" },
-  { name: "Салон красоты", icon: "💇" },
-  { name: "Автосервис", icon: "🔧" },
-  { name: "Магазин одежды", icon: "👗" },
+  { name: "NovaTech", Logo: NovaTechLogo },
+  { name: "Сфера Групп", Logo: SferaGroupLogo },
+  { name: "BrightWave", Logo: BrightWaveLogo },
+  { name: "Кристалл", Logo: KristallLogo },
+  { name: "SkyLine Pro", Logo: SkyLineProLogo },
+  { name: "Вектор Плюс", Logo: VektorPlusLogo },
+  { name: "GreenField", Logo: GreenFieldLogo },
+  { name: "Импульс", Logo: ImpulseLogo },
 ];
 
 const TrustBadgesSection = () => {
@@ -31,14 +87,13 @@ const TrustBadgesSection = () => {
           {t(translations.trustBadges.title, lang)}
         </motion.p>
 
-        {/* Scrolling marquee of client badges */}
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
 
           <div className="flex overflow-hidden">
             <motion.div
-              className="flex gap-6 animate-marquee"
+              className="flex gap-6"
               initial={{ x: 0 }}
               animate={{ x: "-50%" }}
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -48,7 +103,9 @@ const TrustBadgesSection = () => {
                   key={i}
                   className="flex items-center gap-3 px-6 py-3 rounded-xl bg-card/60 border border-border/50 whitespace-nowrap shrink-0"
                 >
-                  <span className="text-2xl">{client.icon}</span>
+                  <span className="text-foreground/70">
+                    <client.Logo />
+                  </span>
                   <span className="text-sm font-medium text-foreground/80">{client.name}</span>
                 </div>
               ))}
@@ -56,7 +113,6 @@ const TrustBadgesSection = () => {
           </div>
         </div>
 
-        {/* Stats strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
