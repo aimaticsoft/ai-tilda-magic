@@ -3,73 +3,24 @@ import { useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 
-const CleanProLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14 3C14 3 8 10 8 16C8 19.3 10.7 22 14 22C17.3 22 20 19.3 20 16C20 10 14 3 14 3Z" fill="#22C55E" fillOpacity="0.2" stroke="#22C55E" strokeWidth="2" strokeLinejoin="round"/>
-    <path d="M14 18V12" stroke="#22C55E" strokeWidth="2" strokeLinecap="round"/>
-    <path d="M11 15L14 12L17 15" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const TravelMarketLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="14" cy="14" r="11" stroke="#3B82F6" strokeWidth="2"/>
-    <ellipse cx="14" cy="14" rx="5" ry="11" stroke="#3B82F6" strokeWidth="1.5"/>
-    <path d="M3 14H25" stroke="#3B82F6" strokeWidth="1.5"/>
-    <path d="M5 8H23" stroke="#3B82F6" strokeWidth="1" strokeOpacity="0.5"/>
-    <path d="M5 20H23" stroke="#3B82F6" strokeWidth="1" strokeOpacity="0.5"/>
-  </svg>
-);
-
-const SibteLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14 2L16 10H24L18 15L20 23L14 18L8 23L10 15L4 10H12L14 2Z" fill="#F59E0B" fillOpacity="0.2" stroke="#F59E0B" strokeWidth="2" strokeLinejoin="round"/>
-  </svg>
-);
-
-const NovaTechLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 24V4L14 18L24 4V24" stroke="#8B5CF6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const BrightWaveLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M2 18C5 18 5 10 8 10C11 10 11 18 14 18C17 18 17 10 20 10C23 10 23 18 26 18" stroke="#06B6D4" strokeWidth="2.5" strokeLinecap="round"/>
-    <path d="M2 22C5 22 5 16 8 16C11 16 11 22 14 22" stroke="#06B6D4" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.4"/>
-  </svg>
-);
-
-const KristallLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14 2L26 14L14 26L2 14Z" fill="#EC4899" fillOpacity="0.15" stroke="#EC4899" strokeWidth="2" strokeLinejoin="round"/>
-    <path d="M14 8L20 14L14 20L8 14Z" stroke="#EC4899" strokeWidth="1.5" strokeLinejoin="round"/>
-  </svg>
-);
-
-const SkyLineProLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="12" width="6" height="14" fill="#6366F1" fillOpacity="0.15" stroke="#6366F1" strokeWidth="2" rx="1"/>
-    <rect x="11" y="6" width="6" height="20" fill="#6366F1" fillOpacity="0.15" stroke="#6366F1" strokeWidth="2" rx="1"/>
-    <rect x="19" y="2" width="6" height="24" fill="#6366F1" fillOpacity="0.15" stroke="#6366F1" strokeWidth="2" rx="1"/>
-  </svg>
-);
-
-const ImpulseLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 2L6 16H14L12 26L22 12H14L16 2Z" fill="#EF4444" fillOpacity="0.2" stroke="#EF4444" strokeWidth="2" strokeLinejoin="round"/>
-  </svg>
-);
+import cleanproLogo from "@/assets/logos/cleanpro.png";
+import travelmarketLogo from "@/assets/logos/travelmarket.png";
+import sibteLogo from "@/assets/logos/sibte.png";
+import novatechLogo from "@/assets/logos/novatech.png";
+import brightwaveLogo from "@/assets/logos/brightwave.png";
+import kristallLogo from "@/assets/logos/kristall.png";
+import skylineproLogo from "@/assets/logos/skylinepro.png";
+import impulsLogo from "@/assets/logos/impuls.png";
 
 const clients = [
-  { name: "CleanPro", Logo: CleanProLogo },
-  { name: "TravelMarket", Logo: TravelMarketLogo },
-  { name: "СИБТЭ", Logo: SibteLogo },
-  { name: "NovaTech", Logo: NovaTechLogo },
-  { name: "BrightWave", Logo: BrightWaveLogo },
-  { name: "Кристалл", Logo: KristallLogo },
-  { name: "SkyLine Pro", Logo: SkyLineProLogo },
-  { name: "Импульс", Logo: ImpulseLogo },
+  { name: "CleanPro", logo: cleanproLogo },
+  { name: "TravelMarket", logo: travelmarketLogo },
+  { name: "СИБТЭ", logo: sibteLogo },
+  { name: "NovaTech", logo: novatechLogo },
+  { name: "BrightWave", logo: brightwaveLogo },
+  { name: "Кристалл", logo: kristallLogo },
+  { name: "SkyLine Pro", logo: skylineproLogo },
+  { name: "Импульс", logo: impulsLogo },
 ];
 
 const TrustBadgesSection = () => {
@@ -103,9 +54,14 @@ const TrustBadgesSection = () => {
               {[...clients, ...clients].map((client, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 px-6 py-3 rounded-xl bg-card/60 border border-border/50 whitespace-nowrap shrink-0"
+                  className="flex items-center gap-3 px-5 py-3 rounded-xl bg-card/60 border border-border/50 whitespace-nowrap shrink-0"
                 >
-                  <client.Logo />
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} logo`}
+                    className="w-8 h-8 object-contain rounded"
+                    loading="lazy"
+                  />
                   <span className="text-sm font-medium text-foreground">{client.name}</span>
                 </div>
               ))}
