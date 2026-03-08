@@ -72,6 +72,8 @@ const ContactsSection = () => {
   ];
 
   return (
+    <>
+    <SuccessAnimation show={showSuccess} onComplete={onSuccessComplete} />
     <section id="contacts" className="relative py-16 sm:py-24">
       <div className="relative z-10 section-container" ref={ref}>
         <motion.div
