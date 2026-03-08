@@ -5,10 +5,28 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+interface ClickEntry {
+  target: string;
+  text: string;
+  timestamp: number;
+}
+
+interface TrackerData {
+  sessionId: string;
+  durationSeconds: number;
+  maxScrollPercent: number;
+  sectionsViewed: string[];
+  sectionsTime: Record<string, number>;
+  clicks: ClickEntry[];
+  device: string;
+  referrer: string;
+}
+
 interface ContactFormData {
   name: string;
   phone: string;
   message: string;
+  tracker?: TrackerData;
 }
 
 serve(async (req) => {
