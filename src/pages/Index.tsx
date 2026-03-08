@@ -21,6 +21,9 @@ import SectionSkeleton, {
   LazyContactsSection,
   LazyTargetAudienceSection,
   LazyHowWeWorkSection,
+  LazyTrustBadgesSection,
+  LazyIndustrySolutionsSection,
+  LazyComparisonSection,
 } from '@/components/LazySection';
 
 const Index = () => {
@@ -41,12 +44,15 @@ const Index = () => {
             </ParallaxText>
           </div>
           
+          <LazyTrustBadgesSection />
           <LazyAboutSection />
           <LazyProductsSection />
           <LazyServicesSection />
+          <LazyIndustrySolutionsSection />
           <LazyTargetAudienceSection />
           <LazyHowWeWorkSection />
           <LazyCasesSection />
+          <LazyComparisonSection />
           <LazyCalculatorSection />
           <LazyDemoSection />
           <LazyAdvantagesSection />

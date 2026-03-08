@@ -38,6 +38,9 @@ const LazyFAQ = lazy(() => import('./FAQSection'));
 const LazyContacts = lazy(() => import('./ContactsSection'));
 const LazyTargetAudience = lazy(() => import('./TargetAudienceSection'));
 const LazyHowWeWork = lazy(() => import('./HowWeWorkSection'));
+const LazyTrustBadges = lazy(() => import('./TrustBadgesSection'));
+const LazyIndustrySolutions = lazy(() => import('./IndustrySolutionsSection'));
+const LazyComparison = lazy(() => import('./ComparisonSection'));
 
 // Wrapped components with Suspense
 export const LazyAboutSection = () => (
@@ -109,6 +112,24 @@ export const LazyTargetAudienceSection = () => (
 export const LazyHowWeWorkSection = () => (
   <Suspense fallback={<SectionSkeleton />}>
     <LazyHowWeWork />
+  </Suspense>
+);
+
+export const LazyTrustBadgesSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyTrustBadges />
+  </Suspense>
+);
+
+export const LazyIndustrySolutionsSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyIndustrySolutions />
+  </Suspense>
+);
+
+export const LazyComparisonSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyComparison />
   </Suspense>
 );
 

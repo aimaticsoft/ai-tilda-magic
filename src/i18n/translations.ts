@@ -23,8 +23,9 @@ export const translations = {
       ru: 'Не ради моды. Не ради «чтобы было». Либо ИИ увеличивает прибыль, либо сокращает издержки. Создаём и внедряем решения на базе искусственного интеллекта для бизнеса.',
       en: 'Not for trends. Not just to have it. Either AI increases profit or cuts costs. We build and implement AI solutions for business.',
     },
-    cta1: { ru: 'Заказать демо', en: 'Order Demo' },
+    cta1: { ru: 'Получить бесплатный аудит', en: 'Get a Free Audit' },
     cta2: { ru: 'Попробовать ИИ-агента', en: 'Try AI Agent' },
+    priceAnchor: { ru: 'ИИ-агенты от 30 000 ₽ • Внедрение от 3 дней', en: 'AI agents from $350 • Deployment from 3 days' },
     stats: {
       clients: { ru: 'компаний-клиентов', en: 'client companies' },
       agents: { ru: 'ИИ-агентов', en: 'AI agents' },
@@ -526,6 +527,147 @@ export const translations = {
         title: { ru: 'Результат', en: 'Results' },
         description: { ru: 'Запускаем в работу, обучаем команду и сопровождаем. Вы получаете измеримый результат', en: 'We launch, train your team and provide support. You get measurable results' },
       },
+    ],
+  },
+
+  // Trust Badges
+  trustBadges: {
+    ariaLabel: { ru: 'Нам доверяют — клиенты Aimatic', en: 'Trusted by — Aimatic clients' },
+    title: { ru: 'Нам уже доверяют', en: 'Already trusted by' },
+    stats: [
+      { value: { ru: '50+', en: '50+' }, label: { ru: 'проектов реализовано', en: 'projects delivered' } },
+      { value: { ru: '8+', en: '8+' }, label: { ru: 'отраслей', en: 'industries' } },
+      { value: { ru: '1M+', en: '1M+' }, label: { ru: 'сообщений обработано', en: 'messages processed' } },
+      { value: { ru: '24/7', en: '24/7' }, label: { ru: 'поддержка клиентов', en: 'client support' } },
+    ],
+  },
+
+  // Industry Solutions
+  industrySolutions: {
+    ariaLabel: { ru: 'Отраслевые ИИ-решения для бизнеса', en: 'Industry AI solutions for business' },
+    badge: { ru: '🏢 Отраслевые решения', en: '🏢 Industry Solutions' },
+    title: { ru: 'ИИ для вашей отрасли', en: 'AI for your industry' },
+    subtitle: { ru: 'Мы знаем специфику каждой ниши и создаём решения, которые учитывают особенности вашего бизнеса', en: 'We know the specifics of every niche and build solutions that account for your business needs' },
+    cta: { ru: 'Обсудить решение для вашей отрасли', en: 'Discuss a solution for your industry' },
+    industries: [
+      {
+        name: { ru: 'Ритейл и e-commerce', en: 'Retail & E-commerce' },
+        description: { ru: 'Автоматизация продаж, обработка заявок и консультации покупателей на маркетплейсах и в мессенджерах', en: 'Sales automation, request processing and buyer consultations on marketplaces and messengers' },
+        tasks: [
+          { ru: 'ИИ-продавец на Avito, Telegram, WhatsApp', en: 'AI seller on Avito, Telegram, WhatsApp' },
+          { ru: 'Автоответы на отзывы Ozon и Wildberries', en: 'Auto-replies to Ozon and Wildberries reviews' },
+          { ru: 'Персонализированные рекомендации товаров', en: 'Personalized product recommendations' },
+          { ru: 'Автоматический расчёт стоимости и допродажи', en: 'Automatic cost calculation and upselling' },
+        ],
+        results: [
+          { value: { ru: '+40%', en: '+40%' }, label: { ru: 'конверсия', en: 'conversion' } },
+          { value: { ru: '24/7', en: '24/7' }, label: { ru: 'обработка заявок', en: 'request processing' } },
+          { value: { ru: '-80%', en: '-80%' }, label: { ru: 'нагрузка на менеджеров', en: 'manager workload' } },
+          { value: { ru: '×5', en: '×5' }, label: { ru: 'скорость ответа', en: 'response speed' } },
+        ],
+      },
+      {
+        name: { ru: 'Недвижимость', en: 'Real Estate' },
+        description: { ru: 'Квалификация лидов, подбор объектов и автоматизация коммуникации с клиентами', en: 'Lead qualification, property matching and client communication automation' },
+        tasks: [
+          { ru: 'Автоматическая квалификация входящих заявок', en: 'Automatic incoming lead qualification' },
+          { ru: 'Подбор объектов по параметрам клиента', en: 'Property selection by client criteria' },
+          { ru: 'Запись на просмотры и напоминания', en: 'Viewing bookings and reminders' },
+          { ru: 'Интеграция с CRM и базами объектов', en: 'CRM and property database integration' },
+        ],
+        results: [
+          { value: { ru: '0', en: '0' }, label: { ru: 'потерянных заявок', en: 'lost leads' } },
+          { value: { ru: '-60%', en: '-60%' }, label: { ru: 'время на рутину', en: 'routine time' } },
+          { value: { ru: '+25%', en: '+25%' }, label: { ru: 'конверсия в сделки', en: 'deal conversion' } },
+          { value: { ru: '2 мин', en: '2 min' }, label: { ru: 'время ответа', en: 'response time' } },
+        ],
+      },
+      {
+        name: { ru: 'Медицина и красота', en: 'Healthcare & Beauty' },
+        description: { ru: 'Онлайн-запись, консультации по услугам и автоматизация работы администратора', en: 'Online booking, service consultations and administrator workflow automation' },
+        tasks: [
+          { ru: 'ИИ-администратор для записи клиентов', en: 'AI administrator for client bookings' },
+          { ru: 'Консультации по услугам и ценам', en: 'Service and price consultations' },
+          { ru: 'Напоминания о визитах и акциях', en: 'Visit and promotion reminders' },
+          { ru: 'Сбор обратной связи после визита', en: 'Post-visit feedback collection' },
+        ],
+        results: [
+          { value: { ru: '-70%', en: '-70%' }, label: { ru: 'нагрузка на персонал', en: 'staff workload' } },
+          { value: { ru: '+30%', en: '+30%' }, label: { ru: 'повторные визиты', en: 'return visits' } },
+          { value: { ru: '0', en: '0' }, label: { ru: 'пропущенных звонков', en: 'missed calls' } },
+          { value: { ru: '60 сек', en: '60 sec' }, label: { ru: 'время записи', en: 'booking time' } },
+        ],
+      },
+      {
+        name: { ru: 'Образование', en: 'Education' },
+        description: { ru: 'Обучение сотрудников, тренажёры и автоматизация онбординга', en: 'Employee training, simulators and onboarding automation' },
+        tasks: [
+          { ru: 'Платформа обучения из ваших материалов', en: 'Training platform from your materials' },
+          { ru: 'ИИ-тренажёр для отработки навыков', en: 'AI simulator for skill practice' },
+          { ru: 'Автоматическое тестирование знаний', en: 'Automated knowledge testing' },
+          { ru: 'Адаптация новых сотрудников', en: 'New employee onboarding' },
+        ],
+        results: [
+          { value: { ru: '×3', en: '×3' }, label: { ru: 'скорость онбординга', en: 'onboarding speed' } },
+          { value: { ru: '-50%', en: '-50%' }, label: { ru: 'нагрузка на HR', en: 'HR workload' } },
+          { value: { ru: '+40%', en: '+40%' }, label: { ru: 'усвоение материала', en: 'material retention' } },
+          { value: { ru: '24/7', en: '24/7' }, label: { ru: 'доступ к обучению', en: 'training access' } },
+        ],
+      },
+      {
+        name: { ru: 'Логистика и доставка', en: 'Logistics & Delivery' },
+        description: { ru: 'Отслеживание заказов, коммуникация с клиентами и оптимизация маршрутов', en: 'Order tracking, client communication and route optimization' },
+        tasks: [
+          { ru: 'Автоматические статусы доставки клиентам', en: 'Automatic delivery status updates to clients' },
+          { ru: 'Обработка входящих заявок на доставку', en: 'Incoming delivery request processing' },
+          { ru: 'Расчёт стоимости и сроков', en: 'Cost and timeline calculation' },
+          { ru: 'Интеграция с системами учёта', en: 'Accounting system integration' },
+        ],
+        results: [
+          { value: { ru: '-40%', en: '-40%' }, label: { ru: 'звонков в поддержку', en: 'support calls' } },
+          { value: { ru: '×10', en: '×10' }, label: { ru: 'скорость обработки', en: 'processing speed' } },
+          { value: { ru: '0', en: '0' }, label: { ru: 'потерянных заказов', en: 'lost orders' } },
+          { value: { ru: '+20%', en: '+20%' }, label: { ru: 'лояльность клиентов', en: 'client loyalty' } },
+        ],
+      },
+      {
+        name: { ru: 'HoReCa', en: 'HoReCa' },
+        description: { ru: 'Бронирование, работа с отзывами и автоматизация общения с гостями', en: 'Booking, review management and guest communication automation' },
+        tasks: [
+          { ru: 'Бронирование столиков и номеров через мессенджеры', en: 'Table and room booking via messengers' },
+          { ru: 'Автоматические ответы на отзывы', en: 'Automatic review responses' },
+          { ru: 'Меню и спецпредложения в чат-боте', en: 'Menu and special offers in chatbot' },
+          { ru: 'Сбор обратной связи от гостей', en: 'Guest feedback collection' },
+        ],
+        results: [
+          { value: { ru: '+35%', en: '+35%' }, label: { ru: 'бронирований', en: 'bookings' } },
+          { value: { ru: '5★', en: '5★' }, label: { ru: 'рейтинг на площадках', en: 'platform rating' } },
+          { value: { ru: '-50%', en: '-50%' }, label: { ru: 'нагрузка на хостес', en: 'hostess workload' } },
+          { value: { ru: '30 сек', en: '30 sec' }, label: { ru: 'время ответа', en: 'response time' } },
+        ],
+      },
+    ],
+  },
+
+  // Comparison
+  comparison: {
+    ariaLabel: { ru: 'Сравнение Aimatic с традиционным подходом', en: 'Aimatic vs traditional approach comparison' },
+    title: { ru: 'Aimatic vs Традиционный подход', en: 'Aimatic vs Traditional Approach' },
+    subtitle: { ru: 'Почему бизнесы выбирают нас вместо штатных разработчиков и фрилансеров', en: 'Why businesses choose us over in-house developers and freelancers' },
+    parameter: { ru: 'Параметр', en: 'Parameter' },
+    traditional: { ru: 'Традиционный подход', en: 'Traditional Approach' },
+    priceFrom: { ru: 'от 30 000 ₽', en: 'from $350' },
+    priceLabel: { ru: 'стоимость базового ИИ-агента', en: 'basic AI agent cost' },
+    priceNote: { ru: 'внедрение от 3 дней', en: 'deployment from 3 days' },
+    cta: { ru: 'Получить бесплатный аудит', en: 'Get a Free Audit' },
+    rows: [
+      { param: { ru: 'Сроки запуска', en: 'Launch timeline' }, traditional: { ru: '2–6 месяцев', en: '2-6 months' }, aimatic: { ru: '3–14 дней', en: '3-14 days' }, traditionalBad: true },
+      { param: { ru: 'Стоимость', en: 'Cost' }, traditional: { ru: 'от 500 000 ₽', en: 'from $6,000' }, aimatic: { ru: 'от 30 000 ₽', en: 'from $350' }, traditionalBad: true },
+      { param: { ru: 'Экспертиза в ИИ', en: 'AI expertise' }, traditional: { ru: 'Нужно искать специалистов', en: 'Need to find specialists' }, aimatic: { ru: '150+ агентов уже создано', en: '150+ agents already built' }, traditionalBad: true },
+      { param: { ru: 'Поддержка', en: 'Support' }, traditional: { ru: 'Отдельный договор', en: 'Separate contract' }, aimatic: { ru: 'Включена в проект', en: 'Included in project' }, traditionalBad: true },
+      { param: { ru: 'Масштабирование', en: 'Scalability' }, traditional: { ru: 'Каждый раз с нуля', en: 'From scratch each time' }, aimatic: { ru: 'Гибкое и быстрое', en: 'Flexible and fast' }, traditionalBad: true },
+      { param: { ru: 'Гарантия результата', en: 'Result guarantee' }, traditional: { ru: 'Нет', en: 'No' }, aimatic: { ru: 'Пилот за 7 дней', en: 'Pilot in 7 days' }, traditionalBad: true },
+      { param: { ru: 'Обучение команды', en: 'Team training' }, traditional: { ru: 'Не входит', en: 'Not included' }, aimatic: { ru: 'Обучаем и сопровождаем', en: 'We train and support' }, traditionalBad: true },
     ],
   },
 
