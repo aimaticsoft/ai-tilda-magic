@@ -1,0 +1,1 @@
+ALTER TABLE public.site_visits ADD CONSTRAINT site_visits_session_id_unique UNIQUE (session_id);
