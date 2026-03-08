@@ -19,8 +19,8 @@ export const TrackerProvider = ({ children }: { children: ReactNode }) => {
 const fallbackTracker: TrackerContextType = {
   getTrackerData: () => ({
     sessionId: '',
-    duration: 0,
-    maxScroll: 0,
+    durationSeconds: 0,
+    maxScrollPercent: 0,
     sectionsViewed: [],
     sectionsTime: {},
     clicks: [],
