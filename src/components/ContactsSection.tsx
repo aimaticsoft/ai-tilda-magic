@@ -255,6 +255,7 @@ const ContactsSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
