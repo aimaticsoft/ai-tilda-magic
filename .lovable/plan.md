@@ -1,26 +1,14 @@
 
 
-## Исправления
+## План: Удаление плавающих кнопок
 
-### 1. Исправить номер телефона в ссылке
-**Файл:** `src/components/ContactsSection.tsx`  
-Текущая ссылка `tel:+7929384484444` содержит лишние цифры. Исправляем на `tel:+79293844844` (номер 8 929 384-48-44 = +7 929 384 48 44).
+Убираем два компонента, которые были недавно добавлены:
 
-### 3. Добавить id="faq" на секцию FAQ
-**Файл:** `src/components/FAQSection.tsx`  
-Добавить атрибут `id="faq"` на тег `<section>`, чтобы можно было ссылаться на секцию напрямую.
+1. **Удалить `BackToTopButton`** — убрать из `Index.tsx` и удалить файл `src/components/BackToTopButton.tsx`
+2. **Удалить `MobileStickyСTA`** — убрать из `Index.tsx` и удалить файл `src/components/MobileStickyСTA.tsx`
 
-### 4. Ленивая загрузка изображений
-**Файлы:** `src/components/ProductsSection.tsx`, `src/components/Footer.tsx`  
-Добавить `loading="lazy"` на теги `<img>` для логотипов продуктов (AimSales, AimVisual) и логотипа в футере. Логотип в Header не трогаем -- он выше fold и должен загружаться сразу.
+### Файлы:
+- **`src/pages/Index.tsx`**: убрать импорты и использование `<BackToTopButton />` и `<MobileStickyСTA />`
+- **`src/components/BackToTopButton.tsx`**: удалить файл
+- **`src/components/MobileStickyСTA.tsx`**: удалить файл
 
-### Техническая сводка
-
-| Файл | Изменение |
-|---|---|
-| `ContactsSection.tsx` | `tel:+7929384484444` -> `tel:+79293844844` |
-| `FAQSection.tsx` | `<section>` -> `<section id="faq">` |
-| `ProductsSection.tsx` | Добавить `loading="lazy"` на `<img>` логотипов |
-| `Footer.tsx` | Добавить `loading="lazy"` на `<img>` логотипа |
-
-Все изменения минимальные и точечные -- по одной строке в каждом файле.
