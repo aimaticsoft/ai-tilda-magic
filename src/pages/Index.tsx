@@ -8,6 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
+import { TrackerProvider } from '@/contexts/TrackerContext';
 import SectionSkeleton, {
   LazyAboutSection,
   LazyProductsSection,
@@ -30,6 +31,7 @@ const Index = () => {
   const { lang } = useLanguage();
 
   return (
+    <TrackerProvider>
     <SmoothScroll>
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
         <ParallaxBackground />
@@ -63,6 +65,7 @@ const Index = () => {
         <Footer />
       </div>
     </SmoothScroll>
+    </TrackerProvider>
   );
 };
 

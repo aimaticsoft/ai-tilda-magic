@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
+import { useTracker } from "@/contexts/TrackerContext";
 
 const isValidPhone = (phone: string) => {
   const digits = phone.replace(/\D/g, '');
@@ -19,6 +20,7 @@ const ContactsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { lang } = useLanguage();
+  const { getTrackerData } = useTracker();
 
   const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -49,9 +51,15 @@ const ContactsSection = () => {
     setFormData({ name: "", phone: "", message: "" });
     setPhoneError("");
 
-    // Send in background
+    // Send in background with tracker data
+    const trackerData = getTrackerData();
     supabase.functions.invoke("send-telegram-notification", {
-      body: { name: formData.name.trim(), phone: formData.phone.trim(), message: formData.message.trim() },
+      body: {
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        message: formData.message.trim(),
+        tracker: trackerData,
+      },
     }).then(({ error }) => {
       if (error) {
         console.error("Error submitting form:", error);
