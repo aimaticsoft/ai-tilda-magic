@@ -30,7 +30,7 @@ const ContactsSection = () => {
         body: { name: formData.name.trim(), phone: formData.phone.trim(), message: formData.message.trim() },
       });
       if (error) throw error;
-      toast.success(t(translations.contacts.successToast, lang));
+      setShowSuccess(true);
       setFormData({ name: "", phone: "", message: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
