@@ -42,16 +42,16 @@ export const useUserTracker = () => {
   const clicks = useRef<ClickEntry[]>([]);
   const maxScroll = useRef(0);
   const savedRef = useRef(false);
+  const observedIds = useRef<Set<string>>(new Set());
+  const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
 
   const getTrackerData = useCallback((): TrackerData => {
-    // Flush any currently visible sections
     const now = Date.now();
     for (const [id, visibleSince] of Object.entries(sectionsVisible.current)) {
       sectionsTime.current[id] = (sectionsTime.current[id] || 0) + (now - visibleSince);
       sectionsVisible.current[id] = now;
     }
 
-    // Convert ms to seconds in sectionsTime
     const timeInSeconds: Record<string, number> = {};
     for (const [id, ms] of Object.entries(sectionsTime.current)) {
       timeInSeconds[id] = Math.round(ms / 1000);
@@ -63,38 +63,83 @@ export const useUserTracker = () => {
       maxScrollPercent: maxScroll.current,
       sectionsViewed: Array.from(sectionsViewed.current),
       sectionsTime: timeInSeconds,
-      clicks: clicks.current.slice(-50), // last 50 clicks
+      clicks: clicks.current.slice(-50),
       device: getDevice(),
       referrer: document.referrer || 'direct',
     };
   }, []);
 
-  // Save visit data to DB
   const saveVisit = useCallback(async () => {
     if (savedRef.current) return;
     savedRef.current = true;
 
     const data = getTrackerData();
     try {
-      await supabase.from('site_visits').insert({
-        session_id: data.sessionId,
-        duration_seconds: data.durationSeconds,
-        max_scroll_percent: data.maxScrollPercent,
-        sections_viewed: data.sectionsViewed,
-        sections_time: data.sectionsTime,
-        clicks: data.clicks as any,
-        device: data.device,
-        referrer: data.referrer,
-        user_agent: navigator.userAgent,
-      });
+      await supabase.from('site_visits').upsert(
+        {
+          session_id: data.sessionId,
+          duration_seconds: data.durationSeconds,
+          max_scroll_percent: data.maxScrollPercent,
+          sections_viewed: data.sectionsViewed,
+          sections_time: data.sectionsTime,
+          clicks: data.clicks as any,
+          device: data.device,
+          referrer: data.referrer,
+          user_agent: navigator.userAgent,
+        },
+        { onConflict: 'session_id' }
+      );
     } catch (e) {
       console.error('Failed to save visit:', e);
     }
-    // Allow saving again after 5s (for periodic saves)
     setTimeout(() => { savedRef.current = false; }, 5000);
   }, [getTrackerData]);
 
   useEffect(() => {
+    // IntersectionObserver for section visibility
+    const io = new IntersectionObserver(
+      (entries) => {
+        const now = Date.now();
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          if (!id) return;
+          if (entry.isIntersecting) {
+            sectionsViewed.current.add(id);
+            sectionsVisible.current[id] = now;
+          } else if (sectionsVisible.current[id]) {
+            sectionsTime.current[id] = (sectionsTime.current[id] || 0) + (now - sectionsVisible.current[id]);
+            delete sectionsVisible.current[id];
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    intersectionObserverRef.current = io;
+
+    // Try to observe a section by ID
+    const tryObserve = (id: string) => {
+      if (observedIds.current.has(id)) return;
+      const el = document.getElementById(id);
+      if (el) {
+        io.observe(el);
+        observedIds.current.add(id);
+      }
+    };
+
+    // Initial scan
+    SECTION_IDS.forEach(tryObserve);
+
+    // MutationObserver to catch lazy-loaded sections
+    const mo = new MutationObserver(() => {
+      SECTION_IDS.forEach(tryObserve);
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    // Retry after delays for extra safety
+    const retryTimers = [1000, 3000, 6000].map(ms =>
+      setTimeout(() => SECTION_IDS.forEach(tryObserve), ms)
+    );
+
     // Scroll tracking
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -120,36 +165,7 @@ export const useUserTracker = () => {
       }
     };
 
-    // Section visibility tracking via IntersectionObserver
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const now = Date.now();
-        entries.forEach((entry) => {
-          const id = entry.target.id;
-          if (!id) return;
-
-          if (entry.isIntersecting) {
-            sectionsViewed.current.add(id);
-            sectionsVisible.current[id] = now;
-          } else if (sectionsVisible.current[id]) {
-            sectionsTime.current[id] = (sectionsTime.current[id] || 0) + (now - sectionsVisible.current[id]);
-            delete sectionsVisible.current[id];
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    // Observe sections
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    // Periodic save every 30s
     const interval = setInterval(() => saveVisit(), 30000);
-
-    // Save on page unload
     const handleUnload = () => saveVisit();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -161,7 +177,9 @@ export const useUserTracker = () => {
       window.removeEventListener('click', handleClick);
       window.removeEventListener('beforeunload', handleUnload);
       clearInterval(interval);
-      observer.disconnect();
+      retryTimers.forEach(clearTimeout);
+      io.disconnect();
+      mo.disconnect();
     };
   }, [saveVisit]);
 
