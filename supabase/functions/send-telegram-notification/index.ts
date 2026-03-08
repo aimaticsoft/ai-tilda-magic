@@ -40,6 +40,10 @@ serve(async (req) => {
     if (!phone || typeof phone !== 'string' || phone.trim().length === 0) {
       throw new Error('Invalid phone provided');
     }
+    const phoneDigits = phone.replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+      throw new Error('Phone number must contain between 10 and 15 digits');
+    }
 
     // Sanitize and limit input lengths
     const sanitizedName = name.trim().slice(0, 100);
