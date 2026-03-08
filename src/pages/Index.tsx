@@ -31,6 +31,7 @@ const Index = () => {
   const { lang } = useLanguage();
 
   return (
+    <TrackerProvider>
     <SmoothScroll>
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
         <ParallaxBackground />
