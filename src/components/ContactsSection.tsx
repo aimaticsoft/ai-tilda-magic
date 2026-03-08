@@ -51,9 +51,15 @@ const ContactsSection = () => {
     setFormData({ name: "", phone: "", message: "" });
     setPhoneError("");
 
-    // Send in background
+    // Send in background with tracker data
+    const trackerData = getTrackerData();
     supabase.functions.invoke("send-telegram-notification", {
-      body: { name: formData.name.trim(), phone: formData.phone.trim(), message: formData.message.trim() },
+      body: {
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        message: formData.message.trim(),
+        tracker: trackerData,
+      },
     }).then(({ error }) => {
       if (error) {
         console.error("Error submitting form:", error);

@@ -64,6 +64,7 @@ const Index = () => {
         <Footer />
       </div>
     </SmoothScroll>
+    </TrackerProvider>
   );
 };
 

@@ -68,13 +68,57 @@ serve(async (req) => {
     const sanitizedPhone = phone.trim().slice(0, 30);
     const sanitizedMessage = (message || '').trim().slice(0, 1000);
 
+    // Build tracker info block
+    let trackerBlock = '';
+    if (tracker) {
+      const mins = Math.floor(tracker.durationSeconds / 60);
+      const secs = tracker.durationSeconds % 60;
+      const timeStr = mins > 0 ? `${mins} мин ${secs} сек` : `${secs} сек`;
+
+      const sections = (tracker.sectionsViewed || []).join(', ') || 'нет данных';
+
+      // Find top section by time
+      let topSection = '';
+      if (tracker.sectionsTime) {
+        const sorted = Object.entries(tracker.sectionsTime).sort((a, b) => b[1] - a[1]);
+        if (sorted.length > 0) {
+          const [name, sec] = sorted[0];
+          const tMin = Math.floor(sec / 60);
+          const tSec = sec % 60;
+          topSection = `${name} (${tMin > 0 ? `${tMin} мин ${tSec} сек` : `${tSec} сек`})`;
+        }
+      }
+
+      // Aggregate clicks
+      const clickCounts: Record<string, number> = {};
+      (tracker.clicks || []).forEach((c) => {
+        if (c.text) clickCounts[c.text] = (clickCounts[c.text] || 0) + 1;
+      });
+      const topClicks = Object.entries(clickCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([text, count]) => `«${text}» (${count})`)
+        .join(', ');
+
+      trackerBlock = `
+
+📈 *Поведение на сайте:*
+⏱ Время на сайте: ${timeStr}
+📊 Просмотренные секции: ${sections}
+${topSection ? `🔥 Больше всего времени: ${topSection}` : ''}
+📜 Глубина скролла: ${tracker.maxScrollPercent}%
+📱 Устройство: ${tracker.device || 'неизвестно'}
+🔗 Источник: ${tracker.referrer || 'прямой'}
+${topClicks ? `🖱 Клики: ${topClicks}` : ''}`;
+    }
+
     const telegramMessage = `🔔 *Новая заявка с сайта!*
 
 👤 *Имя:* ${sanitizedName}
 📱 *Телефон:* ${sanitizedPhone}
 ${sanitizedMessage ? `💬 *Сообщение:* ${sanitizedMessage}` : ''}
 
-📅 *Дата:* ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}`;
+📅 *Дата:* ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}${trackerBlock}`;
 
     console.log('Sending Telegram notification...');
 
