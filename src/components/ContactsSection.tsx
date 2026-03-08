@@ -20,6 +20,7 @@ const ContactsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { lang } = useLanguage();
+  const { getTrackerData } = useTracker();
 
   const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
   const [focusedField, setFocusedField] = useState<string | null>(null);
