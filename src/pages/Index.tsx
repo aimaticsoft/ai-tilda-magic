@@ -44,12 +44,15 @@ const Index = () => {
             </ParallaxText>
           </div>
           
+          <LazyTrustBadgesSection />
           <LazyAboutSection />
           <LazyProductsSection />
           <LazyServicesSection />
+          <LazyIndustrySolutionsSection />
           <LazyTargetAudienceSection />
           <LazyHowWeWorkSection />
           <LazyCasesSection />
+          <LazyComparisonSection />
           <LazyCalculatorSection />
           <LazyDemoSection />
           <LazyAdvantagesSection />

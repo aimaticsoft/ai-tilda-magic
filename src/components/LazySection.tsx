@@ -115,4 +115,22 @@ export const LazyHowWeWorkSection = () => (
   </Suspense>
 );
 
+export const LazyTrustBadgesSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyTrustBadges />
+  </Suspense>
+);
+
+export const LazyIndustrySolutionsSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyIndustrySolutions />
+  </Suspense>
+);
+
+export const LazyComparisonSection = () => (
+  <Suspense fallback={<SectionSkeleton />}>
+    <LazyComparison />
+  </Suspense>
+);
+
 export default SectionSkeleton;
