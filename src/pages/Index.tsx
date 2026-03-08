@@ -8,6 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup';
 import ParallaxBackground from '@/components/ParallaxBackground';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { translations, t } from '@/i18n/translations';
+import { TrackerProvider } from '@/contexts/TrackerContext';
 import SectionSkeleton, {
   LazyAboutSection,
   LazyProductsSection,
