@@ -71,7 +71,7 @@ const ContactsSection = () => {
   };
 
   const contactItems = [
-    { icon: Phone, label: t(translations.contacts.phone, lang), value: "8 929 384-48-44", href: "tel:+79293844844" },
+    { icon: Phone, label: t(translations.contacts.phone, lang), value: "8 929 384-48-44", href: "tel:+7929384484444" },
     {
       icon: Mail,
       label: t(translations.contacts.email, lang),
