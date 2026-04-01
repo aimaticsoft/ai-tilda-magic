@@ -133,7 +133,7 @@ serve(async (req) => {
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
     const { startUTC, endUTC, label } = getDateRange(period);
 
-    const { data: visits, error } = await supabase
+    const { data: rawVisits, error } = await supabase
       .from('site_visits')
       .select('*')
       .gte('entered_at', startUTC)
@@ -141,7 +141,18 @@ serve(async (req) => {
 
     if (error) throw error;
 
-    const totalVisits = visits?.length || 0;
+    // Filter out visits from lovable.dev
+    const visits = (rawVisits || []).filter((v) => {
+      try {
+        if (!v.referrer || v.referrer === 'direct') return true;
+        const hostname = new URL(v.referrer).hostname;
+        return !hostname.includes('lovable.dev') && !hostname.includes('lovable.app');
+      } catch {
+        return true;
+      }
+    });
+
+    const totalVisits = visits.length;
     const title = PERIOD_TITLES[period] || PERIOD_TITLES.daily;
 
     if (totalVisits === 0) {
