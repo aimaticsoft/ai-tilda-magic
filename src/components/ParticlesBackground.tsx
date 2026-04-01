@@ -21,6 +21,9 @@ const ParticlesBackground = () => {
 
     let animationId: number;
     let particles: Particle[] = [];
+    const mouse = { x: -9999, y: -9999 };
+    const MOUSE_RADIUS = 200;
+    const PARTICLE_CONNECT_RADIUS = 120;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -29,8 +32,7 @@ const ParticlesBackground = () => {
 
     const createParticles = () => {
       particles = [];
-      // Reduced count: divide by 25000 instead of 15000
-      const particleCount = Math.floor((canvas.width * canvas.height) / 25000);
+      const particleCount = Math.floor((canvas.width * canvas.height) / 20000);
       
       for (let i = 0; i < particleCount; i++) {
         particles.push({
@@ -47,24 +49,84 @@ const ParticlesBackground = () => {
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Only draw particles, NO connection lines (removed O(n²) loop)
       for (let i = 0; i < particles.length; i++) {
-        const particle = particles[i];
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
+        const p = particles[i];
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
 
+        // Draw line from particle to mouse if close enough
+        const dxM = p.x - mouse.x;
+        const dyM = p.y - mouse.y;
+        const distM = Math.sqrt(dxM * dxM + dyM * dyM);
+
+        if (distM < MOUSE_RADIUS) {
+          const alpha = (1 - distM / MOUSE_RADIUS) * 0.6;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
+          ctx.lineWidth = (1 - distM / MOUSE_RADIUS) * 1.5;
+          ctx.stroke();
+
+          // Gently push particle size up when near cursor
+          const glowSize = p.size + (1 - distM / MOUSE_RADIUS) * 2;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity + alpha * 0.3})`;
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
+          ctx.fill();
+        }
+
+        // Connect nearby particles to each other (only forward to avoid duplicates)
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < PARTICLE_CONNECT_RADIUS) {
+            const alpha = (1 - dist / PARTICLE_CONNECT_RADIUS) * 0.08;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw a subtle glow at cursor position
+      if (mouse.x > 0 && mouse.y > 0) {
+        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_RADIUS * 0.4);
+        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
+        gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(59, 130, 246, ${particle.opacity})`;
+        ctx.arc(mouse.x, mouse.y, MOUSE_RADIUS * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
         ctx.fill();
       }
 
       animationId = requestAnimationFrame(drawParticles);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
     };
 
     resize();
@@ -77,10 +139,14 @@ const ParticlesBackground = () => {
     };
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
