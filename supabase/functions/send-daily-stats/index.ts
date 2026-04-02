@@ -24,6 +24,24 @@ const SECTION_NAMES: Record<string, string> = {
   'comparison': '📊 Сравнение',
 };
 
+const SECTION_SHORT: Record<string, string> = {
+  'about': 'О компании',
+  'products': 'Продукты',
+  'services': 'Услуги',
+  'cases': 'Кейсы',
+  'calculator': 'Калькулятор',
+  'demo': 'Демо',
+  'advantages': 'Преимущества',
+  'reviews': 'Отзывы',
+  'faq': 'FAQ',
+  'contacts': 'Контакты',
+  'target-audience': 'ЦА',
+  'how-we-work': 'Как работаем',
+  'trust-badges': 'Доверие',
+  'industry-solutions': 'Отрасли',
+  'comparison': 'Сравнение',
+};
+
 const DEVICE_NAMES: Record<string, string> = {
   'mobile': '📱 Мобильный',
   'tablet': '📱 Планшет',
@@ -36,7 +54,6 @@ const PERIOD_TITLES: Record<string, string> = {
   'monthly': '📊 Ежемесячный отчёт',
 };
 
-// Key funnel sections to track conversion
 const FUNNEL_SECTIONS = ['about', 'services', 'cases', 'calculator', 'demo', 'contacts'];
 
 function formatTime(seconds: number): string {
@@ -64,40 +81,23 @@ function smartTruncate(str: string, max: number): string {
 function getDateRange(period: string): { startUTC: string; endUTC: string; label: string } {
   const now = new Date();
   const todayMSK = new Date(now.getTime() + 3 * 60 * 60 * 1000);
-
-  let start: Date;
-  let end: Date;
-  let label: string;
+  let start: Date, end: Date, label: string;
 
   if (period === 'weekly') {
-    end = new Date(todayMSK);
-    end.setHours(0, 0, 0, 0);
-    start = new Date(end);
-    start.setDate(start.getDate() - 7);
+    end = new Date(todayMSK); end.setHours(0, 0, 0, 0);
+    start = new Date(end); start.setDate(start.getDate() - 7);
     end.setMilliseconds(-1);
-    const startLabel = new Date(start).toLocaleDateString('ru-RU');
-    const endLabel = new Date(end).toLocaleDateString('ru-RU');
-    label = `${startLabel} — ${endLabel}`;
+    label = `${new Date(start).toLocaleDateString('ru-RU')} — ${new Date(end).toLocaleDateString('ru-RU')}`;
   } else if (period === 'monthly') {
-    end = new Date(todayMSK);
-    end.setDate(1);
-    end.setHours(0, 0, 0, 0);
-    end.setMilliseconds(-1);
-    start = new Date(end);
-    start.setDate(1);
-    start.setHours(0, 0, 0, 0);
-    const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    end = new Date(todayMSK); end.setDate(1); end.setHours(0, 0, 0, 0); end.setMilliseconds(-1);
+    start = new Date(end); start.setDate(1); start.setHours(0, 0, 0, 0);
+    const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
     label = `${monthNames[start.getMonth()]} ${start.getFullYear()}`;
   } else {
-    start = new Date(todayMSK);
-    start.setDate(start.getDate() - 1);
-    start.setHours(0, 0, 0, 0);
-    end = new Date(start);
-    end.setHours(23, 59, 59, 999);
+    start = new Date(todayMSK); start.setDate(start.getDate() - 1); start.setHours(0, 0, 0, 0);
+    end = new Date(start); end.setHours(23, 59, 59, 999);
     label = start.toLocaleDateString('ru-RU');
   }
-
   return {
     startUTC: new Date(start.getTime() - 3 * 60 * 60 * 1000).toISOString(),
     endUTC: new Date(end.getTime() - 3 * 60 * 60 * 1000).toISOString(),
@@ -108,48 +108,19 @@ function getDateRange(period: string): { startUTC: string; endUTC: string; label
 function getPrevDateRange(period: string): { startUTC: string; endUTC: string } {
   const now = new Date();
   const todayMSK = new Date(now.getTime() + 3 * 60 * 60 * 1000);
-
-  let start: Date;
-  let end: Date;
+  let start: Date, end: Date;
 
   if (period === 'weekly') {
-    end = new Date(todayMSK);
-    end.setHours(0, 0, 0, 0);
-    end.setDate(end.getDate() - 7);
-    end.setMilliseconds(-1);
-    start = new Date(end);
-    start.setHours(0, 0, 0, 0);
-    start.setDate(start.getDate() - 6);
+    end = new Date(todayMSK); end.setHours(0, 0, 0, 0); end.setDate(end.getDate() - 7); end.setMilliseconds(-1);
+    start = new Date(end); start.setHours(0, 0, 0, 0); start.setDate(start.getDate() - 6);
   } else if (period === 'monthly') {
-    end = new Date(todayMSK);
-    end.setDate(1);
-    end.setHours(0, 0, 0, 0);
-    end.setMilliseconds(-1);
-    const endOfPrevMonth = new Date(end);
-    start = new Date(endOfPrevMonth);
-    start.setMonth(start.getMonth() - 1);
-    start.setDate(1);
-    start.setHours(0, 0, 0, 0);
-    end = endOfPrevMonth;
-    // Go back one more month
-    const realEnd = new Date(todayMSK);
-    realEnd.setDate(1);
-    realEnd.setHours(0, 0, 0, 0);
-    realEnd.setMonth(realEnd.getMonth() - 1);
-    realEnd.setMilliseconds(-1);
-    end = realEnd;
-    start = new Date(end);
-    start.setDate(1);
-    start.setHours(0, 0, 0, 0);
+    const realEnd = new Date(todayMSK); realEnd.setDate(1); realEnd.setHours(0, 0, 0, 0);
+    realEnd.setMonth(realEnd.getMonth() - 1); realEnd.setMilliseconds(-1);
+    end = realEnd; start = new Date(end); start.setDate(1); start.setHours(0, 0, 0, 0);
   } else {
-    // daily — day before yesterday
-    start = new Date(todayMSK);
-    start.setDate(start.getDate() - 2);
-    start.setHours(0, 0, 0, 0);
-    end = new Date(start);
-    end.setHours(23, 59, 59, 999);
+    start = new Date(todayMSK); start.setDate(start.getDate() - 2); start.setHours(0, 0, 0, 0);
+    end = new Date(start); end.setHours(23, 59, 59, 999);
   }
-
   return {
     startUTC: new Date(start.getTime() - 3 * 60 * 60 * 1000).toISOString(),
     endUTC: new Date(end.getTime() - 3 * 60 * 60 * 1000).toISOString(),
@@ -162,9 +133,7 @@ function filterLovableVisits(rawVisits: any[]): any[] {
       if (!v.referrer || v.referrer === 'direct') return true;
       const hostname = new URL(v.referrer).hostname;
       return !hostname.includes('lovable.dev') && !hostname.includes('lovable.app');
-    } catch {
-      return true;
-    }
+    } catch { return true; }
   });
 }
 
@@ -175,6 +144,19 @@ function changeIndicator(current: number, previous: number): string {
   if (pct < 0) return ` ↓${Math.abs(pct)}%`;
   return ' →';
 }
+
+function scrollBar(count: number, total: number): string {
+  const pct = Math.round((count / total) * 100);
+  const filled = Math.round(pct / 10);
+  return '▓'.repeat(filled) + '░'.repeat(10 - filled) + ` ${pct}%`;
+}
+
+function getClickCount(v: any): number {
+  const cls = v.clicks as Array<any> || [];
+  return cls.length;
+}
+
+// ── Main ──
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -193,21 +175,17 @@ serve(async (req) => {
     let period = 'daily';
     try {
       const body = await req.json();
-      if (body?.period && ['daily', 'weekly', 'monthly'].includes(body.period)) {
-        period = body.period;
-      }
-    } catch { /* default to daily */ }
+      if (body?.period && ['daily', 'weekly', 'monthly'].includes(body.period)) period = body.period;
+    } catch { /* default */ }
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
     const { startUTC, endUTC, label } = getDateRange(period);
     const prev = getPrevDateRange(period);
 
-    // Fetch current and previous period in parallel
     const [currentRes, prevRes] = await Promise.all([
       supabase.from('site_visits').select('*').gte('entered_at', startUTC).lte('entered_at', endUTC),
       supabase.from('site_visits').select('*').gte('entered_at', prev.startUTC).lte('entered_at', prev.endUTC),
     ]);
-
     if (currentRes.error) throw currentRes.error;
 
     const visits = filterLovableVisits(currentRes.data);
@@ -217,26 +195,37 @@ serve(async (req) => {
     const title = PERIOD_TITLES[period] || PERIOD_TITLES.daily;
 
     if (totalVisits === 0) {
-      const message = `${title}\n📅 ${label}\n\n❌ Посетителей: 0${prevTotal > 0 ? ` (вчера: ${prevTotal})` : ''}`;
+      const message = `${title}\n📅 ${label}\n\n❌ Посетителей: 0${prevTotal > 0 ? ` (пред.: ${prevTotal})` : ''}`;
       await sendTelegram(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, message);
-      return new Response(JSON.stringify({ success: true, visits: 0 }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return jsonResp({ success: true, visits: 0 });
     }
 
-    // === Basic stats ===
+    // ── Basic stats ──
     const avgDuration = Math.round(visits.reduce((s, v) => s + (v.duration_seconds || 0), 0) / totalVisits);
     const avgScroll = Math.round(visits.reduce((s, v) => s + (v.max_scroll_percent || 0), 0) / totalVisits);
     const prevAvgDuration = prevTotal > 0 ? Math.round(prevVisits.reduce((s, v) => s + (v.duration_seconds || 0), 0) / prevTotal) : 0;
     const prevAvgScroll = prevTotal > 0 ? Math.round(prevVisits.reduce((s, v) => s + (v.max_scroll_percent || 0), 0) / prevTotal) : 0;
 
-    // === Engagement & Bounce ===
+    // ── Engagement & Bounce ──
     const bounceVisits = visits.filter(v => (v.duration_seconds || 0) < 15).length;
     const engagedVisits = visits.filter(v => (v.duration_seconds || 0) > 60 && (v.max_scroll_percent || 0) > 50).length;
     const bounceRate = Math.round((bounceVisits / totalVisits) * 100);
     const engagementRate = Math.round((engagedVisits / totalVisits) * 100);
 
-    // === Peak hours (MSK) ===
+    // ── Total clicks ──
+    const clickCounts: Record<string, number> = {};
+    let totalClicksNum = 0;
+    visits.forEach((v) => {
+      const cls = v.clicks as Array<{ text: string; target: string }> || [];
+      totalClicksNum += cls.length;
+      cls.forEach((c) => {
+        const lbl = c.text || c.target || 'неизвестно';
+        clickCounts[lbl] = (clickCounts[lbl] || 0) + 1;
+      });
+    });
+    const avgClicksPerVisit = (totalClicksNum / totalVisits).toFixed(1);
+
+    // ── Peak hours (MSK) ──
     const hourCounts: Record<number, number> = {};
     visits.forEach(v => {
       if (!v.entered_at) return;
@@ -249,8 +238,8 @@ serve(async (req) => {
       .map(([h, c]) => `  🕐 ${String(h).padStart(2, '0')}:00 — ${c} ${pluralize(c, 'визит', 'визита', 'визитов')}`)
       .join('\n');
 
-    // === Scroll depth distribution ===
-    const scrollBuckets = [0, 0, 0, 0]; // 0-25, 25-50, 50-75, 75-100
+    // ── Scroll depth ──
+    const scrollBuckets = [0, 0, 0, 0];
     visits.forEach(v => {
       const s = v.max_scroll_percent || 0;
       if (s >= 75) scrollBuckets[3]++;
@@ -258,19 +247,14 @@ serve(async (req) => {
       else if (s >= 25) scrollBuckets[1]++;
       else scrollBuckets[0]++;
     });
-    const scrollBar = (count: number) => {
-      const pct = Math.round((count / totalVisits) * 100);
-      const filled = Math.round(pct / 10);
-      return '▓'.repeat(filled) + '░'.repeat(10 - filled) + ` ${pct}%`;
-    };
     const scrollDepth = [
-      `  0-25%   ${scrollBar(scrollBuckets[0])}`,
-      `  25-50%  ${scrollBar(scrollBuckets[1])}`,
-      `  50-75%  ${scrollBar(scrollBuckets[2])}`,
-      `  75-100% ${scrollBar(scrollBuckets[3])}`,
+      `  0-25%   ${scrollBar(scrollBuckets[0], totalVisits)}`,
+      `  25-50%  ${scrollBar(scrollBuckets[1], totalVisits)}`,
+      `  50-75%  ${scrollBar(scrollBuckets[2], totalVisits)}`,
+      `  75-100% ${scrollBar(scrollBuckets[3], totalVisits)}`,
     ].join('\n');
 
-    // === Section funnel ===
+    // ── Section funnel ──
     const funnelStr = FUNNEL_SECTIONS
       .map(id => {
         const reached = visits.filter(v => (v.sections_viewed || []).includes(id)).length;
@@ -281,17 +265,87 @@ serve(async (req) => {
       })
       .join('\n');
 
-    // === Section popularity ===
+    // ── Traffic quality ──
+    const refGroups: Record<string, any[]> = {};
+    visits.forEach(v => {
+      let ref = v.referrer || 'direct';
+      if (ref !== 'direct') { try { ref = new URL(ref).hostname; } catch {} }
+      if (!refGroups[ref]) refGroups[ref] = [];
+      refGroups[ref].push(v);
+    });
+    const trafficQuality = Object.entries(refGroups)
+      .sort((a, b) => b[1].length - a[1].length)
+      .slice(0, 5)
+      .map(([ref, vsts]) => {
+        const name = ref === 'direct' ? 'Прямой заход' : ref;
+        const cnt = vsts.length;
+        const aTime = Math.round(vsts.reduce((s, v) => s + (v.duration_seconds || 0), 0) / cnt);
+        const aScroll = Math.round(vsts.reduce((s, v) => s + (v.max_scroll_percent || 0), 0) / cnt);
+        return `  • ${name} — ${cnt} ${pluralize(cnt, 'визит', 'визита', 'визитов')}, ср. ${formatTime(aTime)}, скролл ${aScroll}%`;
+      })
+      .join('\n');
+
+    // ── Device breakdown ──
+    const deviceGroups: Record<string, any[]> = {};
+    visits.forEach(v => {
+      const d = v.device || 'unknown';
+      if (!deviceGroups[d]) deviceGroups[d] = [];
+      deviceGroups[d].push(v);
+    });
+    const deviceBreakdown = Object.entries(deviceGroups)
+      .sort((a, b) => b[1].length - a[1].length)
+      .map(([d, vsts]) => {
+        const name = DEVICE_NAMES[d] || d;
+        const cnt = vsts.length;
+        const aTime = Math.round(vsts.reduce((s, v) => s + (v.duration_seconds || 0), 0) / cnt);
+        const aScroll = Math.round(vsts.reduce((s, v) => s + (v.max_scroll_percent || 0), 0) / cnt);
+        const aClicks = (vsts.reduce((s, v) => s + getClickCount(v), 0) / cnt).toFixed(1);
+        return `  ${name}: ${cnt} — ср. ${formatTime(aTime)}, скролл ${aScroll}%, клики ${aClicks}`;
+      })
+      .join('\n');
+
+    // ── User journeys ──
+    const journeyMap: Record<string, number> = {};
+    visits.forEach(v => {
+      const sections = v.sections_viewed as string[] || [];
+      if (sections.length < 2) return;
+      const key = sections.map(s => SECTION_SHORT[s] || s).join(' → ');
+      journeyMap[key] = (journeyMap[key] || 0) + 1;
+    });
+    const topJourneys = Object.entries(journeyMap)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([path, cnt], i) => {
+        const truncated = smartTruncate(path, 100);
+        return `  ${i + 1}. ${truncated} (${cnt})`;
+      })
+      .join('\n');
+
+    // ── Drop-off points ──
+    const dropOffMap: Record<string, number> = {};
+    visits.forEach(v => {
+      const sections = v.sections_viewed as string[] || [];
+      if (sections.length === 0) return;
+      const last = sections[sections.length - 1];
+      dropOffMap[last] = (dropOffMap[last] || 0) + 1;
+    });
+    const dropOffStr = Object.entries(dropOffMap)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([id, cnt]) => {
+        const name = SECTION_NAMES[id] || id;
+        const pct = Math.round((cnt / totalVisits) * 100);
+        return `  ${name} — ${pct}% (${cnt} ${pluralize(cnt, 'чел', 'чел', 'чел')})`;
+      })
+      .join('\n');
+
+    // ── Section popularity ──
     const sectionCounts: Record<string, number> = {};
     const sectionTotalTime: Record<string, number> = {};
     visits.forEach((v) => {
-      (v.sections_viewed || []).forEach((s: string) => {
-        sectionCounts[s] = (sectionCounts[s] || 0) + 1;
-      });
+      (v.sections_viewed || []).forEach((s: string) => { sectionCounts[s] = (sectionCounts[s] || 0) + 1; });
       const st = v.sections_time as Record<string, number> || {};
-      Object.entries(st).forEach(([s, t]) => {
-        sectionTotalTime[s] = (sectionTotalTime[s] || 0) + (t as number);
-      });
+      Object.entries(st).forEach(([s, t]) => { sectionTotalTime[s] = (sectionTotalTime[s] || 0) + (t as number); });
     });
 
     const topSections = Object.entries(sectionCounts)
@@ -315,57 +369,14 @@ serve(async (req) => {
       })
       .join('\n');
 
-    // === Click aggregation ===
-    const clickCounts: Record<string, number> = {};
-    visits.forEach((v) => {
-      const cls = v.clicks as Array<{ text: string; target: string }> || [];
-      cls.forEach((c) => {
-        const lbl = c.text || c.target || 'неизвестно';
-        clickCounts[lbl] = (clickCounts[lbl] || 0) + 1;
-      });
-    });
-
+    // ── Top clicks ──
     const topClicks = Object.entries(clickCounts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 8)
-      .map(([text, count]) => {
-        const displayText = smartTruncate(text, 80);
-        return `  • «${displayText}» — ${count} ${pluralize(count, 'раз', 'раза', 'раз')}`;
-      })
+      .map(([text, count]) => `  • «${smartTruncate(text, 80)}» — ${count} ${pluralize(count, 'раз', 'раза', 'раз')}`)
       .join('\n');
 
-    const totalClicks = Object.values(clickCounts).reduce((s, c) => s + c, 0);
-
-    // === Devices ===
-    const devices: Record<string, number> = {};
-    visits.forEach((v) => {
-      const d = v.device || 'unknown';
-      devices[d] = (devices[d] || 0) + 1;
-    });
-    const deviceStr = Object.entries(devices)
-      .sort((a, b) => b[1] - a[1])
-      .map(([d, c]) => `${DEVICE_NAMES[d] || d}: ${c}`)
-      .join(', ');
-
-    // === Referrers ===
-    const referrers: Record<string, number> = {};
-    visits.forEach((v) => {
-      let ref = v.referrer || 'direct';
-      if (ref !== 'direct') {
-        try { ref = new URL(ref).hostname; } catch { /* keep */ }
-      }
-      referrers[ref] = (referrers[ref] || 0) + 1;
-    });
-    const topReferrers = Object.entries(referrers)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
-      .map(([ref, count]) => {
-        const name = ref === 'direct' ? 'Прямой заход' : ref;
-        return `  • ${name} — ${count}`;
-      })
-      .join('\n');
-
-    // === Insights ===
+    // ── Insights ──
     const insights: string[] = [];
     const topSectionEntry = Object.entries(sectionTotalTime).sort((a, b) => b[1] - a[1])[0];
     if (topSectionEntry) {
@@ -374,13 +385,40 @@ serve(async (req) => {
     }
     if (bounceRate > 50) insights.push(`⚠️ высокий bounce rate (${bounceRate}%)`);
     if (engagementRate > 40) insights.push(`🎉 отличная вовлечённость (${engagementRate}%)`);
-    if (avgDuration > 180) insights.push(`среднее время ${formatTime(avgDuration)}`);
-    if (avgScroll > 70) insights.push(`средний скролл ${avgScroll}%`);
+
+    // Mobile vs desktop comparison
+    const mobileVsts = deviceGroups['mobile'] || [];
+    const desktopVsts = deviceGroups['desktop'] || [];
+    if (mobileVsts.length > 0 && desktopVsts.length > 0) {
+      const mAvg = Math.round(mobileVsts.reduce((s, v) => s + (v.duration_seconds || 0), 0) / mobileVsts.length);
+      const dAvg = Math.round(desktopVsts.reduce((s, v) => s + (v.duration_seconds || 0), 0) / desktopVsts.length);
+      if (dAvg > mAvg * 1.5) insights.push(`🖥 десктоп вовлечённее мобильных в ${(dAvg / mAvg).toFixed(1)}x`);
+      if (mAvg > dAvg * 1.5) insights.push(`📱 мобильные вовлечённее десктопа в ${(mAvg / dAvg).toFixed(1)}x`);
+    }
+
+    // Best/worst traffic source
+    const qualitySorted = Object.entries(refGroups)
+      .filter(([, v]) => v.length >= 2)
+      .map(([ref, vsts]) => ({
+        ref: ref === 'direct' ? 'Прямой заход' : ref,
+        score: vsts.reduce((s, v) => s + (v.duration_seconds || 0), 0) / vsts.length,
+      }))
+      .sort((a, b) => b.score - a.score);
+    if (qualitySorted.length >= 2) {
+      insights.push(`лучший трафик: ${qualitySorted[0].ref}`);
+    }
+
+    // Peak hour recommendation
+    const topHourEntry = Object.entries(hourCounts).sort((a, b) => b[1] - a[1])[0];
+    if (topHourEntry) {
+      insights.push(`📣 лучшее время для рекламы: ${String(topHourEntry[0]).padStart(2, '0')}:00 МСК`);
+    }
+
     const contactsReached = visits.filter(v => (v.sections_viewed || []).includes('contacts')).length;
     const contactsPct = Math.round((contactsReached / totalVisits) * 100);
     if (contactsPct < 20) insights.push(`⚠️ только ${contactsPct}% доходят до контактов`);
 
-    // === Build message ===
+    // ── Build message ──
     const message = `${title}
 📅 ${label}
 
@@ -391,15 +429,10 @@ serve(async (req) => {
 📈 *Всего:* ${totalVisits} ${pluralize(totalVisits, 'посетитель', 'посетителя', 'посетителей')}${changeIndicator(totalVisits, prevTotal)}
 ⏱ *Среднее время:* ${formatTime(avgDuration)}${changeIndicator(avgDuration, prevAvgDuration)}
 📜 *Средний скролл:* ${avgScroll}%${changeIndicator(avgScroll, prevAvgScroll)}
-🖱 *Всего кликов:* ${totalClicks}
+🖱 *Кликов:* ${totalClicksNum} (ср. ${avgClicksPerVisit}/визит)
 
 🚪 *Bounce rate:* ${bounceRate}% (< 15 сек)
 🔥 *Вовлечённость:* ${engagementRate}% (> 60 сек + > 50% скролл)
-
-📱 *Устройства:* ${deviceStr}
-
-🔗 *Источники:*
-${topReferrers || '  нет данных'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
 🕐 *ПИКОВЫЕ ЧАСЫ (МСК)*
@@ -420,6 +453,30 @@ ${scrollDepth}
 ${funnelStr}
 
 ━━━━━━━━━━━━━━━━━━━━━━━
+🔗 *КАЧЕСТВО ТРАФИКА*
+━━━━━━━━━━━━━━━━━━━━━━━
+
+${trafficQuality || '  нет данных'}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+📱 *УСТРОЙСТВА*
+━━━━━━━━━━━━━━━━━━━━━━━
+
+${deviceBreakdown || '  нет данных'}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+🗺 *ПУТЬ ПОЛЬЗОВАТЕЛЯ*
+━━━━━━━━━━━━━━━━━━━━━━━
+
+${topJourneys || '  нет данных'}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+🚪 *ТОЧКА ПОТЕРИ*
+━━━━━━━━━━━━━━━━━━━━━━━
+
+${dropOffStr || '  нет данных'}
+
+━━━━━━━━━━━━━━━━━━━━━━━
 📊 *СЕКЦИИ*
 ━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -437,9 +494,7 @@ ${topClicks || '  нет данных'}${insights.length > 0 ? `\n\n💡 *Выв
 
     await sendTelegram(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, message);
 
-    return new Response(JSON.stringify({ success: true, visits: totalVisits, period }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    return jsonResp({ success: true, visits: totalVisits, period });
   } catch (error: unknown) {
     console.error('Error:', error);
     const msg = error instanceof Error ? error.message : 'Unknown error';
@@ -449,6 +504,12 @@ ${topClicks || '  нет данных'}${insights.length > 0 ? `\n\n💡 *Выв
     });
   }
 });
+
+function jsonResp(data: any) {
+  return new Response(JSON.stringify(data), {
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
+}
 
 async function sendTelegram(token: string, chatId: string, text: string) {
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
