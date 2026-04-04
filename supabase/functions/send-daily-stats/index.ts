@@ -129,11 +129,12 @@ function getPrevDateRange(period: string): { startUTC: string; endUTC: string } 
 
 function filterLovableVisits(rawVisits: any[]): any[] {
   return (rawVisits || []).filter((v) => {
-    try {
-      if (!v.referrer || v.referrer === 'direct') return true;
-      const hostname = new URL(v.referrer).hostname;
-      return !hostname.includes('lovable.dev') && !hostname.includes('lovable.app');
-    } catch { return true; }
+    // Exclude any visit where referrer or user_agent contains "lovable"
+    const ref = (v.referrer || '').toLowerCase();
+    if (ref !== '' && ref !== 'direct' && ref.includes('lovable')) return false;
+    const ua = (v.user_agent || '').toLowerCase();
+    if (ua.includes('lovable')) return false;
+    return true;
   });
 }
 
